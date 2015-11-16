@@ -12,6 +12,9 @@
 #Rails 4 to heroku - ignore precompiled assets
 public/assets/*.*
 
+#Ignore gem output for clean code
+rails_best_practices_output.html
+
 # Ignore other unneeded files.
 database.yml
 doc/

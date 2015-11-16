@@ -33,7 +33,7 @@ require 'csv'
           myrowhash.delete(nil)
           eval(m).create(myrowhash)
         end
-        
+
         puts "--  = " + i.to_s + " records"
       else
         puts "-- Did not find file " + tempfile.to_s

@@ -101,8 +101,8 @@ end
     options = phrase.nil? ? carrier_collection : include_blank ? [phrase,nil] + carrier_collection : [phrase] + carrier_collection
     select_tag name, options_for_select(options, selected || phrase)
   end
-  
-  
+
+
     def shortname(myname)
     mynamearray = myname.split(" ")
     mynewname = mynamearray[0]

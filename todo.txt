@@ -1,13 +1,11 @@
-Update from rails 4.0 to 4.2
-  Redirect_to has been depreciated
-  @extend in sass has been depreciated
-  Find more outdated code...
+Bootstrap css is not loading
+Rip out Distributeds controller and implement it with a hash based model object
 
 rails_best_practices . -f html
-  wow... 197 errors. Fix that shit. This is a bad look!
+  85 errors. Fix that shit.
 
 Data Archive
-  Save to db directory for db:seeHeroku 8k Distributed
+  Save to db directory for db:seed Heroku 8k Distributed
     or create a csv data madoel?
   Save users with passwords intact
     A custom archive that uses users.create?

@@ -1,27 +1,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <%= link_to "The Theater Staff", root_path, id: "logo" %>
-          <nav>
-            <ul class="nav pull-right">
-              <li><%= link_to "Home", home_path %></li>
-              <li><%= link_to "Help", help_path %></li>
-              <% if signed_in? %>
-              <li><% if current_user.admin?  %>
-                <%= render 'static_pages/managerheader' %>
-              <% end %></li>
-              <li><%= render 'static_pages/representativeheader' %></li>
-              <li id="fat-menu" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Account <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                  <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-                </ul>
-              </li>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <%= link_to "The Theater Staff", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Home", home_path %></li>
+          <li><%= link_to "Help", help_path %></li>
+          <% if signed_in? %>
+            <% if current_user.admin?  %>
+              <li><%= render 'static_pages/topmenumanager' %></li>
+            <% end %>
+            <li><%= render 'static_pages/topmenu' %></li>
+            <li id="fat-menu" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+              <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+            </ul>
+            </li>
             <% else %>
               <li><%= link_to "Sign in", signin_path %></li>
             <% end %>

@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   helper_method :availabilitywindow?
-  helper_method :populate_next_weeks_events
 
   def companylist
     companies = []
