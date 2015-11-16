@@ -23,9 +23,7 @@ require 'csv'
 
       if File.exist?(tempfile) then
         puts "-- loading " + tempfile.to_s
-        if i/1000 == i/1000.00 then
-          puts "-- loaded " + i.to_s + " records"
-        end
+
         myfile = File.open(tempfile)
         #Heroku needs to use #{RAILS_ROOT}/tmp/myfile_#{Process.pid} for file uploads
 
@@ -35,6 +33,8 @@ require 'csv'
           myrowhash.delete(nil)
           eval(m).create(myrowhash)
         end
+        
+        puts "--  = " + i.to_s + " records"
       else
         puts "-- Did not find file " + tempfile.to_s
       end #file exist

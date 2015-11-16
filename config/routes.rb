@@ -20,13 +20,6 @@ resources :users do
   end
 end
 
-resources :people do
-  member do
-    get 'txtalert'
-    get 'emailalert'
-  end
-end
-
 
 match '/signup', to: 'users#new', via: 'get'
 match '/signin',  to: 'sessions#new', via: 'get'
@@ -46,7 +39,6 @@ root  'static_pages#home'
 
 match '/theaters', to: 'theaters#show', via: 'get'
 match '/performances', to: 'performances#show', via: 'get'
-match '/people', to: 'people#show', via: 'get'
 match '/products', to: 'products#show', via: 'get'
 match '/events', to: 'events#show', via: 'get'
 
@@ -62,11 +54,6 @@ match '/preedit', to: 'distributeds#preedit', via: 'get'
 #Data Viewer
 resources :distributed_reports, :only => [:index]
 
-#get "/people" => "people#txtalert",
-#  :as => :txtalert_person,
-#  :conditions.path_info => "people/txtalert(.:format)",
-#  :conditions.action=>"txtalert",
-#  :controller=>"people"
 
 
 #Email and txt messages

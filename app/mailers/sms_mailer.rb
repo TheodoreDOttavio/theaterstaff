@@ -1,9 +1,7 @@
-require 'people_helper' #to look up email from yaml file
-require 'events_helper'
+require 'application_helper' #to look up email from yaml file
 
 class SmsMailer < ActionMailer::Base
-  include PeopleHelper #to look up email from yaml file
-  include EventsHelper
+  include ApplicationHelper #to look up email from yaml file
 
   default from: "teddottavio@yahoo.com"
   #default url_options: "example.com"

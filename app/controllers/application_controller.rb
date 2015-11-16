@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
   # This module is available to views and controllers, crossing the MVC architecture
   #  By default these helpers are available in views, but must add it to make it available in controllers
   include SessionsHelper
-  include PeopleHelper
-  include EventsHelper
 
   helper_method :availabilitywindow?
   helper_method :populate_next_weeks_events
