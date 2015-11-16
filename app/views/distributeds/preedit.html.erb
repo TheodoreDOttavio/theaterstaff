@@ -1,0 +1,19 @@
+<h2><%= params[:mystart].to_date.strftime('%b %d') %> to <%= ((params[:mystart].to_date) + 6).strftime('%b %d, %Y') %></h2>
+<h6><p align="center">Select a Show to Enter Distribution for</h6></p>
+
+<div align='center'>
+<%= link_to "Select Week", distributeds_path, class: "btn btn-small btn-warning" %>
+
+<Table width="80%" bgcolor="lightgray" border="0">
+  <tr>
+  <% @showstoedit.each_with_index do |p,i| %>
+    <% if i/4 == i/4.0 then %></tr><tr><% end %>
+    <td width="25%" align="center" valign="top" bgcolor="white">
+    <%= link_to p[0], new_distributed_path(params.merge(:mystart => params[:mystart], :performance_id => p[1])),
+         class: p[2] %></td>
+  <% end %>
+ </tr>
+</Table>
+
+ <%= link_to "Select Week", distributeds_path, class: "btn btn-small btn-warning" %>
+</div>

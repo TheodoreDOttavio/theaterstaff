@@ -1,0 +1,35 @@
+id,name,address,city,state,zip,phone,comments,commentsentrance,commentsworklocation,commentslock,created_at,updated_at,company
+1,Not Showing,TBD,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:16 UTC,2015-10-30 19:35:17 UTC,Independent
+2,The Nederlander,208 W. 41rst,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:22:04 UTC,Nederlander
+3,Gershwin Theater,222 W. 51rst,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:20:37 UTC,Nederlander
+4,Minskoff Theater,200 W. 45th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:21:00 UTC,Nederlander
+5,Broadhurst Theater,235 W. 44rst,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:32:08 UTC,Schubert
+6,Ambassador Theater,219 W. 49th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:31:25 UTC,Schubert
+7,The Eugene O'Neill Theater,230 W. 49th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:27:10 UTC,Jujamcyn
+8,Majestic Theater,247 W. 44th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:34:21 UTC,Schubert
+9,Imperial Theater,249 W. 45th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:33:19 UTC,Schubert
+10,Lunt-Fontanne Theater,205 W. 46th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:20:45 UTC,Nederlander
+11,Al Hirschfeld Theater,302 W. 45th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:22:39 UTC,Jujamcyn
+12,Schubert Theatre,225 W. 44th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:26:34 UTC,Schubert
+13,August Wilson Theatre,245 W. 52nd,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:22:16 UTC,Jujamcyn
+14,Belasco Theatre,111 W. 44th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:17 UTC,2015-10-30 19:31:46 UTC,Schubert
+16,Longacre Theatre,220 W. 48th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:33:55 UTC,Schubert
+17,Barrymore,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:31:36 UTC,Schubert
+18,Booth,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:31:57 UTC,Schubert
+19,Broadway,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:32:22 UTC,Schubert
+20,Brooks Atkinson,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:38:47 UTC,Nederlander
+21,Cort,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:32:47 UTC,Schubert
+22,Golden,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:33:01 UTC,Schubert
+23,Helen Hayes,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:17:36 UTC,Independent
+24,Jacobs,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:33:43 UTC,Schubert
+25,Lyceum,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:34:08 UTC,Schubert
+26,Music Box,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:35:01 UTC,Schubert
+27,Neil Simon,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:21:11 UTC,Nederlander
+28,New Amsterdam,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:18 UTC,2015-10-30 19:25:05 UTC,Disney
+29,Palace,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:40:05 UTC,Nederlander
+30,Richard Rodgers,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:21:31 UTC,Nederlander
+31,Schoenfeld Theatre,236 West 45th,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-11-03 18:12:25 UTC,Jujamcyn
+32,St James,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:26:14 UTC,Jujamcyn
+33,Walter Kerr,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:27:21 UTC,Jujamcyn
+34,Marquis,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:34:43 UTC,Nederlander
+35,Wintergarden,Times Square,New York,NY,10036,"","",Enter by the stage door,Console location,"",2015-04-20 03:47:19 UTC,2015-10-30 19:36:06 UTC,Schubert

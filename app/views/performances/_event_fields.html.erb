@@ -1,0 +1,21 @@
+<li class="control-group nested-fields">
+  <div class="controls">
+
+    <%= f.label :curtain, showdate(f.object.curtain) %>
+
+<table width="400"><tr>
+<td width="250"><%= f.label :curtain, curtaintotheaterdate(f.object.curtain) %></td>
+<td>
+    <%= f.datetime_select :curtain,
+                        {:discard_year => true,
+                        :discard_month => false,
+                        :discard_minute => true,
+                        :ampm => true } %>
+
+    <%= f.fields_for :event do |user_events| %>
+    <%= f.select :user_id, @users.collect {|u| [u.name, u.id]}, { class: "user-select"} %>
+    <% end %>
+<td align="center"><%= link_to "Delete (set to dark)", event_path(:id => f.object.id.to_s), method: :delete, class: "btn btn-small btn-danger" %></td>
+</td>
+</tr></table>
+<p>&nbsp;

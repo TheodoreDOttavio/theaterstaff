@@ -1,0 +1,14 @@
+<tr>
+<td width='25%' valign="top">
+  <% if scheduled.language.to_i == 0 then %>
+    <% if scheduled.eve == true then %>
+      <%= scheduled.curtain.strftime('%m / %d %A E') %>
+    <% else %>
+      <%= scheduled.curtain.strftime('%m / %d %A M') %>
+    <% end %>
+  <% end %>
+</td>
+<td width='75%' valign="top">
+  <%= scheduled.performance.name %>
+</td>
+</tr>

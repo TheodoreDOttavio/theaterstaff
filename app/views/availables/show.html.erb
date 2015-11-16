@@ -1,0 +1,65 @@
+<div align='center'>
+<h2>Week begining <%= @mystart.strftime('%a  %b %d, %Y') %></h2>
+
+<%= form_tag :action => 'create', :id => 1 %>
+<%= submit_tag 'Save Changes', class: "btn btn-medium btn-primary" %>
+<Table width="80%" bgcolor="lightgray" border="1"><tr>
+  <td align="left" valign="center">&nbsp;</td>
+  <td align="center" valign="center"><b><%= @mystart.strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 1).strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 2).strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 3).strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 4).strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 5).strftime('%b %d') %></b></td>
+  <td align="center" valign="center"><b><%= (@mystart + 6).strftime('%b %d') %></b></td>
+<tr>
+
+<% @weekofavailable.each do |weekofavailable| %>
+
+<% weekofavailable.each_with_index do |available, i| %>
+
+  <% if available.day.strftime('%a') == 'Mon' %>
+    <% if available.eve == false then %>
+      </tr><tr><td align="left" valign="center">
+      <%= available.user.name %>
+      </td><td align="left" valign="top">
+    <% end %>
+  <% end %>
+
+  <%= fields_for "available#{i}" do |a| %>
+    <%= a.check_box :free, checked:available.free %>
+    <%= a.hidden_field :id, value:available.id %>
+    <%= a.hidden_field :user_id, value:available.user_id %>
+    <%= a.hidden_field :day, value:available.day %>
+    <%= a.hidden_field :eve, value:available.eve %>
+
+    <% if available.free == true then %>
+      <font color='green' size = '2'>
+    <% else %>
+      <font color='red' size = '2'>
+    <% end %>
+
+    <% if available.eve == true then %>
+      <%= available.day.strftime('%a Eve') %>
+      </td><td valign="top">
+      <% if available.day.strftime('%a') == 'Sun' %>
+        <font color='blue' size = '2'>
+    <%= a.check_box :quickfill_all, value:0 %> All Shifts<br>
+    <%= a.check_box :quickfill_eve, value:0 %> Evenings<br>
+    <%= a.check_box :quickfill_satsun, value:0 %> Weekends<br>
+    <%= a.check_box :quickfill_none, value:0 %> Remove all
+    </td>
+     <% end %>
+    <% else %>
+      <%= available.day.strftime('%a Mat') %><br>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% end %>
+
+
+
+</tr></table>
+<%= submit_tag 'Save Changes', class: "btn btn-medium btn-primary" %>
+</div>

@@ -1,0 +1,20 @@
+<div class="center hero-unit">
+<h1>The Theater Staff</h1>
+<h2>
+  A weekly based employee management system.
+</h2>
+<h4>
+  <br>Post your availability
+  <br>View your shifts
+  <br>Review job related information
+</h4>
+
+<% if !signed_in? %>
+  <%= link_to "Sign in", signin_path, class: "btn btn-large btn-primary" %>
+  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+<% else %>
+  <% if availabilitywindow? %>
+      <%= link_to "Post Availability", '#', class: "btn btn-large btn-primary" %>
+    <% end %>
+<% end %>
+</div>

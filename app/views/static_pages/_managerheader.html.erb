@@ -1,0 +1,21 @@
+<li id="fat-menu" class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+  Resources <b class="caret"></b>
+</a>
+<ul class="dropdown-menu">
+  <li><%= link_to "Shows - Current", performances_path(current: 1) %></li>
+  <li><%= link_to "Shows - All", performances_path %></li>
+  <li class="divider"></li>
+  <li><%= link_to "Representatives", users_path %></li>
+  <li><%= link_to "People", people_path %></li>
+  <li class="divider"></li>
+  <li><%= link_to "Theaters", theaters_path %></li>
+  <li><%= link_to "Products", products_path %></li>
+  <li class="divider"></li>
+  <li><%= link_to "Paperwork & Reports", papers_path %></li>
+  <li><%= link_to "Data Viewer", distributed_reports_path %></li>
+  <li class="divider"></li>
+  <li><%= link_to "Data Enrty", distributeds_path %></li>
+  <li><%= link_to "Data Archive and Restore", archives_backup_path %></li>
+</ul>
+</li>

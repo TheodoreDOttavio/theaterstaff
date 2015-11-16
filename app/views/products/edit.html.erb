@@ -1,0 +1,25 @@
+<% provide(:title, "Edit Show") %>
+<h1>Update Product</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@product) do |f| %>
+
+      <%= render 'shared/product_error_messages' %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      Device Type
+      <%= f.select :options, @options %>
+
+      Pay rate at theaters with this product
+      <%= f.number_field :payrate %>
+
+      <%= f.label :comments, "Charging details..." %>
+      <%= f.text_area :comments %>
+
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

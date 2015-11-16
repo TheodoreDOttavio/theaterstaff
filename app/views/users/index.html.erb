@@ -1,0 +1,8 @@
+<% provide(:title, 'All users') %>
+<h2>All Representatives</h2>
+
+<div align="center">
+  <%= will_paginate %>
+    <%= render @users %>
+  <%= will_paginate %>
+</div>

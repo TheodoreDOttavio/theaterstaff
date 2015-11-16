@@ -1,0 +1,25 @@
+<% provide(:title, @user.name) %>
+
+<div align="center">
+  <h2><%= @user.name %></h2>
+
+  <%= @scheduleds.count %>
+  <table width = '80%'>
+
+    <%= render partial: "distributeds/scheduled", collection: @scheduleds %>
+
+  </table>
+
+  <p><%= link_to "txt schedule", txtalert_user_path(@user), class: "btn btn-small btn-primary" %>
+  <br><%= link_to "email schedule", emailalert_user_path(@user), class: "btn btn-small btn-primary" %>
+
+  <p>
+  <% if @user.txtupdate? %>
+    <%= @user.name %> receives weekly schedule by text messageing<br>
+  <% end %>
+
+  <% if @user.alert? %>
+    <%= @user.name %> receives text alerts <%= @user.alerttime %> hours before each shift.
+  <% end %>
+  </p>
+</div>

@@ -1,0 +1,21 @@
+<div class="center hero-unit">
+<% provide(:title, 'Help') %>
+<h1>Help</h1>
+<p>
+<% if signed_in? %>
+  <h4>Post your availability from
+  <br>Sunday 7pm to Tuesday 7pm
+  <br>or call (212) 555-5555</p>
+  <p>Scheduals will available after 10pm on Thursdays
+  <p>Review theater information is avalable for each shift</p>
+  </h4>
+  <h3>Dress Code</h3>
+  <h4><p>Jacket or Vest</p>
+<% else %>
+  This site is a work demonstration for headset employees and managers.
+  <br>Reserve a listening device, or apply for positions at:
+  <br>(212) 555-5555
+<% end %>
+</p>
+
+</div>

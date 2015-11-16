@@ -1,0 +1,4 @@
+report.start_new_page do |page|
+  page.item(:weekof).value(@mystart)
+  page.item(:weekdata).value(@distributed.quantity)
+end

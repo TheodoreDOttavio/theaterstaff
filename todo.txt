@@ -1,0 +1,25 @@
+Update from rails 4.0 to 4.2
+  Redirect_to has been depreciated
+  @extend in sass has been depreciated
+  Find more outdated code...
+
+rails_best_practices . -f html
+  wow... 197 errors. Fix that shit. This is a bad look!
+
+Data Archive
+  Save to db directory for db:seeHeroku 8k Distributed
+    or create a csv data madoel?
+  Save users with passwords intact
+    A custom archive that uses users.create?
+
+Users
+  Save a signature snapstot
+  Show their past schedule with their profile view - include shift count and misc.
+    ...and now there's a placeholder: <%= @schedule %>
+    ...and the tabbing through fields SUCKS with the rep select field
+    ...also need to show selected rep when it's stotred in distributeds
+    ...a function to replicate rep to other product id's?
+  
+Distributeds
+  Read and Save Events with Distributeds...
+    hmmm. added a representative field that uses user_id

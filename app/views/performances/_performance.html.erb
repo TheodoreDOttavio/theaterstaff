@@ -1,0 +1,26 @@
+<td width='25%' valign="top">
+  <%= link_to performance.name, performance %></td>
+<td width='20%' valign="top">
+  <%= performance.theater.name %></td>
+<td width='25%'>
+  <% if params[:current] == "1" then
+    performance.cabinets.each do |c| %>
+        <%= c.quantity %>&nbsp; <%= c.product.name.pluralize %><br>
+        <% end %>
+  <% end %>
+
+  <%= if params[:current] != "1" then
+      if performance.closeing.strftime('%Y-%m-%d') == "3000-01-01" then
+          "Opened " + performance.opening.strftime('%b %d, %Y')
+        else
+          performance.opening.strftime('%b %d, %Y') + " to " + performance.closeing.strftime('%b %d, %Y')
+        end
+     end %>
+</td>
+<td width='10%' valign="top">
+<%= performance.theater.company %></td>
+<td width='10%' valign="top">
+  <%= link_to "Edit", edit_performance_path(performance), class: "btn btn-small btn-warning" %></td>
+<td width='10%' valign="top">
+  <%= link_to "Delete", performance, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-small btn-danger"  %></td>
+
