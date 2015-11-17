@@ -37,17 +37,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.1.0.1)
-      execjs
-      json
     bcrypt (3.1.10-x86-mingw32)
     bcrypt-ruby (3.1.5-x86-mingw32)
       bcrypt (>= 3.1.3)
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
-    bootstrap-will_paginate (0.0.10)
-      will_paginate
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -56,7 +48,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     chartkick (1.4.1)
-    childprocess (0.5.7)
+    childprocess (0.5.8)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.3.5)
     cocoon (1.2.6)
@@ -102,10 +94,10 @@ GEM
     mini_portile (0.6.2)
     minitest (5.8.2)
     multi_json (1.11.2)
-    nokogiri (1.6.6.2-x86-mingw32)
+    nokogiri (1.6.6.3-x86-mingw32)
       mini_portile (~> 0.6.0)
     pdf-core (0.4.0)
-    pg (0.18.3-x86-mingw32)
+    pg (0.18.4-x86-mingw32)
     prawn (1.3.0)
       pdf-core (~> 0.4.0)
       ttfunk (~> 1.4.0)
@@ -196,32 +188,26 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2015.4)
+    tzinfo-data (1.2015.7)
       tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     wdm (0.1.0)
     websocket (1.2.2)
-    will_paginate (3.0.7)
     win32console (1.3.2-x86-mingw32)
     writeexcel (1.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yui-compressor (0.12.0)
 
 PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
   bcrypt-ruby
-  bootstrap-sass
-  bootstrap-will_paginate
   capybara
   chartkick
   cocoon
-  coffee-rails
-  coffee-script-source
   datagrid
   factory_girl_rails
   groupdate
@@ -236,7 +222,6 @@ DEPENDENCIES
   sass-rails
   sdoc
   selenium-webdriver
-  sprockets
   sqlite3
   thinreports
   turbolinks (~> 2.5.3)
@@ -246,7 +231,6 @@ DEPENDENCIES
   wdm
   win32console
   writeexcel
-  yui-compressor
 
 BUNDLED WITH
    1.10.3

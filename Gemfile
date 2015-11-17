@@ -4,20 +4,19 @@ ruby '1.9.3'
 gem 'rails', '4.2.2'
 
 gem 'bcrypt-ruby'
-gem 'bootstrap-sass'
-gem 'bootstrap-will_paginate'
+#gem 'bootstrap-sass'            #, '~> 3.3.5'
 gem 'chartkick'                 #lets make some pretties for the data! Charts!
 gem 'cocoon'                    #for nested forms on many-to-many join models
-gem 'coffee-rails'
-gem 'coffee-script-source'
+#gem 'coffee-rails'
+#gem 'coffee-script-source'
 gem 'datagrid'
 #gem 'faker'                     #Makes fake users!
 gem 'groupdate'                 #for charts or unused?
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'sass-rails'
-gem 'sprockets'
+gem 'sass-rails'                #, '>= 3.2'
+#gem 'sprockets-rails'
 gem 'turbolinks', '~> 2.5.3'    #older version f*s up redirect_to
 #gem 'thinreports-rails'
 gem 'thinreports'               #I think this is for rails 4.2
@@ -25,7 +24,7 @@ gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier'
 gem 'writeexcel'
-gem 'yui-compressor'            #CSS compression
+#gem 'yui-compressor'            #CSS compression
 
 
 

@@ -13,6 +13,11 @@ class PerformancesController < ApplicationController
     #  {name: "Conversation", data: current_user.timesheets.map{|t| [t.day, t.conversation] }}
     #    ] %>
 
+    #Chartkick uses a google service which is just annoying
+    #   to wait for when you're on a completely unrelated page.
+    #   sooo... this global is checked in application.html.erb
+    @princess_gem_needs_her_internet = true
+    
     @mychart = []
     thisshowproductlist = Distributed.where(performance_id: params[:id]).group(:product_id)
     thisshowproductlist.each do |p|
@@ -22,17 +27,8 @@ class PerformancesController < ApplicationController
         })
     end
 
-    #and Chartkick uses a google service which is fucking annoying
-    #   to wait for when you're on a completely unrelated page.
-    #   sooo... this global is checked in application.html.erb
-    @princess_gem_needs_her_internet = true
-
     mystart = weekstart
     myend = mystart + 7.days
-
-    @Curtaintimes = Event.where("curtain > ? AND curtain <= ?
-      AND performance_id == ?",
-      mystart, myend, (params[:id])).order(:curtain)
   end
 
   def index

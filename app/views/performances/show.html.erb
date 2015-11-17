@@ -6,10 +6,12 @@
     <dd><%= @performance.theater.address %>
       <%= @performance.theater.city %>, <%= @performance.theater.state %>
     </dd>
+
   <dt>The Cabinet has:</dt>
     <% @performance.cabinets.each do |c| %>
     <dd><%= c.quantity %>&nbsp; <%= c.product.name.pluralize %></dd>
     <% end %>
+
   <dt>Closeing Date:</dt>
     <dd>
       <% if @performance.closeing > DateTime.now()  %>
@@ -20,17 +22,8 @@
     </dd>
   <dt>&nbsp;</dt>
     <dd><%= @performance.comments %>&nbsp;</dd>
-    <dt>&nbsp;</dt>
-      <dd><%= link_to "Current Schedule", events_path, class: "btn btn-medium btn-primary" %></dd>
-    <% @Curtaintimes.each do |c| %>
-      <dt><%= shortdate(c.curtain) %></dt>
-      <dd><%= c.curtain.strftime('%I:%M %P') %>  (Intermission at
-        <%= (c.curtain + @performance.intermission.minutes).strftime('%I:%M') %> Finale at
-        <%= (c.curtain + @performance.duration.minutes).strftime('%I:%M') %>)<br>
-        </dd>
-    <% end %>
 
-   <dt>On the web:</dt>
+  <dt>On the web:</dt>
     <dd><a href="http://www.broadway.com/search/?q=<%= @performance.name.gsub(" ","+") %>" target="new">Broadway.com</a></dd>
 
    <dt>&nbsp;</dt>
