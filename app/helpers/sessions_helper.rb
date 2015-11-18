@@ -4,9 +4,8 @@ module SessionsHelper
     remember_token = User.new_remember_token
 
     cookies.permanent[:remember_token] = remember_token
-    # same as
-    # cookies[:remember_token] = { value: remember_token, expires: 20.years.from_now.utc }
-    #cookies[:remember_token] = { value: remember_token, expires: 2.weeks.from_now.utc }
+    #same as:
+    #  cookies[:remember_token] = { value: remember_token, expires: 2.weeks.from_now.utc }
 
     user.update_attribute(:remember_token, User.hash(remember_token))
     self.current_user = user
@@ -29,17 +28,11 @@ module SessionsHelper
 
   def current_user=(user)
     @current_user = user
-
-    #  In code this:
-    #self.current_user = ...
-    #  is automatically converted to
-    #current_user=(...)
-    #  with this function...
   end
 
 
   def current_user
-     #  This researches on each new page find... otherwise current user becomes nil
+     #  This re-searches on each new page find... otherwise current user becomes nil
      remember_token = User.hash(cookies[:remember_token])
      @current_user ||= User.find_by(remember_token: remember_token)
   end

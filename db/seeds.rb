@@ -14,8 +14,7 @@ require 'csv'
       "Cabinet",
       "Available",
       "Theater",
-      "Product",
-      "Distributed"]
+      "Product"]
       #,"Distributed" commented out for Heroku's 10k datalimit
 
     @datamodels.each_with_index do |m,i|
@@ -28,13 +27,15 @@ require 'csv'
         #Heroku needs to use #{RAILS_ROOT}/tmp/myfile_#{Process.pid} for file uploads
 
         mycsv = CSV.parse(File.read(myfile), :headers => :first_row)
+        records = 0
         mycsv.each do |data|
           myrowhash = data.to_hash
           myrowhash.delete(nil)
           eval(m).create(myrowhash)
+          records += 1
         end
 
-        puts "--  = " + i.to_s + " records"
+        puts "   -> " + records.to_s + " records"
       else
         puts "-- Did not find file " + tempfile.to_s
       end #file exist
