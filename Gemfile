@@ -1,60 +1,34 @@
 source 'http://rubygems.org'
 ruby '1.9.3'
 
-gem 'rails', '4.2.2'
-
-gem 'bcrypt-ruby'
-#gem 'bootstrap-sass'            #, '~> 3.3.5'
-gem 'chartkick'                 #lets make some pretties for the data! Charts!
+gem 'bcrypt', '~> 3.1.7'
+gem 'chartkick'                 #Some pretties for the Datum!
+gem 'coffee-rails', '~> 4.1.0'
 gem 'cocoon'                    #for nested forms on many-to-many join models
-#gem 'coffee-rails'
-#gem 'coffee-script-source'
-gem 'datagrid'
-#gem 'faker'                     #Makes fake users!
-gem 'groupdate'                 #for charts or unused?
-gem 'jbuilder'
+#gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'sass-rails'                #, '>= 3.2'
-#gem 'sprockets-rails'
-gem 'turbolinks', '~> 2.5.3'    #older version f*s up redirect_to
-#gem 'thinreports-rails'
+gem 'rails', '4.2.2'
+gem 'sass-rails', '~> 5.0'
+gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'thinreports'               #I think this is for rails 4.2
+gem 'turbolinks', '~> 2.5.3'
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'uglifier'
+gem 'uglifier', '>= 1.3.0'
+#gem 'unicorn'
 gem 'writeexcel'
-#gem 'yui-compressor'            #CSS compression
-
 
 
 group :development, :test do
-  #gem 'childprocess'
-  #gem 'guard-rspec', '2.5.0' #this uses Guardfile written at the root
-  #gem 'guard-spork'
-  gem 'rspec-rails'
-  #gem 'spork-rails'
+  #gem 'capistrano-rails'
+  gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'
-end
-
-
-group :test do
-  gem 'capybara'
-  gem 'factory_girl_rails'
-  #gem 'libnotify', '0.8.0'        # Uncomment on Linux.
-  gem 'rb-notifu'
-  gem 'selenium-webdriver'
-  gem 'wdm'
-  gem 'win32console'
-end
-
-
-group :doc do
-  gem 'sdoc', require: false
+  gem 'web-console', '~> 2.0'    # Access an IRB console on exception pages or by using <%= console %> in views
 end
 
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
+  gem 'pg'
 end
