@@ -3,11 +3,11 @@
   Schedule <b class="caret"></b>
 </a>
 <ul class="dropdown-menu">
-  <li><%= link_to "Current Schedule", events_path %></li>
+  <li><%= link_to "Current Schedule", '' %></li>
   <% if availabilitywindow? %>
-    <li><%= link_to "Post Availability", available_path(current_user) %></li>
+    <li><%= link_to "Post Availability", '' %></li>
   <% else %>
-    <li><%= link_to "Show Availability", available_path(current_user) %></li>
+    <li><%= link_to "Show Availability - available_path(current_user)", '' %></li>
   <% end %>
 </ul>
 </li>

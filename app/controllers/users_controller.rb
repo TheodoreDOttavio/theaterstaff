@@ -10,7 +10,7 @@ before_action :admin_user,     only: :destroy
 
   def show
     @user = User.find(params[:id])
-    @scheduleds = Distributed.infrared.where(representative: params[:id]).order(:curtain)
+    #@scheduleds = Distributed.infrared.where(representative: params[:id]).order(:curtain)
   end
 
   def new
@@ -29,7 +29,7 @@ before_action :admin_user,     only: :destroy
   end
 
   def edit
-    # now taken care of by sessions helper correct_user - @user = User.find(params[:id])
+    # Taken care of by sessions helper correct_user
   end
 
   def update
