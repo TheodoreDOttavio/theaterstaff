@@ -3,16 +3,16 @@ ruby '1.9.3'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
-gem 'chartkick'                 #Some pretties for the Datum!
+gem 'chartkick'                 #Pretties for the Datum!
 gem 'coffee-rails', '~> 4.1.0'
 gem 'cocoon'                    #for nested forms on many-to-many join models
+gem 'datagrid'
 #gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'rails', '4.2.2'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'therubyracer'
 gem 'thinreports'
 gem 'turbolinks', '~> 2.5.3'
 gem 'tzinfo'

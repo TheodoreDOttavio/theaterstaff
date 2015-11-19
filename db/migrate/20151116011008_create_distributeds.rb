@@ -7,6 +7,7 @@ class CreateDistributeds < ActiveRecord::Migration
       t.boolean :eve, :default => true
       t.integer :quantity, :null => true
       t.integer :language, :null => false, :default => 0 #! for the mixboard mikes (english)
+      t.integer :general, :null => true, :default => 0  #0=Booked, 1=Infrared, 2=Special Services
       t.integer :representative
 
       t.timestamps

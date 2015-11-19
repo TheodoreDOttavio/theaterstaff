@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password])
         # Sign the user in and redirect
         sign_in user
-        
-        #redirect_to user is traditional, 
+
+        #redirect_to user is traditional,
         #  but we'll go right to their schedule or reports for admin
         redirect_back_or about_path
         # if current_user.admin then

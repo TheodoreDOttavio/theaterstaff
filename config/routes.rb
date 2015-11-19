@@ -9,7 +9,7 @@ Theaterstaff::Application.routes.draw do
   # :events,
   # :availables,
   # :distributeds
-# 
+#
 
 
 resources :users do
@@ -35,16 +35,16 @@ root  'static_pages#home'
 # match '/theaters', to: 'theaters#show', via: 'get'
 # match '/performances', to: 'performances#show', via: 'get'
 # match '/products', to: 'products#show', via: 'get'
-# 
-# 
+#
+#
 # #revised reports Calling it Papers...
 # match '/papers', to: 'papers#index', via: 'get'
 # match '/papersweekly', to: 'papers#generateweekly', via: 'post'
 # match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
-# 
+#
 # #preselect theater for distributeds data entry:
 # match '/preedit', to: 'distributeds#preedit', via: 'get'
-# 
+#
 # #Data Viewer
 # resources :distributed_reports, :only => [:index]
 end

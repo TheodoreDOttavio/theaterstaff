@@ -14,8 +14,8 @@ require 'csv'
       "Cabinet",
       "Available",
       "Theater",
-      "Product"]
-      #,"Distributed" commented out for Heroku's 10k datalimit
+      "Product",
+      "Distributed"] # commented out for Heroku's 10k datalimit
 
     @datamodels.each_with_index do |m,i|
       tempfile = Rails.root.join('db',m + '.csv')
