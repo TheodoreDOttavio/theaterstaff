@@ -1,4 +1,4 @@
-Theaterstaff::Application.routes.draw do
+Rails.application.routes.draw do
 
   # get "archives/backup"
   # post "archives/restore"
@@ -19,11 +19,10 @@ resources :users do
   end
 end
 
-resources :sessions, only: [:new, :create, :destroy]
 match '/signup', to: 'users#new', via: 'get'
 match '/signin',  to: 'sessions#new', via: 'get'
-match '/signout', to: 'sessions#destroy', via: 'delete'
-
+match '/signout', to: 'sessions#destroy', via: 'get'
+resources :sessions, only: [:new, :create, :destroy]
 
 match '/help', to: 'static_pages#help', via: 'get'
 match '/home', to: 'static_pages#home', via: 'get'
