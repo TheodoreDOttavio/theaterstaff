@@ -1,21 +1,23 @@
-<div class="center hero-unit">
 <% provide(:title, 'Help') %>
-<h1>Help</h1>
-<p>
+
+<div align="center">
+<div class="well well-sm" style="width: 50%;">
 <% if signed_in? %>
-  <h4>Post your availability from
+  <h1>Scheduals</h1>
+  <h2>Post your availability from
   <br>Sunday 7pm to Tuesday 7pm
-  <br>or call (212) 555-5555</p>
-  <p>Scheduals will available after 10pm on Thursdays
-  <p>Review theater information is avalable for each shift</p>
-  </h4>
-  <h3>Dress Code</h3>
-  <h4><p>All Black Jacket or Vest</p>
+  <br>or call (212) 555-5555
+  <br>Scheduals will available after 10pm on Thursdays
+  <br>Review theater information is avalable for each shift
+  </h2>
+  <h1>Dress Code</h1>
+  <h4>Black pants or skirt, black shirt, dress shoes and a black jacket or vest</h4>
 <% else %>
-  This site is a work demonstration for headset employees and managers.
+  <h4>This site is a work demonstration for headset employees and managers.
   <br>Reserve a listening device, or apply for positions at:
   <br>(212) 555-5555
+  </h4>
 <% end %>
-</p>
 
+</div>
 </div>

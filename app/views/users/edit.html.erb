@@ -1,45 +1,65 @@
-<% provide(:title, "Edit user") %>
+<% provide(:title, "Edit Representative") %>
+
 <h1>Update your profile</h1>
 
-<%= render 'shared/error_messages' %>
+<div align="center">
+<div class="well well-sm" style="width: 50%;">
+  <%= render 'error_messages' %>
+<%= form_for(@user) do |f| %>
 
+<h3>
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
+  <div class="col-md-5">Representative Name</div>
+  <div class="col-md-7"><%= f.text_field :name %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Email</div>
+  <div class="col-md-7"><%= f.text_field :email %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Phone</div>
+  <div class="col-md-7"><%= f.text_field :phone %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Phone Type</div>
+  <div class="col-md-7"><%= f.select :phonetype, carrier_collection %></div>
+</div>
+</h3>
+<h4>
+<div class="row">
+  <div class="col-md-2"><%= f.check_box :txtupdate %></div>
+  <div class="col-md-10">Receive weekly schedule by text messageing</div>
+</div>
+<div class="row">
+  <div class="col-md-2"><%= f.check_box :alert %></div>
+  <div class="col-md-10">Receive a text message alert for each show</div>
+</div>
+<div class="row">
+  <div class="col-md-2"><%= f.number_field :alerttime %></div>
+  <div class="col-md-10">hours before your shift begins</div>
+</div>
+<% if current_user.admin then %>
+    <div class="row">
+      <div class="col-md-2"><%= f.check_box :admin %></div>
+      <div class="col-md-10">Select this to give <%= @user.name %> administrator access</div>
+      <%= f.hidden_field :adminoverride, value:69 %>
+    </div>
+  <% end %>
+</h4>
+<h3>
+<div class="row">
+  <div class="col-md-6">Password</div>
+  <div class="col-md-6"><%= f.password_field :password %></div>
+</div>
+<div class="row">
+  <div class="col-md-6">Confirm Password</div>
+  <div class="col-md-6"><%= f.password_field :password_confirmation %></div>
+</div>
+</h3>
+<div class="row">
+  <div class="col-md-12"><h1><%= f.submit "Save changes", class: "btn btn-large btn-primary" %></h1></div>
+</div>
+<% end %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :phone %>
-      <%= f.text_field :phone %>
-
-      <%= f.label :phonetype %>
-      <%= f.select :phonetype, carrier_collection %>
-
-      <%= f.check_box :txtupdate %>
-      Receive weekly schedule by text messageing<br>
-
-      <%= f.check_box :alert %>
-      Receive a text message alert for each show
-
-      <%= f.number_field :alerttime %>
-      hours before your shift begins<br><br>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
-
-      <% if current_user.admin then %>
-        <%= f.check_box :admin %> Select this to give <%= @user.name %> administrator access<br>
-        <%= f.hidden_field :adminoverride, value:69 %>
-      <% end %>
-
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
+</div>
 </div>

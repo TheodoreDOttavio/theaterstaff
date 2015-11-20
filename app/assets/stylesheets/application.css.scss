@@ -1,12 +1,21 @@
 /*
- * Application root CSS
- *
  * = require_tree .
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* mixins, variables, etc. */
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700|Poiret+One|Varela+Round);
+
+/* Usage:
+ * font-family: 'Montserrat', sans-serif;
+ * font-family: 'Poiret One', sans-serif;
+ * font-family: 'Varela Round', sans-serif;
+ */
+
+
+/* App-Wide Customized CSS */
 
 $grayMediumLight: #eaeaea;
 $grayLighter: #f5f5f5;
@@ -50,19 +59,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
 }
 
 h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: #999;
+  font-size: 1em;
+  margin-bottom: 2px;
+  text-align: left;
+  font-weight: 400;
+  font-family: 'Varela Round', sans-serif;
+  color: #1a1a1a;
+}
+
+h3 {
+  font-size: 1em;
+  margin-bottom: 2px;
+  text-align: right;
+  font-weight: 400;
+  font-family: 'Varela Round', sans-serif;
+  color: #1a1a1a;
+}
+
+h4 {
+  font-size: 1em;
+  margin-bottom: 2px;
+  text-align: left;
+  font-weight: 400;
+  font-family: 'Poiret One', sans-serif;
+  color: #000000;
 }
 
 p {
@@ -70,24 +99,9 @@ p {
   line-height: 1.7em;
 }
 
-/* header */
 
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  padding-top: 9px;
-  font-weight: bold;
-  line-height: 1;
-}
+/* User (Representative) Forms */
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
 
 
 /* footer */
@@ -138,32 +152,6 @@ footer ul li {
 }
 
 
-/* sidebar */
-
-aside {
-  section {
-    padding: 10px 0;
-    border-top: 1px solid $grayLighter;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-  }
-}
-
-
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -185,15 +173,8 @@ input {
   }
 }
 
-/* Find where this explodes. Otherwise. @extend is for sass prior to -v 3.3
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
-}
-*/
 
-
-/* miscellaneous */
+/* Development Mode - The debugger */
 
 .debug_dump {
   clear: both;

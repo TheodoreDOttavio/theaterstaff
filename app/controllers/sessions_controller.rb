@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    #form_for tag creates a params hash with a single has that contains email andpass
+    #form_for tag creates params hash
     user = User.find_by(email: params[:session][:email].downcase)
       if user && user.authenticate(params[:session][:password])
-        # Sign the user in and redirect
         sign_in user
 
         #redirect_to user is traditional,
