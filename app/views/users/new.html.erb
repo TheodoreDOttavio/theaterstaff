@@ -1,40 +1,57 @@
 <% provide(:title, 'Sign up') %>
+
 <h1>Sign up</h1>
 
+<div align="center">
+<div class="well well-sm" style="width: 50%;">
+  <%= render 'error_messages' %>
+<%= form_for(@user) do |f| %>
+
+<h3>
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-
-      <%= render 'shared/error_messages' %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :phone %>
-      <%= f.text_field :phone %>
-
-      <%= f.label :phonetype %>
-      <%= f.select :phonetype, carrier_collection %>
-
-      <%= f.check_box :txtupdate %>
-      Receive weekly schedule by text messageing<br>
-
-      <%= f.check_box :alert %>
-      Receive a text message alert for each show
-
-      <%= f.number_field :alerttime %>
-      hours before your shift begins<br><br>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
+  <div class="col-md-5">Representative Name</div>
+  <div class="col-md-7"><%= f.text_field :name %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Email</div>
+  <div class="col-md-7"><%= f.text_field :email %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Phone</div>
+  <div class="col-md-7"><%= f.text_field :phone %></div>
+</div>
+<div class="row">
+  <div class="col-md-5">Phone Type</div>
+  <div class="col-md-7"><%= f.select :phonetype, carrier_collection %></div>
+</div>
+</h3>
+<h4>
+<div class="row">
+  <div class="col-md-2"><%= f.check_box :txtupdate %></div>
+  <div class="col-md-10">Receive weekly schedule by text messageing</div>
+</div>
+<div class="row">
+  <div class="col-md-2"><%= f.check_box :alert %></div>
+  <div class="col-md-10">Receive a text message alert for each show</div>
+</div>
+<div class="row">
+  <div class="col-md-2"><%= f.number_field :alerttime %></div>
+  <div class="col-md-10">hours before your shift begins</div>
+</div>
+</h4>
+<h3>
+<div class="row">
+  <div class="col-md-6">Password</div>
+  <div class="col-md-6"><%= f.password_field :password %></div>
+</div>
+<div class="row">
+  <div class="col-md-6">Confirm Password</div>
+  <div class="col-md-6"><%= f.password_field :password_confirmation %></div>
+</div>
+</h3>
+<div class="row">
+  <div class="col-md-12"><h1><%= f.submit "Create my account", class: "btn btn-large btn-primary" %></h1></div>
+</div>
+<% end %>
+</div>
 </div>

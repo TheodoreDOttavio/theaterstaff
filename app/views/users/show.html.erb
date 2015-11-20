@@ -1,25 +1,31 @@
 <% provide(:title, @user.name) %>
 
 <div align="center">
-  <h2><%= @user.name %></h2>
 
-  <%= @scheduleds.count %>
-  <table width = '80%'>
-
-    <%= render partial: "distributeds/scheduled", collection: @scheduleds %>
-
-  </table>
-
-  <p><%= link_to "txt schedule", txtalert_user_path(@user), class: "btn btn-small btn-primary" %>
-  <br><%= link_to "email schedule", emailalert_user_path(@user), class: "btn btn-small btn-primary" %>
-
-  <p>
-  <% if @user.txtupdate? %>
-    <%= @user.name %> receives weekly schedule by text messageing<br>
-  <% end %>
-
+<div class="well well-sm" style="width: 50%;">
+  <h1><%= @user.name %></h1>
+  <h2>
   <% if @user.alert? %>
     <%= @user.name %> receives text alerts <%= @user.alerttime %> hours before each shift.
   <% end %>
-  </p>
+  
+  <div class="row">
+    <div class="col-md-8">
+    <% if @user.txtupdate? %>
+      Currently receives schedule by text messageing
+    <% else %>
+      Does not receive schedule by text messageing
+    <% end %>
+    </div>
+    <div class="col-md-4"><%= link_to "txt schedule", txtalert_user_path(@user), class: "btn btn-small btn-primary" %></div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">&nbsp;</div>
+    <div class="col-md-4"><%= link_to "email schedule", emailalert_user_path(@user), class: "btn btn-small btn-primary" %></div>
+  </div>
+  </h2>
+  
+  <%= render partial: "distributeds/scheduled", collection: @scheduleds %>
+  <%= @scheduleds.count %>
+</div>
 </div>
