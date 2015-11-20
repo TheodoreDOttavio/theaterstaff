@@ -66,11 +66,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
-    port: 534,
+    port: 587,
     authentication: "plain",
     user_name: "teddottavio",
-    password: "gmjkl098",
-    enable_starttls_auto: true
+    password: ENV['SMTP_PASSWORD'],
+    enable_starttls_auto: false
   }
   #Old working verios differences:
   #:user_name            => "teddottavio"

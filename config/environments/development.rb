@@ -21,7 +21,7 @@ Rails.application.configure do
     port: 587,
     authentication: "plain",
     user_name: "teddottavio@gmail.com",
-    password: "gmjkl098",
+    password: "",
     enable_starttls_auto: true
   }
   #Old working verios differences:
