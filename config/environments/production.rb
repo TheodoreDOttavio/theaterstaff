@@ -70,7 +70,8 @@ Rails.application.configure do
     authentication: "plain",
     user_name: "teddottavio",
     password: ENV['SMTP_PASSWORD'],
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    perform_deliveries: true
   }
   #Old working verios differences:
   #:user_name            => "teddottavio"
