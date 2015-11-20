@@ -6,7 +6,7 @@
         <h4>* <%= msg %>
         <% if msg == "Email has already been taken" %>
           <br><%= link_to "email password", getautopass_path(:email => @user.email) %>
-          <br>Your account has been auto-generated. Contact Ted (718 678 5933) or the Field operations manager for your temporary password. 
+          <br>Your account has been auto-generated. Contact Ted (718 678 5933) or the Field operations manager for your temporary password.
           Then log in and use the settings menu item to change it.<br>&nbsp;<br>
         <% end %>
         </h4>

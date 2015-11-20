@@ -60,8 +60,8 @@ before_action :admin_user,     only: :destroy
     flash[:success] = "An email has been sent to " + params[:email]
     redirect_to signin_path(email: params[:email])
   end
-  
-  
+
+
   def txtalert
     @user = User.find(params[:id])
     SmsMailer.schedule_for_txt_msg(@user).deliver
@@ -79,13 +79,14 @@ before_action :admin_user,     only: :destroy
     #redirect_to @user
     redirect_to users_url
   end
-  
+
 
   def autopassword (toparse)
+    #to do--incorporate into seed.rb and actually make a function
     return "foobar" + toparse
   end
-  
-  
+
+
   private
 
     def user_params
