@@ -18,6 +18,7 @@ resources :users do
     get 'emailalert'
   end
 end
+match '/getautopass', to: 'users#getautopassword', via: 'get'
 
 match '/signup', to: 'users#new', via: 'get'
 match '/signin',  to: 'sessions#new', via: 'get'

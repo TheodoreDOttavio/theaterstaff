@@ -8,14 +8,17 @@ before_action :admin_user,     only: :destroy
     @users = User.where('id != 1').paginate(page: params[:page])
   end
 
+
   def show
     @user = User.find(params[:id])
     @scheduleds = Distributed.infrared.where(representative: params[:id]).order(:curtain)
   end
 
+
   def new
     @user = User.new
   end
+
 
   def create
     @user = User.new(user_params)
@@ -28,9 +31,11 @@ before_action :admin_user,     only: :destroy
     end
   end
 
+
   def edit
     # Taken care of by sessions helper correct_user
   end
+
 
   def update
     if @user.update_attributes(user_params)
@@ -41,12 +46,22 @@ before_action :admin_user,     only: :destroy
     end
   end
 
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
     redirect_to users_url
   end
 
+
+  def getautopassword
+    autogenpassword = autopassword(params[:email].to_s)
+    SmsMailer.send_auto_password(params[:email], autogenpassword).deliver
+    flash[:success] = "An email has been sent to " + params[:email]
+    redirect_to signin_path(email: params[:email])
+  end
+  
+  
   def txtalert
     @user = User.find(params[:id])
     SmsMailer.schedule_for_txt_msg(@user).deliver
@@ -64,8 +79,13 @@ before_action :admin_user,     only: :destroy
     #redirect_to @user
     redirect_to users_url
   end
+  
 
-
+  def autopassword (toparse)
+    return "foobar" + toparse
+  end
+  
+  
   private
 
     def user_params
