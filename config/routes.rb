@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
 
-  # get "archives/backup"
-  # post "archives/restore"
-
 # resources :theaters,
   # :performances,
   # :products,
-  # :events,
   # :availables,
   # :distributeds
 #
@@ -35,16 +31,20 @@ root  'static_pages#home'
 # match '/theaters', to: 'theaters#show', via: 'get'
 # match '/performances', to: 'performances#show', via: 'get'
 # match '/products', to: 'products#show', via: 'get'
-#
-#
+
+
 #Data Reports Calling it Papers...
  match '/papers', to: 'papers#index', via: 'get'
  match '/papersweekly', to: 'papers#generateweekly', via: 'post'
  match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
-#
+
+#Data Archiving to csv files
+get "archives/backup"
+post "archives/restore"
+
 # #preselect theater for distributeds data entry:
 # match '/preedit', to: 'distributeds#preedit', via: 'get'
-#
+
 # #Data Viewer
 # resources :distributed_reports, :only => [:index]
 end

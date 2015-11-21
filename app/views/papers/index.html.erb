@@ -3,7 +3,6 @@
 <h1>Generate Paperwork and Reports</h1>
 
 <%= form_tag("/papersweekly", method: "post") do %>
-
 <h2>Weekly Reports</h2>
 <h3>
 <div class="row">
@@ -16,13 +15,12 @@
     <% end %>
   </div>
 </div>
-
+</h3>
 <% end %>
 
 
 <!--refer to monthbytheater -->
 <%= form_tag("/papersmonthly", method: "post") do %>
-
 <h2>Monthly Reports</h2>
 <h3>
 <div class="row">
@@ -30,6 +28,7 @@
   <div class="col-md-6"><%= select(@object, :xportmonthstart, @allmonths) %></div>
   <div class="col-md-3"><%= select(@object, :xporttheater, @theaters) %></div>
 </div>
+</h3>
 <% end %>
 
 </div>
