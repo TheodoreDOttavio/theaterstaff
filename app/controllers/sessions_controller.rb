@@ -13,12 +13,12 @@ class SessionsController < ApplicationController
 
         #redirect_to user is traditional,
         #  but we'll go right to their schedule or reports for admin
-        redirect_back_or about_path
-        # if current_user.admin then
-          # redirect_back_or papers_path
-        # else
+        if current_user.admin then
+          redirect_back_or papers_path
+        else
+          redirect_back_or about_path
           # redirect_back_or events_path
-        # end
+        end
       else
         flash.now[:error] = 'Invalid email/password combination'
         render 'new'
