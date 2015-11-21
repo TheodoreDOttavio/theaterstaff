@@ -82,8 +82,7 @@ before_action :admin_user,     only: :destroy
 
 
   def autopassword (toparse)
-    #to do--incorporate into seed.rb and actually make a function
-    return "foobar" + toparse
+    return "sa-" + toparse.split('@')[0].to_s
   end
 
 
