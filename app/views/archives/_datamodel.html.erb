@@ -1,0 +1,6 @@
+    <td><%= datamodel["modelname"] %>.csv</td>
+  <td align="center"><%= link_to 'Download',
+     url_for(format: 'csv', mymodel: datamodel["modelname"], mydatalimit: datamodel["datalimit"]), class: "btn btn-small btn-primary" %></td>
+  <td align="center"><%= archivedate(datamodel["changed"]) %></td>
+  <td align="center"><%= datamodel["recordcount"] %></td>
+  <td><%= datamodel["descriprion"] %></td></tr>

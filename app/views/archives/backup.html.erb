@@ -1,0 +1,32 @@
+<h1>Archive Raw Data</h1>
+<h6><p align="center">Download text files of website data for local storage and archiving.
+  <br>If these are edited, they are case sensitive (ex: 'true' not 'TRUE')'</h6></p>
+
+<div align='center'>
+<table width = "80%"><tr>
+  <td width="10%"><b>Filename</b></td>
+  <td width="10%" align="center"><b>Link</b></td>
+  <td width="15%"align="center"><b>Last Update</b></td>
+  <td width="10%"align="center"><b>qty</b></td>
+  <td width="50%"><b>Description</b></td></tr>
+
+  <%= render :partial => 'datamodel', :collection => @datamodels %>
+</tr></table>
+</div>
+
+<p>&nbsp;<h2>Restore a Data file</h2></p>
+<h6><p align="center">Use a file created by the links above to replace existing data
+<br>This replaces data - use the buttons above first to make backups!</h6></p>
+
+<p><div align='center'>
+<table width = '25%'><tr><td>
+<%= form_tag({action: :restore}, multipart: true) do %>
+  <%= file_field_tag 'Data' %>
+  <br>Curtain Date cut-off. ex: 1/1/2013
+   date_field_tag 'cutoff' <br>
+  <%= text_field_tag 'cutoff' %><br>
+  <%= check_box_tag :updateonly %>&nbsp;Update Only -->
+  <%= submit_tag 'Upload', class: "btn btn-small btn-primary" %>
+<% end %>
+</td></tr></table>
+</div></p>
