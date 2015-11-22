@@ -8,7 +8,6 @@ class Performance < ActiveRecord::Base
            :reject_if => :all_blank,
            :allow_destroy => true
 
-    #validates_associated :events
     validates :name, presence: true, length: { maximum: 50 }
 
     scope :showing, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend) }

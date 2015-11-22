@@ -1,8 +1,6 @@
 # All times are stored in UTC, GMT00, no time zone!
 #  Change local time to GMT 0 for views and data comparison
 
-#This file will load Shows and events that may not represent the current real world environment
-
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #  or just use rake db:reset ...
 
