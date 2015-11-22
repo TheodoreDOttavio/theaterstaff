@@ -34,9 +34,9 @@ root  'static_pages#home'
 
 
 #Data Reports Calling it Papers...
- match '/papers', to: 'papers#index', via: 'get'
- match '/papersweekly', to: 'papers#generateweekly', via: 'post'
- match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
+match '/papers', to: 'papers#index', via: 'get'
+match '/papersweekly', to: 'papers#generateweekly', via: 'post'
+match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
 
 #Data Archiving to csv files
 get "archives/backup"

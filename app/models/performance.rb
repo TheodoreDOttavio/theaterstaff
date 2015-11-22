@@ -8,13 +8,6 @@ class Performance < ActiveRecord::Base
            :reject_if => :all_blank,
            :allow_destroy => true
 
-
-  has_many :users, :through => :events
-  has_many :events, dependent: :destroy
-  accepts_nested_attributes_for :events,
-           :reject_if => :all_blank,
-           :allow_destroy => true
-
     #validates_associated :events
     validates :name, presence: true, length: { maximum: 50 }
 

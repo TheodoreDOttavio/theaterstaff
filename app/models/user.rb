@@ -1,10 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :performances, :through => :events
-  has_many :events, dependent: :destroy
-  accepts_nested_attributes_for :events,
-           :reject_if => :all_blank,
-           :allow_destroy => true
-
   has_many :availables
   accepts_nested_attributes_for :availables
 
