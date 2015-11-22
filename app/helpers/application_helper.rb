@@ -8,7 +8,16 @@ module ApplicationHelper
     end
   end
 
-
+  def weekstart
+    astart = DateTime.now.utc.beginning_of_day
+    loop do
+      break if astart.wday == 1
+      astart = astart - 1.day
+    end
+    weekstart = astart
+    return weekstart
+  end
+  
 # Functions for text messaging Representatives
   def config_yaml
      @config_yaml ||= YAML::load(File.open("#{Rails.root}/db/sms_carriers.yml"))
