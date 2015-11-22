@@ -23,7 +23,7 @@
     <div class="col-md-8">&nbsp;</div>
     <div class="col-md-4 editbold"><%= link_to "email schedule", emailalert_user_path(@user), class: "btn btn-sm btn-primary" %></div>
   </div>
-  
+
 
   <%= render partial: "distributeds/scheduled", collection: @scheduleds %>
   <%= @scheduleds.count %>

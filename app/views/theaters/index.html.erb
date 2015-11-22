@@ -4,13 +4,7 @@
 <h1>Theaters and Venues</h1>
 
 <%= will_paginate class: "editbold" %>
-
-<% @theaters.each do |theater| %>
-<div class="row">
-  <%= render theater %>
-</div>
-<% end %>
-
+  <%= render @theaters %>
 <%= will_paginate class: "editbold" %>
 
 <%= link_to "Create a Venue", new_theater_path(@theater), class: "btn btn-small btn-primary" if current_user.admin? %>

@@ -1,24 +1,11 @@
-<table width="80%"><tr>
-  <td width="20%" align="left"><%= link_to user.name, user %></td>
-
-  <% if current_user.admin? %>
-
-  <td width="20%" align="center">
-      <% if user.phonetype?  %>
-        <%= link_to "txt schedule", txtalert_user_path(user), class: "btn btn-small btn-primary" %>
-      <% end %></td>
-    <td width="20%" align="center">
-      <% if user.email?  %>
-        <%= link_to "email schedule", emailalert_user_path(user), class: "btn btn-small btn-primary" %>
-      <% end %></td>
-    <td width="10%" align="left">
-      <%= link_to "Edit", edit_user_path(user) %>
-  </td>
-    <td width="10%" align="left">
-    <% if current_user.admin? && !current_user?(user) %>
-        <%= link_to "Delete", user, method: :delete, data: { confirm: "You sure?" } %>
-      <% end %>
-  </td>
-
+<div class="row">
+<div class="col-md-4 editbold lt"><%= link_to user.name, user %></div>
+<div class="col-md-1 editbold">
+  <% if user.phonetype?  %>
+    <%= link_to "txt schedule", txtalert_user_path(user), class: "btn btn-sm btn-primary" %>
   <% end %>
-</tr></table>
+</div>
+<div class="col-md-4 editlight ct"><%= user.phone %></div>
+<div class="col-md-1 editbold"><%= link_to "email schedule", emailalert_user_path(user), class: "btn btn-sm btn-primary" %></div>
+<div class="col-md-1 editbold rt"><%= link_to "Edit", edit_user_path(user) %></div>
+</div>
