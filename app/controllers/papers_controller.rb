@@ -18,6 +18,12 @@ class PapersController < ApplicationController
     end
 
 
+    #Delivery Options
+    @deliveryformat = []
+    @deliveryformat.push(["Download",1])
+    @deliveryformat.push(["Email: ",2])
+    
+
     #for weekly output function
     @outputformat = []
     @outputformat.push(["PDF Cover Sheet",1])

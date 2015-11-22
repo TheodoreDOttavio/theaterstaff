@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.6em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -100,8 +100,45 @@ p {
 }
 
 
-/* User (Representative) Forms */
+.headtitle {
+  font-size: 1.4em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #eeeeee;
+}
 
+.headmenu {
+  font-size: 1em;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #eeeeee;
+}
+
+
+/* User (Representative) Forms */
+.editbold {
+  font-size: 1em;
+  margin-bottom: 1px;
+  font-weight: 400;
+  font-family: 'Varela Round', sans-serif;
+  color: #1a1a1a;
+}
+
+.editlight {
+  font-size: 1em;
+  margin-bottom: 1px;
+  font-weight: 400;
+  font-family: 'Poiret One', sans-serif;
+  color: #000000;
+}
+
+.lt {text-align: left;}
+.rt {text-align: right;}
+.ct {text-align: center;}
+.inv {color: #eeeeee;}
 
 
 /* footer */

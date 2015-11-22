@@ -2,25 +2,25 @@
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 <div class="container-fluid">
-  <%= link_to "The Theater Staff", root_path, id: "headtitle" %>
+  <%= link_to "The Theater Staff", root_path, class: "headtitle" %>
   <ul class="nav navbar-nav pull-right">
-    <li><%= link_to_unless_current "Home", home_path %></li>
-    <li><%= link_to_unless_current "Help", help_path %></li>
+    <li><%= link_to "Home", home_path, class: "headmenu" %></li>
+    <li><%= link_to "Help", help_path, class: "headmenu" %></li>
     <% if signed_in? %>
       <% if current_user.admin?  %>
         <li><%= render 'static_pages/topmenumanager' %></li>
       <% end %>
     <li><%= render 'static_pages/topmenu' %></li>
     <li id="fat-menu" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <a href="#" class="dropdown-toggle headmenu" data-toggle="dropdown">
         Account <b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><%= link_to_unless_current "Settings", edit_user_path(current_user) %></li>
-        <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+        <li><%= link_to "Settings", edit_user_path(current_user), class: "headmenu" %></li>
+        <li><%= link_to "Sign out", signout_path, method: "delete", class: "headmenu" %></li>
       </ul>
     </li>
     <% else %>
-      <li><%= link_to_unless_current "Sign in", signin_path %></li>
+      <li><%= link_to_unless_current "Sign in", signin_path, class: "headmenu" %></li>
     <% end %>
   </ul>
 </div>
