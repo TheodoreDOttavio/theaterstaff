@@ -1,14 +1,14 @@
 <div align="center">
-<div class="well well-sm" style="width: 50%;">
+<div class="well well-sm" style="width: 75%;">
 <h1>Generate Paperwork and Reports</h1>
 
 <%= form_tag("/papersweekly", method: "post") do %>
 <h2>Weekly Reports</h2>
 <h3>
 <div class="row">
-  <div class="col-md-3"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
+  <div class="col-md-2"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
   <div class="col-md-6"><%= select(@object, :xportweekstart, @allweeks) %></div>
-  <div class="col-md-3">
+  <div class="col-md-4">
   	<% @outputformat.each do |o| %>
       <%= radio_button_tag(:xportas, o[1]) %>
       <%= o[0] %><br>
@@ -24,9 +24,9 @@
 <h2>Monthly Reports</h2>
 <h3>
 <div class="row">
-  <div class="col-md-3"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
-  <div class="col-md-6"><%= select(@object, :xportmonthstart, @allmonths) %></div>
-  <div class="col-md-3"><%= select(@object, :xporttheater, @theaters) %></div>
+  <div class="col-md-2"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
+  <div class="col-md-3"><%= select(@object, :xportmonthstart, @allmonths) %></div>
+  <div class="col-md-7"><%= select(@object, :xporttheater, @theaters) %></div>
 </div>
 </h3>
 <% end %>
