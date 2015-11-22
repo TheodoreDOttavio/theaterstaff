@@ -38,3 +38,16 @@ module ApplicationHelper
       select_tag name, options_for_select(options, selected || phrase)
   end
 end
+
+def archivedate(databasedate)
+  mydatearray = databasedate.to_s[0..9].split("-").map { |s| s.to_i }
+
+  if mydatearray.length == 3 then
+    mydate = DateTime.new(mydatearray[0], mydatearray[1], mydatearray[2])
+  else
+    mydate = DateTime.strptime("2014-10-04 20:00:00 UTC"[0..9], '%Y-%m-%d')
+  end
+
+  showdate = mydate.strftime('%b %d, \'%y')
+  return showdate
+end
