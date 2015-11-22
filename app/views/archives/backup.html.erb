@@ -17,13 +17,15 @@
 </div>
 
 <%= render :partial => 'datamodel', :collection => @datamodels %>
+
 </div>
+<div class="well well-sm">
+	
+<h1>Restore a Data file</h1>
 
-<p>&nbsp;<h2>Restore a Data file</h2></p>
-<h6><p align="center">Use a file created by the links above to replace existing data
-<br>This replaces data - use the buttons above first to make backups!</h6></p>
-
-<p><div align='center'>
+<h2>Use a file created by the links above to replace existing data
+<br>This replaces data - use the buttons above first to make backups!</h2>
+	
 <table width = '25%'><tr><td>
 <%= form_tag({action: :restore}, multipart: true) do %>
   <%= file_field_tag 'Data' %>
