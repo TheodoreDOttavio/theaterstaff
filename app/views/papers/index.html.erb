@@ -4,7 +4,7 @@
 <h1>Weekly Reports</h1>
 
 <div class="row">
-  <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
+  <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-sm btn-primary" %></div>
   <div class="col-md-3 editbold ct"><%= select(@object, :xportformat, @deliveryformat) %></div>
   <div class="col-md-4 editbold lt"><%= select(@object, :xportweekstart, @allweeks) %></div>
   <div class="col-md-3 editlight ct">
@@ -23,7 +23,7 @@
 <h1>Monthly Reports</h1>
 
 <div class="row">
-  <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-medium btn-primary" %></div>
+  <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-sm btn-primary" %></div>
   <div class="col-md-3 editbold ct"><%= select(@object, :xportformat, @deliveryformat) %></div>
   <div class="col-md-3 editbold lt"><%= select(@object, :xportmonthstart, @allmonths) %></div>
   <div class="col-md-4 editbold lt"><%= select(@object, :xporttheater, @theaters) %></div>

@@ -1,0 +1,10 @@
+<% if @theater.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      <h2>The form contains <%= pluralize(@theater.errors.count, "error") %>:</h2>
+      <% @theater.errors.full_messages.each do |msg| %>
+        <h2>* <%= msg %></h2>
+      <% end %>
+    </div>
+  </div>
+<% end %>

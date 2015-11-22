@@ -3,7 +3,7 @@
 <div class="well well-sm" style="width: 75%;">
 <h1>Add a Theater or Venue</h1>
 
-<h2><%= render 'shared/theater_error_messages' %></h2>
+<h2><%= render 'error_messages' %></h2>
 
 <%= form_for(@theater) do |f| %>
 <div class="row">
@@ -30,17 +30,19 @@
 </div>
 <div class="row">
   <div class="col-md-2"><h3>Rep Entrance:</h3></div>
-  <div class="col-md-8"><h2><%= f.text_field :commentsentrance %></h2></div>
+  <div class="col-md-10"><h2><%= f.text_field :commentsentrance %></h2></div>
 </div>
 <div class="row">
   <div class="col-md-2"><h3>Console Location:</h3></div>
-  <div class="col-md-8"><h2><%= f.text_field :commentsworklocation %></h2></div>
+  <div class="col-md-10"><h2><%= f.text_field :commentsworklocation %></h2></div>
 </div>
 <div class="row">
   <div class="col-md-2"><h3>Lock:</h3></div>
-  <div class="col-md-2"><h2><%= f.text_field :commentslock %></h2></div>
+  <div class="col-md-10"><h2><%= f.text_field :commentslock %></h2></div>
+</div>
+<div class="row">
   <div class="col-md-2"><h3>Comments:</h3></div>
-  <div class="col-md-2"><h2><%= f.text_area :comments %></h2></div>
+  <div class="col-md-10"><h2><%= f.text_area :comments %></h2></div>
 </div>
 <%= f.submit "Add theater", class: "btn btn-large btn-primary" %>
 <% end %>
