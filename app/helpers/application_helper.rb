@@ -14,8 +14,7 @@ module ApplicationHelper
       break if astart.wday == 1
       astart = astart - 1.day
     end
-    weekstart = astart
-    return weekstart
+    return astart
   end
   
 # Functions for text messaging Representatives
