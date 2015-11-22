@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-# resources :theaters,
+resources :theaters#,
   # :performances,
   # :products,
   # :availables,
