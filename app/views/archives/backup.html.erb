@@ -1,17 +1,22 @@
+<% provide(:title, 'About Us') %>
+<div align="center">
+<div class="well well-sm" style="width: 90%;">
+
 <h1>Archive Raw Data</h1>
-<h6><p align="center">Download text files of website data for local storage and archiving.
-  <br>If these are edited, they are case sensitive (ex: 'true' not 'TRUE')'</h6></p>
+<h2>Download text files of website data for local storage and archiving.
+<br>If these are edited, they are case sensitive (ex: 'true' not 'TRUE')'</h2>
 
-<div align='center'>
-<table width = "80%"><tr>
-  <td width="10%"><b>Filename</b></td>
-  <td width="10%" align="center"><b>Link</b></td>
-  <td width="15%"align="center"><b>Last Update</b></td>
-  <td width="10%"align="center"><b>qty</b></td>
-  <td width="50%"><b>Description</b></td></tr>
+<div class="row">
+  <h3>
+  <div class="col-md-2">Filename</div>
+  <div class="col-md-2">Link</div>
+  <div class="col-md-2">Last Update</div>
+  <div class="col-md-2">qty</div>
+  <div class="col-md-4">Description</div>
+  </h3>
+</div>
 
-  <%= render :partial => 'datamodel', :collection => @datamodels %>
-</tr></table>
+<%= render :partial => 'datamodel', :collection => @datamodels %>
 </div>
 
 <p>&nbsp;<h2>Restore a Data file</h2></p>
@@ -30,3 +35,6 @@
 <% end %>
 </td></tr></table>
 </div></p>
+
+</div>
+</div>
