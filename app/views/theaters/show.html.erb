@@ -1,0 +1,33 @@
+<% provide(:title, @theater.name) %>
+
+<dl class="dl-horizontal">
+  <dt><%= @theater.name %></dt>
+    <dd><%= @theater.address %>
+      <%= @theater.city %>, <%= @theater.state %>
+    </dd>
+  <dt>Now Showing:</dt>
+    <dd>
+      <% if !@theater.performance.nil? %>
+        <%= link_to @theater.performance.name, @theater.performance %>
+      <% end %>
+    </dd>
+  <dt>Phone:</dt>
+    <dd><%= @theater.phone %>&nbsp;</dd>
+  <dt>Enter:</dt>
+    <dd><%= @theater.commentsentrance %>&nbsp;</dd>
+  <dt>Console:</dt>
+    <dd><%= @theater.commentsworklocation %>&nbsp;</dd>
+  <dt>Lock Code:</dt>
+    <dd><%= @theater.commentslock %>&nbsp;</dd>
+  <dt>&nbsp;</dt>
+    <dd><%= @theater.comments %>&nbsp;</dd>
+
+  <% if current_user.admin?  %>
+  <dt>Administration Only:</dt>
+    <dd><%= link_to "List all Venues", theaters_path, class: "btn btn-xs btn-primary" %>
+        <%= link_to "Edit This Venue", edit_theater_path(@theater), class: "btn btn-xs btn-warning" %></dd>
+  <% end %>
+  <dt>&nbsp;</dt>
+     <dd><%= link_to "Current Schedule", events_path, class: "btn btn-medium btn-primary" %></dd>
+  <dt>
+</dl>

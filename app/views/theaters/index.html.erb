@@ -1,0 +1,22 @@
+<% provide(:title, 'All Theaters') %>
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+<h1>Theaters and Venues</h1>
+
+  <% if current_user.admin?  %>
+    <%= link_to "Create a Venue", new_theater_path(@theater), class: "btn btn-medium btn-primary" %>
+    <br><%= link_to "Assign a show to a theater", performances_path, class: "btn btn-medium btn-primary" %>
+  <% end %>
+
+<%= will_paginate %>
+
+<% @theaters.each do |theater| %>
+<div class="row">
+  <%= render theater %>
+</div>
+<% end %>
+
+<%= will_paginate %>
+
+</div>
+</div>

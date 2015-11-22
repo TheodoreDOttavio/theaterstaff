@@ -1,0 +1,49 @@
+<% provide(:title, 'Add a Theater') %>
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+<h1>Add a Theater or Venue</h1>
+
+<h2><%= render 'shared/theater_error_messages' %></h2>
+
+<%= form_for(@theater) do |f| %>
+<div class="row">
+  <div class="col-md-6"><h3>Name</h3></div>
+  <div class="col-md-6"><h2><%= f.text_field :name %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-6"><h3>Company</h3></div>
+  <div class="col-md-6"><h2><%= f.select :company, @companies %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-3"><h3>Address</h3></div>
+  <div class="col-md-3"><h2><%= f.text_field :address %></h2></div>
+  <div class="col-md-3"><h3>Phone</h3></div>
+  <div class="col-md-3"><h2><%= f.telephone_field :phone %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-2"><h3>City</h3></div>
+  <div class="col-md-2"><h2><%= f.text_field :city %></h2></div>
+  <div class="col-md-2"><h3>State</h3></div>
+  <div class="col-md-2"><h2><%= f.text_field :state %></h2></div>
+  <div class="col-md-2"><h3>Zip</h3></div>
+  <div class="col-md-2"><h2><%= f.text_field :zip %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-2"><h3>Rep Entrance:</h3></div>
+  <div class="col-md-8"><h2><%= f.text_field :commentsentrance %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-2"><h3>Console Location:</h3></div>
+  <div class="col-md-8"><h2><%= f.text_field :commentsworklocation %></h2></div>
+</div>
+<div class="row">
+  <div class="col-md-2"><h3>Lock:</h3></div>
+  <div class="col-md-2"><h2><%= f.text_field :commentslock %></h2></div>
+  <div class="col-md-2"><h3>Comments:</h3></div>
+  <div class="col-md-2"><h2><%= f.text_area :comments %></h2></div>
+</div>
+<%= f.submit "Add theater", class: "btn btn-large btn-primary" %>
+<% end %>
+
+</div>
+</div>
