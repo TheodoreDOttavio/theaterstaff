@@ -51,19 +51,5 @@ class TheatersController < ApplicationController
     flash[:success] = "Theater/Venue has been deleted."
     redirect_to theaters_path
   end
-
-
-
-  def theater_params
-      params.require(:theater).permit(:name,
-        :company,
-        :address,
-        :city, :state, :zip,
-        :phone,
-        :comments,
-        :commentsentrance,
-        :commentsworklocation,
-        :commentslock )
-  end
-
+  
 end
