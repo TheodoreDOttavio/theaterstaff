@@ -3,7 +3,7 @@
 <div align="center">
 <div class="well well-sm" style="width: 50%;">
 <h1>Update Your Profile</h1>
-  <%= render 'error_messages' %>
+<%= render 'static_pages/error_messages', :currentmodel => @user %>
 <%= form_for(@user) do |f| %>
 
 <h3>

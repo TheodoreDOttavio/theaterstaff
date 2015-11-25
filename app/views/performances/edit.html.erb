@@ -4,11 +4,11 @@
 
 <h1>Update Show</h1>
 
+<%= render 'static_pages/error_messages', :currentmodel => @performance %>
+
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@performance) do |f| %>
-
-      <%= render 'error_messages' %>
 
       <%= f.label :name %>
       <%= f.text_field :name %>

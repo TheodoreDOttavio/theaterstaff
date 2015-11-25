@@ -3,7 +3,7 @@
 <div class="well well-sm" style="width: 75%;">
 <h1>Update Theater or Venue</h1>
 
-<h2><%= render 'error_messages' %></h2>
+<%= render 'static_pages/error_messages', :currentmodel => @theater %>
 
 <%= form_for(@theater) do |f| %>
 <div class="row">

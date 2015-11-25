@@ -3,7 +3,7 @@
 <div class="well well-sm" style="width: 75%;">
 <h1>Add a Show</h1>
 
-<h2><%= render 'static_pages/error_messages', :currentmodel => @performance %></h2>
+<%= render 'static_pages/error_messages', :currentmodel => @performance %>
 
 <%= form_for(@performance) do |f| %>
   <%= f.hidden_field :closeing, value:'3000-01-01' %>
