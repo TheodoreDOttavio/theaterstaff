@@ -48,14 +48,14 @@
 </div>
 
 <fieldset id="performance-cabinets" class="editbold">
-  <%= f.fields_for :cabinets do |cabinet| %>
-    <%= render 'cabinet_fields', f: cabinet %>
-  <% end %>
   <%= link_to_add_association 'add product', f, :cabinets,
     'data-association-insertion-node' => "#performance-cabinets",
     'data-association-insertion-method' => "append",
     :wrap_object => Proc.new {|cabinets| cabinets.build_product; cabinets },
     class: "btn btn-sm btn-primary" %>
+  <%= f.fields_for :cabinets do |cabinet| %>
+    <%= render 'cabinet_fields', f: cabinet %>
+  <% end %>
 </fieldset>
 
 <%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
