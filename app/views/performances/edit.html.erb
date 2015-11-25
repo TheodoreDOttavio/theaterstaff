@@ -43,11 +43,9 @@
 </div>
 
 <fieldset id="performance-cabinets" class="editbold">
-  <ol>
     <%= f.fields_for :cabinets do |cabinet| %>
       <%= render 'cabinet_fields', f: cabinet %>
     <% end %>
-  </ol>
   <%= link_to_add_association 'add product', f, :cabinets,
     'data-association-insertion-node' => "#performance-cabinets ol",
     'data-association-insertion-method' => "append",
