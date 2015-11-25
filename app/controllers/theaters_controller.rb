@@ -51,5 +51,5 @@ class TheatersController < ApplicationController
     flash[:success] = "Theater/Venue has been deleted."
     redirect_to theaters_path
   end
-  
+
 end

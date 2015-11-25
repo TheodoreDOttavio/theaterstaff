@@ -8,7 +8,7 @@ class PerformancesController < ApplicationController
       @performances = Performance.paginate(page: params[:page]).order(:name)
     end
   end
-  
+
 
   def show
     #profile page for a single show
@@ -71,15 +71,15 @@ class PerformancesController < ApplicationController
       # :include => :events,
       # :order => 'events.curtain',
       # :conditions => ['events.curtain > ?', mystart])
-# 
+
     # #to filter by availability
     # @users = User.all.order(:name)
-# 
+
     # @mydatearray = []
     # @mydate = DateTime.new
-# 
+
     # @curtains = Curtains.all.order(:set,:hrmin)
-# 
+
     # @daysoftheweek = {}
     # (0..6).each do |d|
       # @daysoftheweek[(mystart + d.days).strftime('%a')] = d
@@ -87,14 +87,14 @@ class PerformancesController < ApplicationController
     # @curtaintime = {}
     # @curtainselectedday = {}
     # @curtainselectedtime = {}
-# 
+
     # @performance.events.each do |p|
       # if p.curtain.strftime('%I').to_f > 4 then
         # @curtaintime[p.curtain] = p.curtain.strftime('%a') + " E - " + p.curtain.strftime('%a %m/%d')
       # else
         # @curtaintime[p.curtain] = p.curtain.strftime('%a') + " M - " + p.curtain.strftime('%a %m/%d')
       # end
-# 
+
       # #Formatted DateTime stamps
       # @curtainselectedday[p.curtain] = p.curtain.strftime('%a')
       # @curtainselectedtime[p.curtain] = p.curtain.strftime('%H:%M')

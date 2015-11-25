@@ -22,7 +22,7 @@ class PapersController < ApplicationController
     @deliveryformat = []
     @deliveryformat.push(["Download",1])
     @deliveryformat.push(["Email: ",2])
-    
+
 
     #for weekly output function
     @outputformat = []

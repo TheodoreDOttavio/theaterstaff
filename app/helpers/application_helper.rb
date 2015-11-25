@@ -16,7 +16,7 @@ module ApplicationHelper
     end
     return astart
   end
-  
+
 # Functions for text messaging Representatives
   def config_yaml
      @config_yaml ||= YAML::load(File.open("#{Rails.root}/db/sms_carriers.yml"))
