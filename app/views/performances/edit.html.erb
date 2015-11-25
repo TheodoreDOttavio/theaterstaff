@@ -1,11 +1,14 @@
 <% provide(:title, "Edit Show") %>
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+
 <h1>Update Show</h1>
 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@performance) do |f| %>
 
-      <%= render 'shared/performance_error_messages' %>
+      <%= render 'error_messages' %>
 
       <%= f.label :name %>
       <%= f.text_field :name %>
@@ -48,4 +51,7 @@
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
+</div>
+
+</div>
 </div>
