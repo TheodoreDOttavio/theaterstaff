@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-resources :theaters#,
-  # :performances,
+resources :theaters,
+  :performances#,
   # :products,
   # :availables,
   # :distributeds
