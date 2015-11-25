@@ -1,0 +1,12 @@
+<!--This error message alert is rendered by several new/edit forms !-->
+
+<% if currentmodel.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      <h2>The form contains <%= pluralize(currentmodel.errors.count, "error") %>:</h2>
+      <% currentmodel.errors.full_messages.each do |msg| %>
+        <h2>* <%= msg %></h2>
+      <% end %>
+    </div>
+  </div>
+<% end %>
