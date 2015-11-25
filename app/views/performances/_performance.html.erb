@@ -13,7 +13,6 @@
   <div class="col-md-3 editbold lt"><%= performance.theater.name %></div>
   <div class="col-md-3 editlight lt"><%= performance.theater.company %></div>
   <% end %>
-</div>
 <div class="col-md-1 editbold"><%= link_to "Edit", edit_performance_path(performance), class: "btn btn-sm btn-warning" %></div>
 <div class="col-md-1 editbold"><%= link_to "Delete", performance, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-sm btn-danger"  %></div>
 </div>
