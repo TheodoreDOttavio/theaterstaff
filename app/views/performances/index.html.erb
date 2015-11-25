@@ -1,23 +1,10 @@
-<h2><%= @title %></h2>
-
-<dl class="dl-horizontal">
-  <dt>Performance Name</dt>
-  <dt>Special Instructions</dt>
-  <dd>Indicate if show is at a theatre, closed, or upcoming</dd>
-  <dd>Note any actor movements that effect representatives</dd>
-</dl>
+<% provide(:title, 'All Performances') %>
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+<h1><%= @title %></h1>
 
 <%= will_paginate %>
-
-<div align='center'>
-  <% if current_user.admin?  %>
-    <%= link_to "Create a Show", new_performance_path(@performance), class: "btn btn-medium btn-primary" %>
-  <% end %>
-<table width = '80%'>
-  <% @performances.each do |performances| %>
-    <tr><%= render performances %></tr>
-  <% end %>
-</table>
-</div>
-
+<%= render @performances %>
 <%= will_paginate %>
+
+<%= link_to "Create a Show", new_performance_path(@performance), class: "btn btn-medium btn-primary" %>
