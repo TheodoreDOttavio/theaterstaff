@@ -14,6 +14,15 @@
 </div>
 
 <div class="row">
+  <div class="col-md-4 editbold rt">Theater</div>
+  <div class="col-md-8 editbold lt">
+    <%= f.fields_for :theater do |b| %>
+      <%= f.select :theater_id, Theater.all.map {|e| [e.name, e.id]} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-4 editbold rt">First Preview</div>
   <div class="col-md-8 editbold lt"><%= f.text_field :opening, :value => @performance.opening.strftime('%Y-%m-%d') %></div>
 </div>
@@ -29,18 +38,9 @@
         " is " + @performance.closeing.strftime('%A  %b %d, %Y')
       end
     end %>
+  </div>
   <div class="col-md-8 editbold rt"><%= f.text_field :closeing, :value => @performance.closeing.strftime('%Y-%m-%d') %></div>
 </div>
-
-<div class="row">
-  <div class="col-md-4 editbold rt">Theater</div>
-  <div class="col-md-8 editbold lt">
-    <%= f.fields_for :theater do |b| %>
-      <%= f.select :theater_id, Theater.all.map {|e| [e.name, e.id]} %>
-    <% end %>
-  </div>
-</div>
-
 
 <fieldset id="performance-cabinets" class="editbold">
   <ol>
