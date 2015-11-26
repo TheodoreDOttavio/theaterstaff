@@ -7,7 +7,7 @@
   <%= render @theaters %>
 <%= will_paginate class: "editbold" %>
 
-<%= link_to "Create a Venue", new_theater_path(@theater), class: "btn btn-small btn-primary" if current_user.admin? %>
+<%= link_to "Create a Venue", new_theater_path(@theater), class: "btn btn-sm btn-primary" if current_user.admin? %>
 
 </div>
 </div>

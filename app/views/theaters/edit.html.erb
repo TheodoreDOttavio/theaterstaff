@@ -7,44 +7,44 @@
 
 <%= form_for(@theater) do |f| %>
 <div class="row">
-  <div class="col-md-6"><h3>Name</h3></div>
-  <div class="col-md-6"><h2><%= f.text_field :name %></h2></div>
+  <div class="col-md-6 editbold rt">Name</div>
+  <div class="col-md-6 editbold lt"><%= f.text_field :name %></div>
 </div>
 <div class="row">
-  <div class="col-md-6"><h3>Company</h3></div>
-  <div class="col-md-6"><h2><%= f.select :company, @companies %></h2></div>
+  <div class="col-md-6 editbold rt">Company</div>
+  <div class="col-md-6 editbold lt"><%= f.select :company, @companies %></div>
 </div>
 <div class="row">
-  <div class="col-md-3"><h3>Address</h3></div>
-  <div class="col-md-3"><h2><%= f.text_field :address %></h2></div>
-  <div class="col-md-3"><h3>Phone</h3></div>
-  <div class="col-md-3"><h2><%= f.telephone_field :phone %></h2></div>
+  <div class="col-md-3 editbold rt">Address</div>
+  <div class="col-md-3 editbold lt"><%= f.text_field :address %></div>
+  <div class="col-md-3 editbold rt">Phone</div>
+  <div class="col-md-3"><%= f.telephone_field :phone %></div>
 </div>
 <div class="row">
-  <div class="col-md-2"><h3>City</h3></div>
-  <div class="col-md-2"><h2><%= f.text_field :city %></h2></div>
-  <div class="col-md-2"><h3>State</h3></div>
-  <div class="col-md-2"><h2><%= f.text_field :state %></h2></div>
-  <div class="col-md-2"><h3>Zip</h3></div>
-  <div class="col-md-2"><h2><%= f.text_field :zip %></h2></div>
+  <div class="col-md-2 editbold rt">City</div>
+  <div class="col-md-2 editbold lt"><%= f.text_field :city %></div>
+  <div class="col-md-2 editbold rt">State</div>
+  <div class="col-md-2 editbold lt"><%= f.text_field :state %></div>
+  <div class="col-md-2 editbold rt">Zip</div>
+  <div class="col-md-2"><%= f.text_field :zip %></div>
 </div>
 <div class="row">
-  <div class="col-md-2"><h3>Rep Entrance:</h3></div>
-  <div class="col-md-10"><h2><%= f.text_field :commentsentrance %></h2></div>
+  <div class="col-md-2 editbold rt">Rep Entrance:</div>
+  <div class="col-md-10 editbold lt"><%= f.text_field :commentsentrance %></div>
 </div>
 <div class="row">
-  <div class="col-md-2"><h3>Console Location:</h3></div>
-  <div class="col-md-10"><h2><%= f.text_field :commentsworklocation %></h2></div>
+  <div class="col-md-2 editbold rt">Console Location:</div>
+  <div class="col-md-10 editbold lt"><%= f.text_field :commentsworklocation %></div>
 </div>
 <div class="row">
-  <div class="col-md-2"><h3>Lock:</h3></div>
-  <div class="col-md-10"><h2><%= f.text_field :commentslock %></h2></div>
+  <div class="col-md-2 editbold rt">Lock:</div>
+  <div class="col-md-10 editbold lt"><%= f.text_field :commentslock %></div>
 </div>
 <div class="row">
-  <div class="col-md-2"><h3>Comments:</h3></div>
-  <div class="col-md-10"><h2><%= f.text_area :comments %></h2></div>
+  <div class="col-md-2 editbold rt">Comments:</div>
+  <div class="col-md-10 editbold lt"><%= f.text_area :comments %></div>
 </div>
-<%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
+<%= f.submit "Save Changes", class: "btn btn-sm btn-primary" %>
 <% end %>
 
 </div>
