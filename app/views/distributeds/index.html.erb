@@ -1,24 +1,42 @@
-<% provide(:title, 'Distributed Headset Reports') %>
-<h2>Distributed Products</h2>
+<% provide(:title, 'Distributed Data Entry') %>
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+<h1>Edit for <%= @weekof %></h1>
 
-<h2>Add and Edit Distributions for the week</h2>
+<div class="row">
+  <div class="col-md-12 editbold ct">Select a Show to add distribution:</div>
+<% @showstoedit.each_with_index do |p,i| %>
+  <% if i/4 == i/4.0 then %></div><div class="row"><% end %>
+  <div class="col-md-3 editbold lt">
+    <%= link_to p[0], new_distributed_path(params.merge(:mystart => params[:mystart], 
+      :performance_id => p[1])),
+      :class => p[2] %>
+  </div>
+<% end %>
+</div>
 
-<div align='center'>
-<Table width="60%" bgcolor="lightgray" border="0">
-<tr>
- <% @weekstartstoedit.each_with_index do |weekof,i| %>
-   <% if i/4 == i/4.0 then %></tr><tr><% end %>
-   <td width="25%" valign="top" bgcolor="white">
-   <div align="center">
-     <%= link_to weekof[0], preedit_path(params.merge(:mystart => weekof[1])), class: weekof[6] %>
-   </div>
-   <div align="left">
-     <strong><%= weekof[2] %></strong> Performances<br>
-     <strong><%= weekof[3] %></strong> Infrared<br>
-     <strong><%= weekof[4] %></strong> Special Services<br>
-     <strong><%= weekof[5] %></strong> Representatives
-   </div>
-   </td>
- <% end %>
-  </tr></Table>
+
+<h1>Review Distributions</h1>
+
+  <div class="row">
+    <div class="col-md-3 editbold lt">Change Week To Edit:</div>
+    <div class="col-md-2 editbold ct">Performances</div>
+    <div class="col-md-2 editbold ct">Infrared</div>
+    <div class="col-md-2 editbold ct">Special Services</div>
+    <div class="col-md-2 editbold ct">Representatives</div>
+  </div>
+
+<% @weektoedit.each do |weekof| %>
+  <div class="row">
+    <div class="col-md-3 editbold ct">
+      <%= link_to weekof["showweekof"], distributeds_path(params.merge(:mystart => weekof["startdate"])), class: weekof["buttonclass"] %>
+    </div>
+    <div class="col-md-2 editlight ct"><%= weekof["showcount"] %></div>
+    <div class="col-md-2 editlight ct"><%= weekof["infraredcount"] %></div>
+    <div class="col-md-2 editlight ct"><%= weekof["specialservicescount"] %></div>
+    <div class="col-md-2 editlight ct"><%= weekof["repcount"] %></div>
+  </div>
+<% end %>
+
+</div>
 </div>

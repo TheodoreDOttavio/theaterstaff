@@ -5,21 +5,35 @@ class DistributedsController < ApplicationController
 
   def index
   if current_user.admin?
-    mystart = weekstart
-    myend = mystart + 7
-    @mystart = mystart-7
-    @weekof = mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y')
+    if params[:mystart] then
+      @mystart = params[:mystart].to_date
+    else
+      @mystart = weekstart
+    end
 
-    #to edit, we want to go by the week,
-    #  so pass dates in the params for preedit -- new/create/update
-    #  and jump to predit
+    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+7).strftime('%b %d, %Y')
+
+    performances = Performance.where("closeing >= ? and opening <= ?", @mystart, @mystart).select(:id, :name).order(:name)
+    @showstoedit = []
+    performances.each do |p|
+      mycount = Distributed.datespan(@mystart, (@mystart+7)).where('performance_id = ?', p.id).count
+      if mycount != 0 then
+        @showstoedit.push([p.name[0..16],p.id,"btn btn-sm btn-primary"])
+      else
+        @showstoedit.push([p.name[0..16],p.id,"btn btn-sm btn-danger"])
+      end
+    end
+
+
+    #Display where the data is at - overview of what has been entered
+    @weektoedit = Array.new
     @weekstartstoedit = []
     for i in 1..104 do
       mystart = weekstart - (i * 7)
       myend = mystart + 6
-      #add in some info about what has been enetered
-      myshowcount = Performance.showingcount(mystart, (mystart+7))
 
+      #add in some info about what has been entered
+      myshowcount = Performance.showingcount(mystart, (mystart+7))
       myinfraredcount = Distributed.infraredwkcount(mystart)
       myspecialservicescount = Distributed.specialservicecount(mystart, (mystart+7))
       myrepcount = Distributed.representativecount(mystart, (mystart+7))
@@ -34,20 +48,20 @@ class DistributedsController < ApplicationController
         end
       end
 
-      @weekstartstoedit.push([mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y'),
-        mystart,
-        myshowcount,
-        myinfraredcount,
-        myspecialservicescount,
-        myrepcount,
-        mybuttonclass])
+      @weektoedit.push({"showweekof" => mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y'),
+        "startdate" => mystart,
+        "showcount" => myshowcount,
+        "infraredcount" => myinfraredcount,
+        "specialservicescount" => myspecialservicescount,
+        "repcount" => myrepcount,
+        "buttonclass" => mybuttonclass})
     end
   else
     redirect_to root_url
   end
   end
 
-  def preedit
+  def weekedit
   if current_user.admin?
     #come into this with a mystart and here we select the theater
     #  and then this goes to Create for create/udate/delete
@@ -62,9 +76,9 @@ class DistributedsController < ApplicationController
     performances.each do |p|
       mycount = Distributed.datespan(mystart, (mystart+7)).where('performance_id = ?', p.id).count
       if mycount != 0 then
-        @showstoedit.push([p.name[0..16],p.id,"btn btn-small btn-primary"])
+        @showstoedit.push([p.name[0..16],p.id,"btn btn-sm btn-primary"])
       else
-        @showstoedit.push([p.name[0..16],p.id,"btn btn-small btn-danger"])
+        @showstoedit.push([p.name[0..16],p.id,"btn btn-sm btn-danger"])
       end
     end
   else

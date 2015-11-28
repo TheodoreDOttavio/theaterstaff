@@ -2,10 +2,9 @@ Rails.application.routes.draw do
 
 resources :theaters,
   :performances,
-  :products#,
+  :products,
+  :distributeds#,
   # :availables,
-  # :distributeds
-#
 
 
 resources :users do
@@ -43,7 +42,7 @@ get "archives/backup"
 post "archives/restore"
 
 # #preselect theater for distributeds data entry:
-match '/preedit', to: 'distributeds#preedit', via: 'get'
+match '/weekedit', to: 'distributeds#weekedit', via: 'get'
 match '/distributeds', to: 'distributeds#index', via: 'get'
 
 # #Data Viewer
