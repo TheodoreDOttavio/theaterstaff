@@ -1,9 +1,7 @@
 class Theater < ActiveRecord::Base
-  delegate :name, :company, :address, :city => :theater, :prefix => true
   
   has_one :performance
   accepts_nested_attributes_for :performance
-
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :address, presence: true

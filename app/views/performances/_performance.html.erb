@@ -1,12 +1,12 @@
 <div class="row">
-<div class="col-md-3 editbold lt"><%= link_to performance_name, performance %></div>
+<div class="col-md-3 editbold lt"><%= link_to performance.name, performance %></div>
   <% if params[:current] != "1" then %>
   <div class="col-md-2 editlight lt"><%= performance.theater_name %></div>
   <div class="col-md-4 editbold ct">
     <%= if performance_closeing.strftime('%Y-%m-%d') == "3000-01-01" then
-          "Opened " + performance_opening.strftime('%b %d, %Y')
+          "Opened " + performance.opening.strftime('%b %d, %Y')
         else
-          performance_opening.strftime('%b %d, %Y') + " to " + performance_closeing.strftime('%b %d, %Y')
+          performance.opening.strftime('%b %d, %Y') + " to " + performance.closeing.strftime('%b %d, %Y')
         end %>
   </div>
   <% else %>

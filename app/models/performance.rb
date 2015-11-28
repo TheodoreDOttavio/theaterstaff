@@ -1,4 +1,6 @@
 class Performance < ActiveRecord::Base
+  delegate :name, :company, :address, :city => :theater, :prefix => true
+    
   belongs_to :theater
 
   has_many :products, :through => :cabinets
@@ -9,8 +11,6 @@ class Performance < ActiveRecord::Base
            :allow_destroy => true
 
   validates :name, presence: true, length: { maximum: 50 }
-  
-  delegate :name, :closeing, :opening => :performance, :prefix => true
 
   scope :showinglist, ->(mystart) { where("closeing >= ? and opening <= ?", mystart, mystart).select(:id, :name).order(:name) }
   scope :showingcount, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend).uniq.pluck(:id).count }
