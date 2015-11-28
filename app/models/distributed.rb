@@ -21,4 +21,9 @@ class Distributed < ActiveRecord::Base
     where(curtain: [mystart..myend], performance_id: theater.performance.id).distinct.pluck(:performance_id) }
   scope :infrared_for_oneperformance, ->(mystart, myend, performanceid) {
     where(curtain: [mystart..myend], performance_id: performanceid).infrared.order(:curtain, :eve) }
+
+  #Scopes for data entry
+  scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
+  scope :specialservicecount, ->(mystart, myend) { where(product_id: [4,5], language: [2..20]).uniq.pluck(:performance_id).count }
+  scope :representativecount, ->(mystart, myend) { where(product_id: [1,3,6,7], representative: 1).count }
 end

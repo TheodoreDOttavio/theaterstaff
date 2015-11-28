@@ -8,9 +8,10 @@ class Performance < ActiveRecord::Base
            :reject_if => :all_blank,
            :allow_destroy => true
 
-    validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }
 
-    scope :showing, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend) }
-    scope :nowshowing, -> { where("closeing >= ?", DateTime.now) }
-    scope :dark, -> { where("closeing < ?", DateTime.now) }
+  scope :showing, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend) }
+  scope :showingcount, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend).uniq.pluck(:id).count }
+  scope :nowshowing, -> { where("closeing >= ?", DateTime.now) }
+  scope :dark, -> { where("closeing < ?", DateTime.now) }
 end

@@ -43,7 +43,8 @@ get "archives/backup"
 post "archives/restore"
 
 # #preselect theater for distributeds data entry:
-# match '/preedit', to: 'distributeds#preedit', via: 'get'
+match '/preedit', to: 'distributeds#preedit', via: 'get'
+match '/distributeds', to: 'distributeds#index', via: 'get'
 
 # #Data Viewer
 # resources :distributed_reports, :only => [:index]
