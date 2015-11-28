@@ -1,17 +1,17 @@
 <div class="row">
-<div class="col-md-3 editbold lt"><%= link_to performance.name, performance %></div>
+<div class="col-md-3 editbold lt"><%= link_to performance_name, performance %></div>
   <% if params[:current] != "1" then %>
-  <div class="col-md-2 editlight lt"><%= performance.theater.name %></div>
+  <div class="col-md-2 editlight lt"><%= performance.theater_name %></div>
   <div class="col-md-4 editbold ct">
-    <%= if performance.closeing.strftime('%Y-%m-%d') == "3000-01-01" then
-          "Opened " + performance.opening.strftime('%b %d, %Y')
+    <%= if performance_closeing.strftime('%Y-%m-%d') == "3000-01-01" then
+          "Opened " + performance_opening.strftime('%b %d, %Y')
         else
-          performance.opening.strftime('%b %d, %Y') + " to " + performance.closeing.strftime('%b %d, %Y')
+          performance_opening.strftime('%b %d, %Y') + " to " + performance_closeing.strftime('%b %d, %Y')
         end %>
   </div>
   <% else %>
-  <div class="col-md-3 editbold lt"><%= performance.theater.name %></div>
-  <div class="col-md-3 editlight lt"><%= performance.theater.company %></div>
+  <div class="col-md-3 editbold lt"><%= performance.theater_name %></div>
+  <div class="col-md-3 editlight lt"><%= performance.theater_company %></div>
   <% end %>
 <div class="col-md-1 editbold"><%= link_to "Edit", edit_performance_path(performance), class: "btn btn-sm btn-warning" %></div>
 <div class="col-md-1 editbold"><%= link_to "Delete", performance, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-sm btn-danger"  %></div>

@@ -8,7 +8,7 @@
 <% @showstoedit.each_with_index do |p,i| %>
   <% if i/4 == i/4.0 then %></div><div class="row"><% end %>
   <div class="col-md-3 editbold lt">
-    <%= link_to p[0], new_distributed_path(params.merge(:mystart => params[:mystart], 
+    <%= link_to p[0], new_distributed_path(params.merge(:mystart => params[:mystart],
       :performance_id => p[1])),
       :class => p[2] %>
   </div>

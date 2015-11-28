@@ -5,17 +5,17 @@
 <h1><%= @performance.name %></h1>
 
 <div class="row">
-  <div class="col-md-4 editbold lt"><%= link_to @performance.theater.name, @performance.theater %></div>
-  <div class="col-md-3 editlight ct"><%= @performance.theater.company %></div>
-  <div class="col-md-3 editlight lt"><%= @performance.theater.address %></div>
-  <div class="col-md-2 editlight lt"><%= @performance.theater.city %></div>
+  <div class="col-md-4 editbold lt"><%= link_to @performance.theater_name, @performance.theater %></div>
+  <div class="col-md-3 editlight ct"><%= @performance.theater_company %></div>
+  <div class="col-md-3 editlight lt"><%= @performance.theater_address %></div>
+  <div class="col-md-2 editlight lt"><%= @performance.theater_city %></div>
 </div>
 
 <h2>Closeing Date:&nbsp;
-  <% if @performance.closeing > DateTime.now()  %>
+  <% if @performance_closeing > DateTime.now()  %>
     Now Showing
   <% else %>
-    <%= @performance.closeing.strftime('%b %d, %Y') %>
+    <%= @performance_closeing.strftime('%b %d, %Y') %>
   <% end %>
 </h2>
 
