@@ -12,10 +12,10 @@
 </div>
 
 <h2>Closeing Date:&nbsp;
-  <% if @performance_closeing > DateTime.now()  %>
+  <% if @performance.closeing > DateTime.now()  %>
     Now Showing
   <% else %>
-    <%= @performance_closeing.strftime('%b %d, %Y') %>
+    <%= @performance.closeing.strftime('%b %d, %Y') %>
   <% end %>
 </h2>
 
