@@ -3,7 +3,7 @@
   <% if params[:current] != "1" then %>
   <div class="col-md-2 editlight lt"><%= performance.theater_name %></div>
   <div class="col-md-4 editbold ct">
-    <%= if performance_closeing.strftime('%Y-%m-%d') == "3000-01-01" then
+    <%= if performance.closeing.strftime('%Y-%m-%d') == "3000-01-01" then
           "Opened " + performance.opening.strftime('%b %d, %Y')
         else
           performance.opening.strftime('%b %d, %Y') + " to " + performance.closeing.strftime('%b %d, %Y')
