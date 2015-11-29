@@ -21,14 +21,14 @@ class PerformancesController < ApplicationController
     #  {name: "Conversation", data: current_user.timesheets.map{|t| [t.day, t.conversation] }}
     #    ] %>
 
-    @mychart = []
-    thisshowproductlist = Distributed.where(performance_id: params[:id]).group(:product_id)
-    thisshowproductlist.each do |p|
-      @mychart.push({name: p.product.name.to_s,
-        data: Distributed.where(performance_id: params[:id], product_id: p.product_id).map{
-          |t| [t.curtain, t.quantity]}
-        })
-    end
+    #@mychart = []
+    #thisshowproductlist = Distributed.where(performance_id: params[:id]).group(:product_id)
+    #thisshowproductlist.each do |p|
+    #  @mychart.push({name: p.product.name.to_s,
+    #    data: Distributed.where(performance_id: params[:id], product_id: p.product_id).map{
+    #      |t| [t.curtain, t.quantity]}
+    #    })
+    #end
 
     #and Chartkick uses a google service which is annoying
     #   to wait for when you're on a completely unrelated page.
