@@ -16,7 +16,7 @@ class TheatersController < ApplicationController
 
 
   def create
-    @theater = Theater.new(theater_params)
+    @theater = Theater.new
     @companies = companylist
     if @theater.save
       flash[:success] = "A new Theater/Venue has been added!"
@@ -37,7 +37,7 @@ class TheatersController < ApplicationController
   def update
     @theater = Theater.find(params[:id])
     @companies = companylist
-    if @theater.update_attributes(theater_params)
+    if @theater.update_attributes(params)
       flash[:success] = "Theater/Venue Information has been Updated"
       redirect_to theaters_path
     else
