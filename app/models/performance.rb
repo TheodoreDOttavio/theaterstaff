@@ -1,4 +1,4 @@
-class Performance < ActiveRecord::Base    
+class Performance < ActiveRecord::Base
   belongs_to :theater
 
   has_many :products, :through => :cabinets

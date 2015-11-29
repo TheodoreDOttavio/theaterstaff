@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
 
-  helper_method :availabilitywindow?
+  #helper_method :availabilitywindow?
 
   def companylist
     companies = []
@@ -28,29 +28,27 @@ class ApplicationController < ActionController::Base
   end
 
 
-  private
+  def availabilitywindow?
+    #To generate a link to submit user availability
+    #  or a link to the schedule based on the day of the week
+    #Returns True when the user may post
 
-    def availabilitywindow?
-      #To generate a link to submit user availability
-      #  or a link to the schedule based on the day of the week
-      #Returns True when the user may post
+    checkthis = DateTime.now
 
-      checkthis = DateTime.now
-
-      case checkthis.wday
-        when 0 #0 is Sunday
-          if checkthis.hour > 18
-            return true
-          end
-        when 1
+    case checkthis.wday
+      when 0 #0 is Sunday
+        if checkthis.hour > 18
           return true
-        when 2
-          if checkthis.hour < 20
-            return true
-          end
-        else
-          return false
-      end
+        end
+      when 1
+        return true
+      when 2
+        if checkthis.hour < 20
+          return true
+        end
+      else
+        return false
     end
+  end
 
 end
