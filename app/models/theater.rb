@@ -1,5 +1,4 @@
 class Theater < ActiveRecord::Base
-
   has_one :performance
   accepts_nested_attributes_for :performance
 

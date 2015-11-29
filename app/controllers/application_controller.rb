@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
 
-  #helper_method :availabilitywindow?
+  helper_method :availabilitywindow?
 
   def companylist
     companies = []
