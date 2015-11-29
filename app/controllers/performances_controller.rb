@@ -119,4 +119,27 @@ class PerformancesController < ApplicationController
     flash[:success] = @performance.name + " has been Deleted."
     redirect_to performances_path
   end
+  
+   private
+
+    def performance_params
+      params.require(:performance).permit(:name,
+        :theater_id,
+        :duration,
+        :intermission,
+        :opening,
+        :closeing,
+        :comments,
+      users_attributes: [ :id,
+        :name],
+      cabinets_attributes: [ :id,
+        :theater_id,
+        :product_id,
+        :quantity],
+      products_attributes: [ :id,
+        :name,
+        :payrate,
+        :options,
+        :comments ])
+    end
 end

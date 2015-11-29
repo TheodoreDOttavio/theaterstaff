@@ -35,8 +35,8 @@ class DistributedsController < ApplicationController
       #add in some info about what has been entered
       myshowcount = Performance.showingcount(mystart, (mystart+7))
       myinfraredcount = Distributed.infraredwkcount(mystart)
-      myspecialservicescount = Distributed.specialservicecount(mystart, (mystart+7))
-      myrepcount = Distributed.representativecount(mystart, (mystart+7))
+      myspecialservicescount = Distributed.specialservicewkcount(mystart)
+      myrepcount = Distributed.representativewkcount(mystart)
 
       if myinfraredcount == 0 && myspecialservicescount == 0 then
         mybuttonclass = "btn btn-sm btn-danger"
@@ -67,6 +67,7 @@ class DistributedsController < ApplicationController
     #default to this week for data entry
     mystart = params[:mystart].to_date
     @mystart = mystart
+    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+7).strftime('%b %d, %Y')
 
     #Get the Show Name
     @performance = Performance.find(params[:performance_id])
@@ -81,14 +82,14 @@ class DistributedsController < ApplicationController
       @representatives.push([u.name,u.id])
     end
 
-     @weekofdistributed = []
-     @performance.cabinets.each do |c|
-       if c.product.options > 0 then
-         @weekofdistributed = @weekofdistributed + Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
-       end
-     end
+    @weekofdistributed = []
+    @performance.cabinets.each do |c|
+      if c.product.options > 0 then
+        @weekofdistributed = @weekofdistributed + Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
+      end
+    end
 
-     @distributed = Distributed.new
+    @distributed = Distributed.new
   else
     redirect_to root_url
   end
@@ -147,7 +148,7 @@ class DistributedsController < ApplicationController
     show_name = Performance.find(myparams[:performance_id])
     flash[:success] = "Distribution:" + myflashtext + " for " + show_name.name
     mystart = params[:distributed0][:curtain].to_date
-    redirect_to preedit_path(:mystart => mystart)
+    redirect_to distributeds_path(:mystart => mystart)
   else
     redirect_to root_url
   end
@@ -210,21 +211,12 @@ class DistributedsController < ApplicationController
          language: thislang)
 
        if distributedsearch.count == 0 then
-         eventsearch = Event.onday(thisdate).where(eve: thiseve,
-           performance_id: performanceid)
-
-         if eventsearch.empty? then
-           representative_id = 1
-         else
-           representative_id = eventsearch.user_id
-         end
-
          weekofdistributed[i] = Distributed.new(performance_id: performanceid,
             curtain: thisdate,
             eve: thiseve,
             product_id: productid,
             language: thislang,
-            representative: representative_id)
+            representative: 0)
        else
          #ok, ... its a shitty place to do this, but here's a data cleaner
          #  for legacy crap data

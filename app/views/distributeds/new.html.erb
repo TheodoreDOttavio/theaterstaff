@@ -1,20 +1,12 @@
-<% provide(:title, 'Weekly logs') %>
-<%= render 'shared/distributed_error_messages' %>
+<% provide(:title, 'Distributed Data Entry') %>
+<div align="center">
+<div class="well well-sm">
+<h1><%= @performance.name %> for <%= @weekof %></h1>
 
-<h2><%= @performance.name %><br>
-Week of <%= @mystart.strftime('%b %d, %Y') %></h2>
+<%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
-<div align='center'>
-<%= link_to "Cancel", preedit_path(params.merge(:mystart => @mystart)), class: "btn btn-small btn-danger" %>
-<br><%= link_to "Main Page", distributeds_path(noreports: 1), class: "btn btn-small btn-warning" %><br>
-
-<% if @weekofdistributed.count > 28 %>
-  <p><Table width="90%" bgcolor="lightgray" border="1">
-<% else %>
-  <Table width="60%" bgcolor="lightgray" border="1">
-<% end %>
-
-    <tr>
+<%= link_to "Cancel", distributeds_path(params.merge(:mystart => @mystart)), class: "btn btn-sm btn-warning" %>
+<%= submit_tag 'Save Changes', class: "btn btn-sm btn-primary" %>
 
 <%= form_tag(:action => 'create', :method => 'post', :id => 1, :mystart => params[:mystart]) %>
 
@@ -23,17 +15,19 @@ Week of <%= @mystart.strftime('%b %d, %Y') %></h2>
     <% if distributed.curtain.strftime('%a') == 'Mon' %>
       <% if distributed.eve == false %>
         <% if distributed.language == 0 %>
-          <% if i > 1 %></td><% end %>
-          <td align="center" valign="top" bgcolor="white">
-           <h6><%= Product.find(distributed.product_id).name %></h6><br>
-           <%= submit_tag 'Save Changes', class: "btn btn-medium btn-primary" %>
+          <div class="row">
+            <div class="col-md-12 editbold ct">
+            	<%= Product.find(distributed.product_id).name %>
+            </div>
+          </div>
         <% end %>
       <% end %>
     <% end %>
 
 
-    <table><tr><td align="left" valign="top">
+<div class="row">
     <%= fields_for "distributed#{i}" do |f| %>
+      <div class="col-md-3 editbold rt">
       <% if distributed.language.to_i == 0 then %>
         <% if distributed.eve == true then %>
           <%= distributed.curtain.strftime('%a E (%m / %d)') %>
@@ -41,6 +35,7 @@ Week of <%= @mystart.strftime('%b %d, %Y') %></h2>
           <%= distributed.curtain.strftime('%a M (%m / %d)') %>
         <% end %>
       <% end %>
+      </div>
 
       <%= f.hidden_field :id, value:distributed.id %>
       <%= f.hidden_field :curtain, value:distributed.curtain %>
@@ -50,34 +45,31 @@ Week of <%= @mystart.strftime('%b %d, %Y') %></h2>
       <%= f.hidden_field :language, value:distributed.language %>
 
       <% if distributed.product_id == 1 or distributed.product_id == 6 then %>
+        <div class="col-md-3 editlight ct">
         <% if !distributed.quantity.nil? then %>
-          <td width = '110'><%= f.select :representative, options_for_select(@representatives, distributed.representative) %></td>
+          <%= f.select :representative, options_for_select(@representatives, distributed.representative) %>
         <% else %>
           <%= f.hidden_field :representative, value:1 %>
         <% end %>
+        </div>
       <% else %>
         <%= f.hidden_field :representative, value:distributed.representative %>
       <% end %>
 
-      </td>
-      <td align="right" valign="top">
         <% if distributed.language.to_i > 0 then %>
+          <div class="col-md-3 editbold lt">
           <%= @language.key(distributed.language.to_i) %>
+          </div>
         <% end %>
-        &nbsp;
-      </td><td align="center" valign="top" width="30%">
+
+        <div class="col-md-3 editbold lt">
         <%= f.number_field :quantity, value:distributed.quantity, :tabIndex => 2000 %>
-      </td>
+        </div>
+
     <% end %>
-    </tr></table>
-
-    <% if distributed.curtain.strftime('%a') == 'Sun' %>
-      <% if distributed.eve == true %>
-
-      <% end %>
-    <% end %>
-
+</div>
   <% end %>
 
-</tr></Table>
+
+</div>
 </div>

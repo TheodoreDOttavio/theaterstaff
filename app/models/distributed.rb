@@ -24,6 +24,6 @@ class Distributed < ActiveRecord::Base
 
   #Scopes for data entry
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
-  scope :specialservicecount, ->(mystart, myend) { where(product_id: [4,5], language: [2..20]).uniq.pluck(:performance_id).count }
-  scope :representativecount, ->(mystart, myend) { where(product_id: [1,3,6,7], representative: 1).count }
+  scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
+  scope :representativewkcount, ->(mystart) { where(product_id: [1,3,6,7], representative: 1).datespan(mystart, (mystart+7)).count }
 end
