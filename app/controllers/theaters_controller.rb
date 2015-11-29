@@ -16,7 +16,7 @@ class TheatersController < ApplicationController
 
 
   def create
-    @theater = Theater.new
+    @theater = Theater.new(theater_params)
     @companies = companylist
     if @theater.save
       flash[:success] = "A new Theater/Venue has been added!"
@@ -37,7 +37,7 @@ class TheatersController < ApplicationController
   def update
     @theater = Theater.find(params[:id])
     @companies = companylist
-    if @theater.update_attributes(params)
+    if @theater.update_attributes(theater_params)
       flash[:success] = "Theater/Venue Information has been Updated"
       redirect_to theaters_path
     else
@@ -52,4 +52,17 @@ class TheatersController < ApplicationController
     redirect_to theaters_path
   end
 
+private
+
+  def theater_params
+      params.require(:theater).permit(:name,
+        :company,
+        :address,
+        :city, :state, :zip,
+        :phone,
+        :comments,
+        :commentsentrance,
+        :commentsworklocation,
+        :commentslock )
+  end
 end
