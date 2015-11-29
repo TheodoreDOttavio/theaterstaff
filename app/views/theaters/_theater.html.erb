@@ -3,10 +3,10 @@
 <div class="col-md-2 editlight lt"><%= theater.company %></div>
 <div class="col-md-3 editbold ct">
   <%= if !theater.performance.nil?
-    if theater.performance.closeing <= DateTime.now then
-      "Dark on " + theater.performance.closeing.strftime('%b %d, %Y')
+    if theater.performance_closeing <= DateTime.now then
+      "Dark on " + theater.performance_closeing.strftime('%b %d, %Y')
     else
-      theater.performance.name
+      theater.performance_name
     end
   end %>
 </div>

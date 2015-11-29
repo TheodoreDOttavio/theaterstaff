@@ -15,10 +15,10 @@
 
 <h1>
   <% if !@theater.performance.nil? %>
-    <% if @theater.performance.closeing <= DateTime.now then %>
-      Dark on <%= @theater.performance.closeing.strftime('%b %d, %Y') %>
+    <% if @theater.performance_closeing <= DateTime.now then %>
+      Dark on <%= @theater.performance_closeing.strftime('%b %d, %Y') %>
     <% else %>
-      <%= link_to @theater.performance.name, @theater.performance %>
+      <%= link_to @theater.performance_name, @theater.performance %>
     <% end %>
   <% end %>
 </h1>
