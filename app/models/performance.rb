@@ -1,6 +1,7 @@
 class Performance < ActiveRecord::Base
   belongs_to :theater
 
+  has_many :distributeds
   has_many :products, :through => :cabinets
   has_many :cabinets, dependent: :destroy
 
