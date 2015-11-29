@@ -1,7 +1,7 @@
 class Performance < ActiveRecord::Base
   belongs_to :theater
 
-  has_many :distributeds, foreign_key: :distributed_id
+  has_many :distributeds, foreign_key: :performance_id
   has_many :products, :through => :cabinets
   has_many :cabinets, dependent: :destroy
 
