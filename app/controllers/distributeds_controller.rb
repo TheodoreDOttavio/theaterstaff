@@ -30,13 +30,14 @@ class DistributedsController < ApplicationController
     @weekstartstoedit = []
     for i in 1..104 do
       mystart = weekstart - (i * 7)
-      myend = mystart + 6
 
       #add in some info about what has been entered
       myshowcount = Performance.showingcount(mystart, (mystart+7))
       myinfraredcount = Distributed.infraredwkcount(mystart)
       myspecialservicescount = Distributed.specialservicewkcount(mystart)
+      myshiftcount = Distributed.shiftwkcount(mystart)
       myrepcount = Distributed.representativewkcount(mystart)
+      mytbdrepcount = Distributed.representativetbdwkcount(mystart)
 
       if myinfraredcount == 0 && myspecialservicescount == 0 then
         mybuttonclass = "btn btn-sm btn-danger"
@@ -48,12 +49,14 @@ class DistributedsController < ApplicationController
         end
       end
 
-      @weektoedit.push({"showweekof" => mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y'),
+      @weektoedit.push({"showweekof" => mystart.strftime('%b %d')+" to "+ (mystart+7).strftime('%b %d, %Y'),
         "startdate" => mystart,
         "showcount" => myshowcount,
         "infraredcount" => myinfraredcount,
         "specialservicescount" => myspecialservicescount,
+        "shiftcount" => myshiftcount,
         "repcount" => myrepcount,
+        "tbdcount" => mytbdrepcount,
         "buttonclass" => mybuttonclass})
     end
   else
