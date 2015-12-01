@@ -30,11 +30,16 @@
 
 <% @weektoedit.each do |weekof| %>
   <div class="row">
-    <div class="col-md-3 editbold ct">
+    <div class="col-md-3 editbold lt">
       <%= link_to weekof["showweekof"], distributeds_path(params.merge(:mystart => weekof["startdate"])), class: weekof["buttonclass"] %>
     </div>
     <div class="col-md-2 editlight ct"><%= weekof["showcount"] %></div>
-    <div class="col-md-1 editlight ct"><%= weekof["infraredcount"] %></div>
+    <% if weekof["infraredcount"] < weekof["showcount"] then %>
+      <div class="col-md-1 warninglight ct">
+    <% else %>
+      <div class="col-md-1 editlight ct">
+    <% end %>
+    <%= weekof["infraredcount"] %></div>
     <div class="col-md-1 editlight ct"><%= weekof["specialservicescount"] %></div>
     <div class="col-md-2 editlight ct"><%= weekof["shiftcount"] %></div>
     <div class="col-md-1 editlight rt"><%= weekof["repcount"] %></div>

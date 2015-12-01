@@ -25,9 +25,9 @@ class Distributed < ActiveRecord::Base
   #Scopes for data entry
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
   scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
-  scope :shiftwkcount, ->(mystart) { where(product_id: [1,3]).datespan(mystart, (mystart+7)).count }
-  scope :representativewkcount, ->(mystart) { where(product_id: [1,3], representative: [2..1000]).datespan(mystart, (mystart+7)).count }
-  scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,3], representative: [nil,0,1]).datespan(mystart, (mystart+7)).count }
+  scope :shiftwkcount, ->(mystart) { where(product_id: [1,6]).datespan(mystart, (mystart+7)).count }
+  scope :representativewkcount, ->(mystart) { where(product_id: [1,6], representative: [2..1000]).datespan(mystart, (mystart+7)).count }
+  scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,6], representative: [nil,0,1]).datespan(mystart, (mystart+7)).count }
 
   scope :allmonths, -> {
     allmonths = []
@@ -42,7 +42,6 @@ class Distributed < ActiveRecord::Base
     end
     return allmonths
   }
-
 
   scope :allweeks, ->(wkstart){
     allweeks = []

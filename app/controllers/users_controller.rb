@@ -11,7 +11,7 @@ before_action :admin_user,     only: :destroy
 
   def show
     @user = User.find(params[:id])
-    @scheduleds = Distributed.infrared.where(representative: params[:id]).order(:curtain)
+    @scheduleds = Distributed.infrared.where(representative: params[:id]).order(curtain: :desc)
   end
 
 

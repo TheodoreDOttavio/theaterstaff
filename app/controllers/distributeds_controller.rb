@@ -79,15 +79,21 @@ class DistributedsController < ApplicationController
     @language = languagelist
 
     #show/assign a rep to each shift for events
-    users = User.select(:name, :id)
+    users = User.select(:name, :id).order(:name)
     @representatives = []
+    @representatives.push(['unknown',1])
     users.each do |u|
       @representatives.push([u.name,u.id])
     end
 
-    @weekofdistributed = []
+    @weekbyshow = Hash.new
+    @weekofdistributed = [] #-depreciate this line
     @performance.cabinets.each do |c|
       if c.product.options > 0 then
+        @weekbyshow['productname'] = c.product.name
+        @weekbyshow['partialtype'] = c.product.options #1 for infrared, 2 for language special services
+        @weekbyshow['dataentry'] = Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
+        #-depreciate next line
         @weekofdistributed = @weekofdistributed + Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
       end
     end
@@ -157,11 +163,14 @@ class DistributedsController < ApplicationController
   end
   end
 
+
   def edit
   end
 
+
   def update
   end
+
 
   def destroy
   end

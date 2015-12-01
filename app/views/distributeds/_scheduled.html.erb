@@ -1,14 +1,15 @@
 <div class="row">
+  <div class="col-md-3 editbold lt"></div>
   <div class="col-md-4 editbold lt">
   <% if scheduled.language.to_i == 0 then %>
     <% if scheduled.eve == true then %>
-      <%= scheduled.curtain.strftime('%m / %d %A E') %>
+      <%= scheduled.curtain.strftime('%m / %d %a E') %>
     <% else %>
-      <%= scheduled.curtain.strftime('%m / %d %A M') %>
+      <%= scheduled.curtain.strftime('%m / %d %a M') %>
     <% end %>
   <% end %>
   </div>
-  <div class="col-md-8 editlight lt">
+  <div class="col-md-4 editlight lt">
     <%= scheduled.performance.name %>
   </div>
 </div>

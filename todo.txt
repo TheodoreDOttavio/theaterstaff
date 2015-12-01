@@ -2,8 +2,6 @@ performances show has a PG grouping error
 
 Rip out Distributeds controller and implement it with a hash based model object
 
-rails_best_practices . -f html
-
 Data Archive
   Save to db directory for db:seed Heroku 8k Distributed
     or create a csv data model?
@@ -12,11 +10,18 @@ Data Archive
 
 Users
   Save a signature snapstot
-  Show their past schedule with their profile view - include shift count and misc.
-    ...and now there's a placeholder: <%= @schedule %>
-    ...also need to show selected rep when it's stotred in distributeds
-    ...a function to replicate rep to other product id's?
   
 Distributeds
-  Read and Save Events with Distributeds...
-    hmmm. added a representative field that uses user_id
+  add available - an infrared distributed with rep_id
+
+Data Entry
+  finish implementing hash based data model
+  two partials for infrared and special services
+  Add an option to palaster rep over all the TBD's that have quantity (default rep) for the week
+
+Paperwork and Reports
+  add a link to users/show to report on representative history
+  ...or display users history partial
+  
+Low priority:
+rails_best_practices . -f html
