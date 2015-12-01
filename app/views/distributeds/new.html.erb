@@ -12,12 +12,16 @@
 
   <% @weekofdistributed.each_with_index do |distributed, i| %>
 
+    <%= fields_for "distributed#{i}" do |f| %>
+    
     <% if distributed.curtain.strftime('%a') == 'Mon' %>
       <% if distributed.eve == false %>
         <% if distributed.language == 0 %>
           <div class="row">
             <div class="col-md-12 editbold ct">
             	<%= Product.find(distributed.product_id).name %>
+                <div class="editbold ct">Assign rep to all unknown/TBD with a quantity</div>
+                <div class="editlight ct"><%= f.select :weekofrepresentative, options_for_select(@representatives, distributed.representative) %></div>
             </div>
           </div>
         <% end %>
@@ -25,7 +29,6 @@
     <% end %>
 
 
-    <%= fields_for "distributed#{i}" do |f| %>
 <div class="row">
       <div class="col-md-3 editbold rt">
       <% if distributed.language.to_i == 0 then %>
