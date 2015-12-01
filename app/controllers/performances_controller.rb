@@ -119,7 +119,7 @@ class PerformancesController < ApplicationController
     flash[:success] = @performance.name + " has been Deleted."
     redirect_to performances_path
   end
-  
+
    private
 
     def performance_params

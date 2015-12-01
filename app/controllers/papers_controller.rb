@@ -1,8 +1,7 @@
 class PapersController < ApplicationController
   def index
   if current_user.admin?
-    #Theater listing
-    theaters = Theater.select(:id,:name)
+    #Theater listing with extra selections
     @theaters = []
     @theaters.push(["All Theaters",1])
 
@@ -11,48 +10,28 @@ class PapersController < ApplicationController
       @theaters.push(["All " + company[0] + " Theaters", company[1]])
     end
 
+    theaters = Theater.select(:id,:name)
     theaters.each do |t|
       if t.id != 1 then
         @theaters.push([t.name,t.id])
       end
     end
 
-
     #Delivery Options
     @deliveryformat = []
     @deliveryformat.push(["Download",1])
     @deliveryformat.push(["Email: ",2])
-
 
     #for weekly output function
     @outputformat = []
     @outputformat.push(["PDF Cover Sheet",1])
     @outputformat.push(["MS Excell Files",2])
 
-
     #for monthly reports
-    @allmonths = []
-    astart = DateTime.now.utc.beginning_of_day
-    for i in 1..700 do
-      mystart = astart - i
-      if mystart.strftime('%d') == '01' then
-        if Distributed.datespan(mystart, (mystart+30)).infrared.exists? then
-          @allmonths.push([mystart.strftime('%Y: %b'),mystart])
-        end
-      end
-    end
-
+    @allmonths = Distributed.allmonths
 
     #for weekly xls reports and PDF cover sheets
-    @allweeks = []
-    for i in 1..100 do
-      mystart = weekstart - (i * 7)
-      myend = mystart + 6
-      #check to see if there's any data at all on that week
-      if Distributed.datespan(mystart, myend).infrared.exists? then
-        @allweeks.push([mystart.strftime('%Y: %b %d')+" to "+ myend.strftime('%b %d'),mystart])
-      end
-    end
+    @allweeks = Distributed.allweeks(weekstart)
   else
     redirect_to root_url
   end
@@ -69,7 +48,7 @@ class PapersController < ApplicationController
       else
         flash[:error] = "Select A PDF cover sheet or a zip file of MS Excel documents for each theater"
     end
-    redirect_to papers_path
+    #redirect_to papers_path
   end
 
 
@@ -77,7 +56,8 @@ class PapersController < ApplicationController
   def generatemonthly
   #to create MS Excell files
     require 'fileutils'
-    require 'zip/zip'
+    require 'rubygems'
+    require 'zip'
 
     mystart = params[:xportmonthstart].to_date
 
@@ -290,7 +270,7 @@ class PapersController < ApplicationController
      zipfile_name = ("app/reports/month-by-theater_" + mystart.strftime('%b_%Y') + ".zip")
      folder = "app/reports/monthbytheater"
 
-     Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
        excelfilelist.each do |filename|
          zipfile.add(filename.split("/")[3], filename)
        end
@@ -309,7 +289,8 @@ private
   def generateweeklyxls
     #to create MS Excell files
     require 'fileutils'
-    require 'zip/zip'
+    require 'rubygems'
+    require 'zip'
 
     mystart = params[:xportweekstart].to_date
     myend = mystart + 7.days
@@ -461,15 +442,15 @@ private
      zipfile_name = ("app/reports/week-by-theater_" + mystart.strftime('%Y_%m_%d') + ".zip")
      folder = "app/reports/weekbytheater"
 
-     Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
        excelfilelist.each do |filename|
          zipfile.add(filename.split("/")[3], filename)
        end
      end
 
      send_file zipfile_name, filename: zipfile_name.split("/")[3],
-                         type: 'application/zip',
-                         disposition: 'attachment'
+       type: 'application/zip',
+       disposition: 'attachment'
    end
 
 

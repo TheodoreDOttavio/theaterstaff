@@ -26,4 +26,33 @@ class Distributed < ActiveRecord::Base
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
   scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
   scope :representativewkcount, ->(mystart) { where(product_id: [1,3,6,7], representative: 1).datespan(mystart, (mystart+7)).count }
+
+  scope :allmonths, -> {
+    allmonths = []
+    astart = DateTime.now.utc.beginning_of_day
+    for i in 1..700 do
+      mystart = astart - i
+      if mystart.strftime('%d') == '01' then
+        if self.datespan(mystart, (mystart+30)).infrared.exists? then
+          allmonths.push([mystart.strftime('%Y: %b'),mystart])
+        end
+      end
+    end
+    return allmonths
+  }
+
+
+  scope :allweeks, ->(wkstart){
+    allweeks = []
+    for i in 1..100 do
+      mystart = wkstart - (i * 7)
+      myend = mystart + 6
+      #check to see if there's any data at all on that week
+      if self.datespan(mystart, myend).infrared.exists? then
+        allweeks.push([mystart.strftime('%Y: %b %d')+" to "+ myend.strftime('%b %d'),mystart])
+      end
+    end
+    return allweeks
+  }
+
 end

@@ -6,6 +6,6 @@ class Theater < ActiveRecord::Base
   validates :address, presence: true
   validates :city, presence: true
   validates :commentslock, length: { maximum: 4 }
-  
+
   delegate :name, :closeing, :to => :performance, :prefix => true
 end

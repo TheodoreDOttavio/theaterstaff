@@ -69,7 +69,7 @@ class DistributedsController < ApplicationController
     @mystart = mystart
     @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+7).strftime('%b %d, %Y')
 
-    #Get the Show Name
+    #Get the Show
     @performance = Performance.find(params[:performance_id])
 
     #Provide names for the Language integer
@@ -173,7 +173,6 @@ class DistributedsController < ApplicationController
 
      productsearch = Product.find(myproductid)
      if productsearch.options > 1 then
-       #{:Infrared=>0, :iCaption=>1, :dScript=>2, :Chinese=>3, :French=>4, :German=>5, :Japanese=>6, :Portugese=>7, :Spanish=>8, :Turkish=>9}
        my_language = 9 #so it loops back to 1...
        weekofdistributed = Array.new(140)
      else
@@ -186,7 +185,6 @@ class DistributedsController < ApplicationController
      performanceid = myperformanceid.to_i
      productid = myproductid.to_i
      thislang = -1
-     #representative_id = 1
 
 
      weekofdistributed.each_with_index do |d, i|
@@ -218,15 +216,15 @@ class DistributedsController < ApplicationController
             language: thislang,
             representative: 0)
        else
-         #ok, ... its a shitty place to do this, but here's a data cleaner
-         #  for legacy crap data
+         #A data cleaner
+         #  for legacy data
          distributedsearch.each do |doppleganger|
            if distributedsearch.count !=1 then
              Distributed.find(distributedsearch.last.id).destroy
              flash[:error] = "Duplicate entry was removed"
            end
          end
-         # and thats the spitshine polish... one data entry at a time
+         #End data cleaner
 
          weekofdistributed[i] = Distributed.new(performance_id: performanceid,
             curtain: thisdate,

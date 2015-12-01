@@ -11,7 +11,7 @@ class Performance < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 50 }
 
   delegate :name, :company, :address, :city, :to => :theater, :prefix => true
-  
+
   scope :showinglist, ->(mystart) { where("closeing >= ? and opening <= ?", mystart, mystart).select(:id, :name).order(:name) }
   scope :showingcount, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend).uniq.pluck(:id).count }
   scope :nowshowing, -> { where("closeing >= ?", DateTime.now) }
