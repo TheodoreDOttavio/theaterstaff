@@ -553,7 +553,15 @@ User.create!(name: "Hy Chait",
                  phonetype: "",
                  schedule: true,
                  admin: false)
-
+User.create!(name: "Kaz",
+                 email: "",
+                 password: "sa-kaz",
+                 password_confirmation: "sa-kaz",
+                 phone: "",
+                 phonetype: "",
+                 schedule: false,
+                 admin: false)
+                 
 #use FactoryGirl to make a few more users
 #(0..20).each do |u|
   #fakename = Faker::Name.name
