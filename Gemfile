@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-ruby '1.9.3'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
@@ -25,6 +24,7 @@ gem 'writeexcel'
 
 
 group :development, :test do
+  ruby '1.9.3'
   #gem 'capistrano-rails'
   gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'
@@ -33,6 +33,7 @@ end
 
 
 group :production do
+  ruby '2.0.0'
   gem 'rails_12factor'
   gem 'pg'
 end
