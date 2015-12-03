@@ -114,40 +114,46 @@ class DistributedsController < ApplicationController
     myflashtext = ""
     i=0
 
+    #find the id the selected 'weekofrepresentative'
+    myparams = params['distributed0'.to_sym]
+    weekofrepresentative = myparams[:weekofrepresentative]
+
     while params[('distributed'+i.to_s).to_sym] != nil do
     myparams = params[('distributed'+i.to_s).to_sym]
 
     if myparams[:quantity] != "" # Do NOT add quantities left blank (nil)
-     if myparams[:id] != ""
-       #update one
-         @distributed = Distributed.find(myparams[:id])
-         @distributed.update_attributes(myparams)
-         myflashtext = myflashtext + " updated - "
-         myflashtext = myflashtext + myparams[:curtain].to_date.strftime('%a E (%m / %d)')
-         #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
-     else
-       #create one
-       if myparams[:product_id].to_i == 1  #Zero quantites are ONLY for headsets (product_id=1)
-         @distributed = Distributed.new(myparams)
-         @distributed.save
-       else
-         if myparams[:quantity].to_i > 0
-           @distributed = Distributed.new(myparams)
-           @distributed.save
-         end
+      #add id the selected 'weekofrepresentative'
+      myparams[:representative] = weekofrepresentative if myparams[:representative].to_i <= 1 or nil
+
+      if myparams[:id] != ""
+        #update one
+        @distributed = Distributed.find(myparams[:id])
+        @distributed.update_attributes(myparams)
+        myflashtext += " updated - " + myparams[:quantity] + " on "
+        myflashtext += myparams[:curtain].to_date.strftime('%a E (%m / %d)')
+        #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
+      else
+        #create one
+        if myparams[:product_id].to_i == 1  #Zero quantites are ONLY for headsets (product_id=1)
+          @distributed = Distributed.new(myparams)
+          @distributed.save
+        else
+          if myparams[:quantity].to_i > 0
+            @distributed = Distributed.new(myparams)
+            @distributed.save
+          end
        end
-       myflashtext = myflashtext + " added - "
-       myflashtext = myflashtext + myparams[:curtain].to_date.strftime('%a E (%m / %d)')
-       #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
+       myflashtext += " added - " + myparams[:quantity] + " on "
+       myflashtext += myparams[:curtain].to_date.strftime('%a E (%m / %d)')
      end
     else
       #null qty, so do we delete.
       if myparams[:id] != ""
         Distributed.find(myparams[:id]).destroy
 
-        myflashtext = myflashtext + " deleted - "
-        myflashtext = myflashtext + myparams[:curtain].to_date.strftime('%a E (%m / %d)')
-        #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
+        myflashtext += " deleted - "
+        myflashtext += myparams[:curtain].to_date.strftime('%a E (%m / %d)')
+        #myflashtext += myparams[:language].key(distributed.language.to_i)
       end
     end
 

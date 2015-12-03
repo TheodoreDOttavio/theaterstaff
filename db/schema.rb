@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116011008) do
+ActiveRecord::Schema.define(version: 20151203110000) do
 
   create_table "availables", force: :cascade do |t|
     t.integer  "user_id",    default: 1
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20151116011008) do
     t.integer  "quantity"
     t.integer  "language",       default: 0,    null: false
     t.integer  "general",        default: 0
-    t.integer  "representative"
+    t.integer  "representative", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,7 +5,8 @@
 
 <%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
-<%= link_to "Cancel", distributeds_path(params.merge(:mystart => @mystart)), class: "btn btn-sm btn-warning" %>
+<%= link_to "Cancel", distributeds_path(mystart: @mystart),
+  class: "btn btn-sm btn-warning" %>
 
 <%= form_tag(:action => 'create', :method => 'post', :id => 1, :mystart => params[:mystart]) %>
 <%= submit_tag 'Save Changes', class: "btn btn-sm btn-primary" %>
@@ -20,8 +21,10 @@
           <div class="row">
             <div class="col-md-12 editbold ct">
             	<%= Product.find(distributed.product_id).name %>
-                <div class="editbold ct">Assign rep to all unknown/TBD with a quantity</div>
-                <div class="editlight ct"><%= f.select :weekofrepresentative, options_for_select(@representatives, distributed.representative) %></div>
+            	<% if distributed.product_id == 1 or 6 %>
+                  <div class="editbold ct">Assign rep to all unknown/TBD with a quantity</div>
+                  <div class="editlight ct"><%= f.select :weekofrepresentative, options_for_select(@representatives, distributed.representative) %></div>
+                <% end %>
             </div>
           </div>
         <% end %>
