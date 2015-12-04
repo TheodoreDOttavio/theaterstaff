@@ -561,6 +561,14 @@ User.create!(name: "Kaz",
                  phonetype: "",
                  schedule: false,
                  admin: false)
+User.create!(name: "Yoav Levin",
+                 email: "",
+                 password: "sa-yoav",
+                 password_confirmation: "sa-yoav",
+                 phone: "",
+                 phonetype: "",
+                 schedule: false,
+                 admin: false)
                  
 #use FactoryGirl to make a few more users
 #(0..20).each do |u|

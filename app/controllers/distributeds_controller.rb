@@ -134,7 +134,7 @@ class DistributedsController < ApplicationController
         #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
       else
         #create one
-        if myparams[:product_id].to_i == 1  #Zero quantites are ONLY for headsets (product_id=1)
+        if myparams[:product_id].to_i == 1 or myparams[:product_id].to_i == 6 #Zero quantites are ONLY for headsets (product_id=1)
           @distributed = Distributed.new(myparams)
           @distributed.save
         else

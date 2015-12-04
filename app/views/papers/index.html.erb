@@ -32,4 +32,38 @@
 <% end %>
 
 </div>
+<div class="well well-sm" style="width: 75%;">
+	
+<h1>Data Review</h1>
+
+  <div class="row">
+    <div class="col-md-3 editbold rt">Week of:</div>
+    <div class="col-md-1 editbold ct">Shows</div>
+    <div class="col-md-1 editbold ct">Infrared</div>
+    <div class="col-md-1 editbold ct">Special Services</div>
+    <div class="col-md-2 editbold ct">Shifts</div>
+    <div class="col-md-1 editbold rt">Reps</div>
+    <div class="col-md-1 warningbold lt">TBD</div>
+  </div>
+
+<% @weektoedit.each do |weekof| %>
+  <div class="row">
+    <div class="col-md-3 editbold rt" ><%= weekof["showweekof"] %></div>
+    <div class="col-md-1 editlight ct"><%= weekof["showcount"] %></div>
+    <% if weekof["infraredcount"] < weekof["showcount"] then %>
+      <div class="col-md-1 warninglight ct">
+    <% else %>
+      <div class="col-md-1 editlight ct">
+    <% end %>
+    <%= weekof["infraredcount"] %></div>
+    <div class="col-md-1 editlight ct"><%= weekof["specialservicescount"] %></div>
+    <div class="col-md-2 editlight ct"><%= weekof["shiftcount"] %></div>
+    <div class="col-md-1 editlight rt"><%= weekof["repcount"] %></div>
+    <% if weekof["tbdcount"] != 0 then %>
+      <div class="col-md-1 warninglight lt"><%= weekof["tbdcount"] %></div>
+    <% end %>
+  </div>
+<% end %>
+
+</div>
 </div>

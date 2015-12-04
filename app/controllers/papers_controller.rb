@@ -32,6 +32,41 @@ class PapersController < ApplicationController
 
     #for weekly xls reports and PDF cover sheets
     @allweeks = Distributed.allweeks(weekstart)
+    
+    #Display where the data is at - overview of what has been entered
+    @weektoedit = Array.new
+    @weekstartstoedit = []
+    for i in 1..104 do
+      mystart = weekstart - (i * 7)
+
+      #add in some info about what has been entered
+      myshowcount = Performance.showingcount(mystart, (mystart+7))
+      myinfraredcount = Distributed.infraredwkcount(mystart)
+      myspecialservicescount = Distributed.specialservicewkcount(mystart)
+      myshiftcount = Distributed.shiftwkcount(mystart)
+      myrepcount = Distributed.representativewkcount(mystart)
+      mytbdrepcount = Distributed.representativetbdwkcount(mystart)
+
+      if myinfraredcount == 0 && myspecialservicescount == 0 then
+        mybuttonclass = "btn btn-sm btn-danger"
+      else
+        if myinfraredcount < myshowcount then
+          myclass = "warningbold"
+        else
+          myclass = "editbold"
+        end
+      end
+
+      @weektoedit.push({"showweekof" => mystart.strftime('%b %d')+" to "+ (mystart+7).strftime('%b %d, %Y'),
+        "startdate" => mystart,
+        "showcount" => myshowcount,
+        "infraredcount" => myinfraredcount,
+        "specialservicescount" => myspecialservicescount,
+        "shiftcount" => myshiftcount,
+        "repcount" => myrepcount,
+        "tbdcount" => mytbdrepcount,
+        "myclass" => mybuttonclass})
+    end
   else
     redirect_to root_url
   end
