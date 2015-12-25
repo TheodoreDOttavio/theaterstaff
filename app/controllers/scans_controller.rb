@@ -8,6 +8,8 @@ class ScansController < ApplicationController
 
   def sort
   if current_user.admin?
+    require 'fileutils'
+    
     @testertext = ""
     #From a post, so move the file, and set the selections to save time
     #  is the post a newly uploaded file vs going through the images/ftp directory
@@ -16,7 +18,9 @@ class ScansController < ApplicationController
       @thisimage = params[:Data].tempfile
     else
       if params[:placeperformance] then
-        @testertext = params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s
+        @testertext = params[:placefile].to_s + " to " + params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s
+
+        #FileUtils.mv 'badname.rb', 'goodname.rb'
       end
       #find the next image to sort:
       jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
