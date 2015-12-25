@@ -1,0 +1,32 @@
+<% provide(:title, 'About Us') %>
+<div align="center">
+<div class="well well-sm">
+	
+<h1>ID the scan</h1>
+<h2>
+
+<%= @thisfilename %>
+<%= @thisimage %>
+
+<img src='<%= @thisimage %>'>
+
+</h2>
+
+<%= form_tag("/placefile", method: "post") do %>
+<h1>This scan is for:</h1>
+
+<div class="row">
+  <div class="col-md-2 editbold ct"><%= submit_tag 'Attach File', class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-3 editbold ct"><%= select_tag "placeperformance", options_from_collection_for_select(@performances, "id", "name") %></div>
+  <div class="col-md-3 editbold lt"><%= select(@object, :placeweek, @completeweeks) %></div>
+  <div class="col-md-3 editlight ct">
+  	<% @paperworkformat.each do |o| %>
+      <%= o[0] %>
+      <%= radio_button_tag(:paperworkformat, o[1]) %>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+</div>
+</div>

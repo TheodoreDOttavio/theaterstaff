@@ -37,6 +37,10 @@ match '/papers', to: 'papers#index', via: 'get'
 match '/papersweekly', to: 'papers#generateweekly', via: 'post'
 match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
 
+#Paperwork from the field scanned in...
+match '/scans', to: 'scans#index', via: 'get'
+match '/scanssorting', to: 'scans#sort', via: 'post'
+
 #Data Archiving to csv files
 get "archives/backup"
 post "archives/restore"

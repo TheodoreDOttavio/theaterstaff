@@ -86,13 +86,13 @@ class DistributedsController < ApplicationController
       @representatives.push([u.name,u.id])
     end
 
-    @weekbyshow = Hash.new
+    #@weekbyshow = Hash.new
     @weekofdistributed = [] #-depreciate this line
     @performance.cabinets.each do |c|
       if c.product.options > 0 then
-        @weekbyshow['productname'] = c.product.name
-        @weekbyshow['partialtype'] = c.product.options #1 for infrared, 2 for language special services
-        @weekbyshow['dataentry'] = Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
+        #@weekbyshow['productname'] = c.product.name
+        #@weekbyshow['partialtype'] = c.product.options #1 for infrared, 2 for language special services
+        #@weekbyshow['dataentry'] = Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
         #-depreciate next line
         @weekofdistributed = @weekofdistributed + Distributeddataentrybyproduct(mystart, params[:performance_id], c.product.id)
       end

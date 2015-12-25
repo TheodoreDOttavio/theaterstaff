@@ -50,6 +50,16 @@
       <%= f.hidden_field :product_id, value:distributed.product_id %>
       <%= f.hidden_field :language, value:distributed.language %>
 
+      <% if distributed.language.to_i > 0 then %>
+          <div class="col-md-3 editbold lt">
+          <%= @language.key(distributed.language.to_i) %>
+          </div>
+      <% end %>
+
+      <div class="col-md-3 editbold lt">
+        <%= f.number_field :quantity, value:distributed.quantity, :tabIndex => 2000 %>
+      </div>
+        
       <% if distributed.product_id == 1 or distributed.product_id == 6 then %>
         <div class="col-md-3 editlight ct">
           <%= f.select :representative, options_for_select(@representatives, distributed.representative) %>
@@ -57,17 +67,7 @@
       <% else %>
         <%= f.hidden_field :representative, value:distributed.representative %>
       <% end %>
-
-        <% if distributed.language.to_i > 0 then %>
-          <div class="col-md-3 editbold lt">
-          <%= @language.key(distributed.language.to_i) %>
-          </div>
-        <% end %>
-
-        <div class="col-md-3 editbold lt">
-        <%= f.number_field :quantity, value:distributed.quantity, :tabIndex => 2000 %>
-        </div>
-
+      
     <% end %>
 </div>
   <% end %>

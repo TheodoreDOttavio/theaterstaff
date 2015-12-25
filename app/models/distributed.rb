@@ -56,4 +56,14 @@ class Distributed < ActiveRecord::Base
     return allweeks
   }
 
+  #Complete weeks goes back 3 years
+  scope :completeweeks, ->(wkstart){
+    completeweeks = []
+    for i in 1..156 do
+      mystart = wkstart - (i * 7)
+      myend = mystart + 6
+      completeweeks.push([mystart.strftime('%Y: %b %d')+" to "+ myend.strftime('%b %d'),mystart])
+    end
+    return completeweeks
+  }
 end
