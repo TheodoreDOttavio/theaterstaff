@@ -3,8 +3,9 @@
 <div class="well well-sm">
 	
 <h1>ID the scan</h1>
+<%= @testertext %>
 
-<%= form_tag("/placefile", method: "post") do %>
+<%= form_tag("/scanssorting", method: "post") do %>
 
 <div class="row">
   <div class="col-md-3 editbold ct"><%= select_tag "placeperformance", options_from_collection_for_select(@performances, "id", "name") %></div>
@@ -19,7 +20,7 @@
 </div>
 <% end %>
 
-<%= image_tag @nextftpimage %>
+<%= image_tag @thisimage %>
 
 </div>
 </div>

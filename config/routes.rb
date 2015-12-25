@@ -40,6 +40,7 @@ match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
 #Paperwork from the field scanned in...
 match '/scans', to: 'scans#index', via: 'get'
 match '/scanssorting', to: 'scans#sort', via: 'post'
+match '/scanprocess', to: 'scans#sort', via: 'get'
 
 #Data Archiving to csv files
 get "archives/backup"

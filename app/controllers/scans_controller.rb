@@ -8,6 +8,21 @@ class ScansController < ApplicationController
 
   def sort
   if current_user.admin?
+    @testertext = ""
+    #From a post, so move the file, and set the selections to save time
+    #  is the post a newly uploaded file vs going through the images/ftp directory
+    if params[:Data] then
+      @thisfilename = params[:Data].original_filename
+      @thisimage = params[:Data].tempfile
+    else
+      if params[:placeperformance] then
+        @testertext = params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s
+      end
+      #find the next image to sort:
+      jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
+      @thisimage = "ftp/" + jpegfilelist.last.split("/").last
+    end
+    
     #Performances
     @performances = Performance.select(:name, :id).order(:name)
 
@@ -16,27 +31,15 @@ class ScansController < ApplicationController
     @paperworkformat.push(["Infrared Daily Log",1])
     @paperworkformat.push(["Special Services Log ",2])
 
-    #for weekly xls reports and PDF cover sheets
+    #Show a list of weeks going back 3 years:
     @completeweeks = Distributed.completeweeks(weekstart)
-
-    @thisfilename = params[:Data].original_filename
-    @thisimage = params[:Data].tempfile
-
-    jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
-    #@nextftpimage = jpegfilelist.first
-    @nextftpimage = "ftp/DSC_0001.jpg"
-
-    #if !File.exist?(uploaded_io.tempfile) then
-      #flash[:error] = "File did not open!"
-      #@test = uploaded_io
-      #redirect_to archives_restore
-      #return
-    #end
-
   else
     redirect_to root_url
   end
   end
 
+  def placeimage (thisimage, placeperformanceid, placeinweek, placeformat)
+    
+  end
 
 end
