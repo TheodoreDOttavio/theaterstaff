@@ -22,6 +22,10 @@ class ScansController < ApplicationController
     @thisfilename = params[:Data].original_filename
     @thisimage = params[:Data].tempfile
 
+    jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
+    #@nextftpimage = jpegfilelist.first
+    @nextftpimage = "ftp/DSC_0001.jpg"
+
     #if !File.exist?(uploaded_io.tempfile) then
       #flash[:error] = "File did not open!"
       #@test = uploaded_io
