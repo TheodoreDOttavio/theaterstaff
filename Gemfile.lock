@@ -58,7 +58,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.10.0)
+    coffee-script-source (1.8.0)
     columnize (0.9.0)
     datagrid (1.4.0)
       rails (>= 3.2.18)
@@ -185,6 +185,7 @@ DEPENDENCIES
   chartkick
   cocoon
   coffee-rails (~> 4.1.0)
+  coffee-script-source (= 1.8.0)
   datagrid
   debugger
   jquery-rails
@@ -203,6 +204,3 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   writeexcel
-
-BUNDLED WITH
-   1.10.3

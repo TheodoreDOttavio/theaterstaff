@@ -5,6 +5,9 @@ gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem 'chartkick'                 #Pretties for the Datum!
 gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-script-source', '1.8.0' #Solves the execjs error, line 6 of application.html
+    #This is a cheap patch. a proper fix of the UTF char set in runtime.rb can be used
+    #Info here: http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial/14118913#14118913
 gem 'cocoon'                    #for nested forms on many-to-many join models
 gem 'datagrid'
 #gem 'jbuilder', '~> 2.0'

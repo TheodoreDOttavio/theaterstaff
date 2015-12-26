@@ -18,9 +18,16 @@ class ScansController < ApplicationController
       @thisimage = params[:Data].tempfile
     else
       if params[:placeperformance] then
-        @testertext = params[:placefile].to_s + " to " + params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s
+        myfile = "app/assets/images/" + params[:placefile].to_s
+        myplacedfile = "app/assets/images/" +
+          params[:placeweek].to_s.split("-").first + "/" +
+          params[:placeperformance].to_s + "/" +
+          params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s + ".jpg"
+        @testertext = myfile + " becomes " + myplacedfile
+        
+        #check for folders and create them if needed
 
-        #FileUtils.mv 'badname.rb', 'goodname.rb'
+        FileUtils.mv myfile, myplacedfile
       end
       #find the next image to sort:
       jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
