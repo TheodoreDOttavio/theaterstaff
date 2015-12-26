@@ -29,6 +29,9 @@ class Distributed < ActiveRecord::Base
   scope :representativewkcount, ->(mystart) { where(product_id: [1,6], representative: [2..1000]).datespan(mystart, (mystart+7)).count }
   scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,6], representative: [nil,0,1]).datespan(mystart, (mystart+7)).count }
 
+  #Show a representative's work with links to scanned logs
+  scope :schedule, ->(repid) { where(product_id: [1,3,6,7], representative: repid).order(curtain: :desc) }
+  
   scope :allmonths, -> {
     allmonths = []
     astart = DateTime.now.utc.beginning_of_day

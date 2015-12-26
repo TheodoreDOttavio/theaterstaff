@@ -99,6 +99,10 @@ class DistributedsController < ApplicationController
     end
 
     @distributed = Distributed.new
+
+    @infraredlog = findlog(mystart, params[:performance_id], 1)
+    @specialservicelog = findlog(mystart, params[:performance_id], 2)
+
   else
     redirect_to root_url
   end

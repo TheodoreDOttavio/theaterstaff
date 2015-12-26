@@ -5,6 +5,9 @@
 
 <%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
+<%= findlog(@mystart, @performance.id, 1) %>
+<%= findlog(@mystart, @performance.id, 2) %>
+
 <%= link_to "Cancel", distributeds_path(mystart: @mystart),
   class: "btn btn-sm btn-warning" %>
 
@@ -72,6 +75,8 @@
 </div>
   <% end %>
 
-
+<%= image_tag @infraredlog %>
+<br><%= image_tag @specialservicelog %>
+          
 </div>
 </div>
