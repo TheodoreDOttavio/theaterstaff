@@ -8,12 +8,16 @@
 <%= form_tag("/scanssorting", method: "post") do %>
 
 <div class="row">
-  <div class="col-md-3 editbold ct"><%= select_tag "placeperformance", options_from_collection_for_select(@performances, "id", "name") %></div>
-  <div class="col-md-3 editbold lt"><%= select(@object, :placeweek, @completeweeks) %></div>
+  <div class="col-md-3 editbold ct"><%= select_tag "placeperformance", options_from_collection_for_select(@performances, "id", "name", @lastperformanceid) %></div>
+  <div class="col-md-3 editbold lt"><%= select(@object, :placeweek, options_for_select(@completeweeks, @lastweek)) %></div>
   <div class="col-md-3 editlight ct">
-  	<% @paperworkformat.each do |o| %>
+  	<% @paperformat.each do |o| %>
       <%= o[0] %>
-      <%= radio_button_tag(:paperworkformat, o[1]) %>
+      <% if o[1].to_s == @lastformat.to_s then %>
+          <%= radio_button_tag("paperworkformat", o[1], checked = true) %>
+      <% else %>
+          <%= radio_button_tag("paperworkformat", o[1]) %>
+      <% end %>
     <% end %>
   </div>
   <%= hidden_field_tag :placefile, @thisimage %>

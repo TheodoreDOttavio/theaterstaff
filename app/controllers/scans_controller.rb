@@ -9,8 +9,11 @@ class ScansController < ApplicationController
   def sort
   if current_user.admin?
     require 'fileutils'
+
+    @lastperformanceid = 1
+    @lastweek = (weekstart-14).strftime('%Y-%m-%d')
+    @lastformat = 1
     
-    @testertext = ""
     #From a post, so move the file, and set the selections to save time
     #  is the post a newly uploaded file vs going through the images/ftp directory
     if params[:Data] then
@@ -19,16 +22,21 @@ class ScansController < ApplicationController
     else
       if params[:placeperformance] then
         myfile = "app/assets/images/" + params[:placefile].to_s
-        myplacedfile = "app/assets/images/" +
+        myplacedfile = params[:placeperformance].to_s + "-" + 
+          params[:placeweek].to_s + "-" + 
+          params[:paperworkformat].to_s + ".jpg"
+        myplacedpath = "app/assets/images/" +
           params[:placeweek].to_s.split("-").first + "/" +
-          params[:placeperformance].to_s + "/" +
-          params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s + ".jpg"
-        @testertext = myfile + " becomes " + myplacedfile
+          params[:placeperformance].to_s + "/"
+        #@testertext = myfile + " moved to " + myplacedpath + myplacedfile
         
-        #Create folders if needed
-        FileUtils.mkdir_p '/usr/local/lib/ruby'
-
-        FileUtils.mv myfile, myplacedfile
+        #Create folders if needed and move the file
+        FileUtils.mkdir_p myplacedpath
+        FileUtils.mv myfile, myplacedpath + myplacedfile
+        
+        @lastperformanceid = params[:placeperformance]
+        @lastweek = params[:placeweek]
+        @lastformat = params[:paperworkformat]
       end
       #find the next image to sort:
       jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
@@ -39,9 +47,9 @@ class ScansController < ApplicationController
     @performances = Performance.select(:name, :id).order(:name)
 
     #Type of paperwork being uploaded
-    @paperworkformat = []
-    @paperworkformat.push(["Infrared Daily Log",1])
-    @paperworkformat.push(["Special Services Log ",2])
+    @paperformat = []
+    @paperformat.push(["Infrared Daily Log", 1])
+    @paperformat.push(["Special Services Log ", 2])
 
     #Show a list of weeks going back 3 years:
     @completeweeks = Distributed.completeweeks(weekstart)
