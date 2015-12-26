@@ -25,7 +25,8 @@ class ScansController < ApplicationController
           params[:placeperformance].to_s + "-" + params[:placeweek].to_s + "-" + params[:paperworkformat].to_s + ".jpg"
         @testertext = myfile + " becomes " + myplacedfile
         
-        #check for folders and create them if needed
+        #Create folders if needed
+        FileUtils.mkdir_p '/usr/local/lib/ruby'
 
         FileUtils.mv myfile, myplacedfile
       end
