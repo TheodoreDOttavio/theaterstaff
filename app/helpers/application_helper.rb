@@ -27,7 +27,7 @@ module ApplicationHelper
           performanceid.to_s + "-" +
           astart.strftime('%Y-%m-%d') + "-" + format.to_s + ".jpg"
     if File.exist?(infraredlog) then
-      return "There is a LOG!!!! " + format.to_s
+      return infraredlog
     end
   end
 
