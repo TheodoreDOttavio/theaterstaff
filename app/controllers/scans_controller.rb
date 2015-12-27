@@ -40,7 +40,7 @@ class ScansController < ApplicationController
       end
       #find the next image to sort:
       jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
-      @thisimage = "ftp/" + jpegfilelist.last.split("/").last
+      @thisimage = "ftp/" + jpegfilelist.first.split("/").last
     end
     
     #Performances
