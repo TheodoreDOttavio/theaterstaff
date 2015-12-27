@@ -22,12 +22,12 @@ module ApplicationHelper
       break if astart.wday == 1
       astart = astart - 1.day
     end
-    infraredlog = "app/assets/images/" + astart.strftime('%Y') + "/" +
+    logfile = astart.strftime('%Y') + "/" +
           performanceid.to_s + "/" +
           performanceid.to_s + "-" +
           astart.strftime('%Y-%m-%d') + "-" + format.to_s + ".jpg"
-    if File.exist?(infraredlog) then
-      return infraredlog
+    if File.exist?("app/assets/images/" + logfile) then
+      return logfile
     end
   end
 

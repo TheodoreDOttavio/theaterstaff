@@ -13,6 +13,7 @@ gem 'datagrid'
 #gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
+#gem 'lightbox_rails'   this is added in manually at the momment
 gem 'rails', '4.2.2'
 gem 'rubyzip'
 gem 'sass-rails', '~> 5.0'

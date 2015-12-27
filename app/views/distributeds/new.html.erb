@@ -5,8 +5,18 @@
 
 <%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
-<%= findlog(@mystart, @performance.id, 1) %>
-<%= findlog(@mystart, @performance.id, 2) %>
+<div class="row">
+  <div class="col-md-4 editbold ct">
+  <%= link_to_if(findlog(@mystart, @performance.id, 1), "Login") %></div>
+  <div class="col-md-4 editbold ct">
+  Returned text: <%= findlog(@mystart, @performance.id, 1) %></div>
+  <div class="col-md-4 editbold ct">
+  <a href="2015/2/2-2015-05-04-1.jpg" 
+  	data-lightbox="log-image-1" 
+  	data-title="Infrared Weekly Log">Infrared Log</a>
+  </div>
+</div>
+
 
 <%= link_to "Cancel", distributeds_path(mystart: @mystart),
   class: "btn btn-sm btn-warning" %>
@@ -75,8 +85,8 @@
 </div>
   <% end %>
 
-<%= image_tag @infraredlog %>
-<br><%= image_tag @specialservicelog %>
+<%= image_tag findlog(@mystart, @performance.id, 1) %>
+<br><%= image_tag findlog(@mystart, @performance.id, 2) %>
           
 </div>
 </div>
