@@ -36,6 +36,7 @@ root  'static_pages#home'
 match '/papers', to: 'papers#index', via: 'get'
 match '/papersweekly', to: 'papers#generateweekly', via: 'post'
 match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
+match '/papersspecialservices', to: 'papers#generatemonthlyss', via: 'post'
 match '/viewlogs', to: 'papers#logview', via: 'post'
 
 #Paperwork from the field scanned in...

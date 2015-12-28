@@ -39,6 +39,22 @@
 
 
 <div class="well well-sm" style="width: 75%;">
+<%= form_tag("/papersspecialservices", method: "post") do %>
+<h1>Special Services</h1>
+
+<div class="row">
+  <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-3 editbold ct"><%= select(@object, :xportformat, @deliveryformat) %></div>
+  <div class="col-md-3 editbold lt"><%= select(@object, :xportperformance, @performances) %></div>
+  <div class="col-md-4 editbold lt">.xls Sheet of Monthly Totals by Language</div>
+</div>
+
+<% end %>
+
+</div>
+
+
+<div class="well well-sm" style="width: 75%;">
 
 <h1>Data Review</h1>
 
@@ -72,4 +88,6 @@
 <% end %>
 
 </div>
+</div>
+
 </div>

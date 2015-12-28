@@ -322,7 +322,18 @@ class PapersController < ApplicationController
 end
 
 
-def logview
+  def generatemonthlyss
+    #to create MS Excell files
+    require 'fileutils'
+    require 'rubygems'
+    require 'zip'
+    
+        #clean up... remove existing xls files
+    FileUtils.rm Dir.glob("app/reports/monthbytheater/*" + mystart.strftime('%b_%Y') + "-ss.xls")
+  end
+
+
+  def logview
     @allweeks = Distributed.allweeks(weekstart)
     @performances = Performance.selectionlist
     @viewlist = []
@@ -347,7 +358,7 @@ def logview
           if !sslogimage.nil? then @viewlist.push(sslogimage) end
         end
     end
-end
+  end
 
 
 private
