@@ -1,0 +1,24 @@
+<div class="well well-sm" style="width: 75%;">
+
+<%= form_tag("/viewlogs", method: "post") do %>
+<h1>Log Sheets from the field</h1>
+
+<div class="row">
+  <div class="col-md-2 editbold ct"><%= submit_tag 'View', class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-3 editlight ct">
+    <% @outputtimespan.each do |o| %>
+      <%= o[0] %>
+      <% if o[1] == 1 then %>
+          <%= radio_button_tag(:timespan, o[1], checked = true) %>
+      <% else %>
+          <%= radio_button_tag(:timespan, o[1]) %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-3 editbold lt"><%= select(@object, :xportweekstart, @allweeks) %></div>
+  <div class="col-md-4 editbold lt"><%= select(@object, :xporttheater, @theaters) %></div>
+</div>
+
+<% end %>
+
+</div>

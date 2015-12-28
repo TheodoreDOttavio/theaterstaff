@@ -13,7 +13,7 @@ class ScansController < ApplicationController
     @lastperformanceid = 1
     @lastweek = (weekstart-14).strftime('%Y-%m-%d')
     @lastformat = 1
-    
+
     #From a post, so move the file, and set the selections to save time
     #  is the post a newly uploaded file vs going through the images/ftp directory
     if params[:Data] then
@@ -22,18 +22,18 @@ class ScansController < ApplicationController
     else
       if params[:placeperformance] then
         myfile = "app/assets/images/" + params[:placefile].to_s
-        myplacedfile = params[:placeperformance].to_s + "-" + 
-          params[:placeweek].to_s + "-" + 
+        myplacedfile = params[:placeperformance].to_s + "-" +
+          params[:placeweek].to_s + "-" +
           params[:paperworkformat].to_s + ".jpg"
         myplacedpath = "app/assets/images/" +
           params[:placeweek].to_s.split("-").first + "/" +
           params[:placeperformance].to_s + "/"
         #@testertext = myfile + " moved to " + myplacedpath + myplacedfile
-        
+
         #Create folders if needed and move the file
         FileUtils.mkdir_p myplacedpath
         FileUtils.mv myfile, myplacedpath + myplacedfile
-        
+
         @lastperformanceid = params[:placeperformance]
         @lastweek = params[:placeweek]
         @lastformat = params[:paperworkformat]
@@ -42,7 +42,7 @@ class ScansController < ApplicationController
       jpegfilelist = Dir.glob("app/assets/images/ftp/*.jpg")
       @thisimage = "ftp/" + jpegfilelist.first.split("/").last
     end
-    
+
     #Performances
     @performances = Performance.select(:name, :id).order(:name)
 
@@ -59,7 +59,7 @@ class ScansController < ApplicationController
   end
 
   def placeimage (thisimage, placeperformanceid, placeinweek, placeformat)
-    
+
   end
 
 end

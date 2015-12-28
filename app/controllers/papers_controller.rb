@@ -30,9 +30,14 @@ class PapersController < ApplicationController
     #for monthly reports
     @allmonths = Distributed.allmonths
 
-    #for weekly xls reports and PDF cover sheets
+    #for weekly xls reports, PDF cover sheets, and paper log view
     @allweeks = Distributed.allweeks(weekstart)
-    
+
+    #for Viewing timespan of Paper Logs Scanned in
+    @outputtimespan = []
+    @outputtimespan.push(["Display by Week",1])
+    @outputtimespan.push(["Display All Logs from a Theater",2])
+
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
     @weekstartstoedit = []
@@ -318,6 +323,35 @@ class PapersController < ApplicationController
    end #end performance.nil?
 end
 
+
+def logview
+    @allweeks = Distributed.allweeks(weekstart)
+
+    @outputtimespan = []
+    @outputtimespan.push(["Display by Week",1])
+    @outputtimespan.push(["Display All Logs from a Theater",2])
+
+    #Theater listing with extra selections
+    @theaters = []
+    @theaters.push(["All Theaters",1])
+
+    companies = companylist
+    companies.each_with_index do |company,companyindex|
+      @theaters.push(["All " + company[0] + " Theaters", company[1]])
+    end
+
+    theaters = Theater.select(:id,:name)
+    theaters.each do |t|
+      if t.id != 1 then
+        @theaters.push([t.name,t.id])
+      end
+    end
+
+  if params[:timespan].to_i == 1 then
+    @viewstart = params[:xportweekstart].to_date
+    @viewperformance = params[:xporttheater]
+  end
+end
 
 
 private

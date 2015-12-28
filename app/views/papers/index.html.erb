@@ -17,8 +17,9 @@
 <% end %>
 
 </div>
+
+
 <div class="well well-sm" style="width: 75%;">
-<!--refer to monthbytheater -->
 <%= form_tag("/papersmonthly", method: "post") do %>
 <h1>Monthly Reports</h1>
 
@@ -32,6 +33,11 @@
 <% end %>
 
 </div>
+
+
+<%= render "selectlog" %>
+
+
 <div class="well well-sm" style="width: 75%;">
 
 <h1>Data Review</h1>

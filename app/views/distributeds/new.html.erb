@@ -10,7 +10,7 @@
     <%= image_tag findlog(@mystart, @performance.id, 1) %>
     <%= image_tag findlog(@mystart, @performance.id, 2) %>
   </div>
-  <div class="col-md-6 editbold ct">          
+  <div class="col-md-6 editbold ct">
 
 <%= link_to "Cancel", distributeds_path(mystart: @mystart),
   class: "btn btn-sm btn-warning" %>
@@ -21,16 +21,18 @@
   <% @weekofdistributed.each_with_index do |distributed, i| %>
 
     <%= fields_for "distributed#{i}" do |f| %>
-    
+
     <% if distributed.curtain.strftime('%a') == 'Mon' %>
       <% if distributed.eve == false %>
         <% if distributed.language == 0 %>
           <div class="row">
             <div class="col-md-12 editbold ct">
-            	<%= Product.find(distributed.product_id).name %>
-            	<% if distributed.product_id == 1 or 6 %>
-                  <div class="editbold ct">Assign rep to all unknown/TBD with a quantity</div>
-                  <div class="editlight ct"><%= f.select :weekofrepresentative, options_for_select(@representatives, distributed.representative) %></div>
+              <%= Product.find(distributed.product_id).name %>
+              <% if distributed.product_id == 1 or 6 %>
+                <div class="row">
+                    <div class="col-md-6 editbold ct">Assign rep to all unknown/TBD with a quantity</div>
+                    <div class="col-md-6 editlight ct"><%= f.select :weekofrepresentative, options_for_select(@representatives, distributed.representative) %></div>
+                  </div>
                 <% end %>
             </div>
           </div>
@@ -66,7 +68,7 @@
       <div class="col-md-2 editbold lt">
         <%= f.number_field :quantity, value:distributed.quantity, :tabIndex => 2000 %>
       </div>
-        
+
       <% if distributed.product_id == 1 or distributed.product_id == 6 then %>
         <div class="col-md-3 editlight ct">
           <%= f.select :representative, options_for_select(@representatives, distributed.representative) %>
@@ -74,12 +76,12 @@
       <% else %>
         <%= f.hidden_field :representative, value:distributed.representative %>
       <% end %>
-      
+
     <% end %>
 </div>
   <% end %>
 
 </div></div>
-          
+
 </div>
 </div>
