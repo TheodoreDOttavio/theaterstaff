@@ -6,17 +6,11 @@
 <%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
 <div class="row">
-  <div class="col-md-4 editbold ct">
-  <%= link_to_if(findlog(@mystart, @performance.id, 1), "Login") %></div>
-  <div class="col-md-4 editbold ct">
-  Returned text: <%= findlog(@mystart, @performance.id, 1) %></div>
-  <div class="col-md-4 editbold ct">
-  <a href="2015/2/2-2015-05-04-1.jpg" 
-  	data-lightbox="log-image-1" 
-  	data-title="Infrared Weekly Log">Infrared Log</a>
+  <div class="col-md-6 editbold ct">
+    <%= image_tag findlog(@mystart, @performance.id, 1) %>
+    <%= image_tag findlog(@mystart, @performance.id, 2) %>
   </div>
-</div>
-
+  <div class="col-md-6 editbold ct">          
 
 <%= link_to "Cancel", distributeds_path(mystart: @mystart),
   class: "btn btn-sm btn-warning" %>
@@ -46,7 +40,7 @@
 
 
 <div class="row">
-      <div class="col-md-3 editbold rt">
+      <div class="col-md-4 editbold rt">
       <% if distributed.language.to_i == 0 then %>
         <% if distributed.eve == true then %>
           <%= distributed.curtain.strftime('%a E (%m / %d)') %>
@@ -64,12 +58,12 @@
       <%= f.hidden_field :language, value:distributed.language %>
 
       <% if distributed.language.to_i > 0 then %>
-          <div class="col-md-3 editbold lt">
+          <div class="col-md-4 editbold lt">
           <%= @language.key(distributed.language.to_i) %>
           </div>
       <% end %>
 
-      <div class="col-md-3 editbold lt">
+      <div class="col-md-2 editbold lt">
         <%= f.number_field :quantity, value:distributed.quantity, :tabIndex => 2000 %>
       </div>
         
@@ -85,8 +79,7 @@
 </div>
   <% end %>
 
-<%= image_tag findlog(@mystart, @performance.id, 1) %>
-<br><%= image_tag findlog(@mystart, @performance.id, 2) %>
+</div></div>
           
 </div>
 </div>

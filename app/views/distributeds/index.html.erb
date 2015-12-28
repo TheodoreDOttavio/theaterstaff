@@ -11,6 +11,7 @@
     <%= link_to p[0], new_distributed_path(params.merge(:mystart => params[:mystart],
       :performance_id => p[1])),
       :class => p[2] %>
+    <% if !findlog(@mystart, p[1], 1).nil? then %>+<% end %>
   </div>
 <% end %>
 </div>
