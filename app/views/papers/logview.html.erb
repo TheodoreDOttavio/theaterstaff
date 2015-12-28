@@ -4,8 +4,9 @@
 
 <%= render "selectlog" %>
 
-    <%= image_tag findlog(@viewstart, @viewperformance, 1) %>
-    <%= image_tag findlog(@viewstart, @viewperformance, 2) %>
+<% @viewlist.each do |v| %>
+    <%= image_tag v %>
+<% end %>
 
 </div>
 </div>

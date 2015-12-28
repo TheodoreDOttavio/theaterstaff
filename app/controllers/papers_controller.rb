@@ -34,9 +34,7 @@ class PapersController < ApplicationController
     @allweeks = Distributed.allweeks(weekstart)
 
     #for Viewing timespan of Paper Logs Scanned in
-    @outputtimespan = []
-    @outputtimespan.push(["Display by Week",1])
-    @outputtimespan.push(["Display All Logs from a Theater",2])
+    @performances = Performance.selectionlist
 
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
@@ -326,31 +324,29 @@ end
 
 def logview
     @allweeks = Distributed.allweeks(weekstart)
-
-    @outputtimespan = []
-    @outputtimespan.push(["Display by Week",1])
-    @outputtimespan.push(["Display All Logs from a Theater",2])
-
-    #Theater listing with extra selections
-    @theaters = []
-    @theaters.push(["All Theaters",1])
-
-    companies = companylist
-    companies.each_with_index do |company,companyindex|
-      @theaters.push(["All " + company[0] + " Theaters", company[1]])
+    @performances = Performance.selectionlist
+    @viewlist = []
+    
+    case params[:logset].to_i
+      when 1
+        performanceidlist = Distributed.allperformances(params[:xportweekstart].to_date, params[:xportweekstart].to_date + 7)
+        
+        performanceidlist.each do |p|
+          logimage = findlog(params[:xportweekstart].to_date, p, 1)
+          sslogimage = findlog(params[:xportweekstart].to_date, p, 2)
+          if !logimage.nil? then @viewlist.push(logimage) end
+          if !sslogimage.nil? then @viewlist.push(sslogimage) end
+        end
+      when 2
+        mystart = weekstart #findlog corrects this to Mondays
+        for i in 1..156 do
+          ws = mystart - (i * 7)
+          logimage = findlog(ws, params[:xportperformance], 1)
+          sslogimage = findlog(ws, params[:xportperformance], 2)
+          if !logimage.nil? then @viewlist.push(logimage) end
+          if !sslogimage.nil? then @viewlist.push(sslogimage) end
+        end
     end
-
-    theaters = Theater.select(:id,:name)
-    theaters.each do |t|
-      if t.id != 1 then
-        @theaters.push([t.name,t.id])
-      end
-    end
-
-  if params[:timespan].to_i == 1 then
-    @viewstart = params[:xportweekstart].to_date
-    @viewperformance = params[:xporttheater]
-  end
 end
 
 

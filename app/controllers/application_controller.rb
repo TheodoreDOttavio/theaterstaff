@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
     companies.push(["Nederlander","Nederlander"])
     companies.push(["Jujamcyn","Jujamcyn"])
     companies.push(["Schubert","Schubert"])
-    companies.push(["Roundabout","Roundabout"])
     return companies
   end
 

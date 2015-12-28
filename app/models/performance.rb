@@ -16,4 +16,6 @@ class Performance < ActiveRecord::Base
   scope :showingcount, ->(mystart, myend) { where("opening <= ? and closeing >= ?", mystart, myend).uniq.pluck(:id).count }
   scope :nowshowing, -> { where("closeing >= ?", DateTime.now) }
   scope :dark, -> { where("closeing < ?", DateTime.now) }
+  
+  scope :selectionlist, -> { select(:id, :name).order(:name).map{|p| [p.name, p.id] }}
 end
