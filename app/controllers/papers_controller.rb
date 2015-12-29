@@ -37,6 +37,12 @@ class PapersController < ApplicationController
     @performances = Performance.selectionlist
 
     @ssperformances = Performance.ssselectionlist #Cabinet.translation
+    
+    @showyears = []
+    for x in 0..3 do
+      showyear = (DateTime.now.strftime('%Y').to_i) - x
+      @showyears.push([showyear.to_s, showyear.to_s])
+    end
 
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
@@ -331,6 +337,7 @@ end
     require 'zip'
     
     thisperformance = Performance.find(params[:xportperformance])
+    monthstarts = Distributed.allmonthsbymondays(params[:xportyear])
     folder = "app/reports/monthbytheater/"
     file = thisperformance.name + '-special-services.xls'
 
@@ -372,6 +379,12 @@ end
     #Write Headers
     worksheet.write(0, 0, thisperformance.name + " - Translation Reports - ", titleformat)
     worksheet.write(2, 0, "MONTH (Mon-Sun)", headerformat)
+    
+    monthstarts.each_with_index do |wk,i|
+      #12/29/14 - 01/25/15
+      wkend = wk+7
+      worksheet.write(3+i, 0, wk.strftime('%m/%d/%y') + " - " + wkend.strftime('%m/%d/%y'), dataformat)
+    end
     
     # write excell sheet to file
     workbook.close

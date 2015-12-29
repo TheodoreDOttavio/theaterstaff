@@ -60,6 +60,26 @@ class Distributed < ActiveRecord::Base
     end
     return allweeks
   }
+  
+  #All Mondays in a year
+  scope :allmonthsbymondays, ->(fullyearstring){
+    astart = DateTime.now.utc.beginning_of_day
+    allmondays = []
+    for i in 1..50 do
+      myend = astart
+      astart = astart - (i * 28)
+      #push each iteration back to the past Monday
+      loop do
+        break if astart.wday == 1
+        astart = astart - 1.day
+      end
+      #check that the week ends within the year
+      if myend.strftime('%Y') == fullyearstring then
+        allmonthsbymondays.push(astart)
+      end
+    end
+    return allmonthsbymondays
+  }
 
   #Complete weeks goes back 3 years - used to place images (text vs. timestamp)
   scope :completeweeks, ->(wkstart){
