@@ -35,6 +35,8 @@ class PapersController < ApplicationController
 
     #for Viewing timespan of Paper Logs Scanned in
     @performances = Performance.selectionlist
+    
+    @ssperformances = Performance.ssselectionlist #Cabinet.translation
 
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new

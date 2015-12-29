@@ -19,5 +19,5 @@ class Performance < ActiveRecord::Base
   
   #for papers and reports
   scope :selectionlist, -> { select(:id, :name).order(:name).map{|p| [p.name, p.id] }}
-  #scope :ssselectionlist, -> { select(:id, :name).where(cabinet.product_id: [4,5]).order(:name).map{|p| [p.name, p.id] } }
+  scope :ssselectionlist, -> { select(:id, :name).where(id: Cabinet.translation).order(:name).map{|p| [p.name, p.id] } }
 end
