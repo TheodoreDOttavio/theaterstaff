@@ -35,7 +35,7 @@ class PapersController < ApplicationController
 
     #for Viewing timespan of Paper Logs Scanned in
     @performances = Performance.selectionlist
-    
+
     @ssperformances = Performance.ssselectionlist #Cabinet.translation
 
     #Display where the data is at - overview of what has been entered
@@ -330,8 +330,55 @@ end
     require 'rubygems'
     require 'zip'
     
-        #clean up... remove existing xls files
-    FileUtils.rm Dir.glob("app/reports/monthbytheater/*" + mystart.strftime('%b_%Y') + "-ss.xls")
+    thisperformance = Performance.find(params[:xportperformance])
+    folder = "app/reports/monthbytheater/"
+    file = thisperformance.name + '-special-services.xls'
+
+    #clean up... remove existing xls files
+    FileUtils.rm Dir.glob(folder + "*-special-services.xls")
+    
+    workbook = WriteExcel.new(folder + file)
+    worksheet  = workbook.add_worksheet
+    
+    # define formats for spreadsheet
+    titleformat = workbook.add_format
+    titleformat.set_font('Ariel')
+    titleformat.set_size(14)
+    titleformat.set_color('black')
+    titleformat.set_align('center')
+
+    headerformat = workbook.add_format
+    headerformat.set_font('Ariel')
+    headerformat.set_size(11)
+    headerformat.set_bold
+    headerformat.set_color('black')
+    headerformat.set_align('center')
+
+    dataformat = workbook.add_format
+    dataformat.set_font('Ariel')
+    dataformat.set_size(11)
+    dataformat.set_color('black')
+    dataformat.set_align('center')
+    
+    #set colums, row widths, and print settings
+    worksheet.set_column('A:A', 21)
+    worksheet.set_column('B:F', 14)
+    worksheet.set_row(0, 37)
+    worksheet.print_area('A1:F17')
+    worksheet.set_portrait
+    worksheet.set_paper(1) # US letter size
+    worksheet.center_horizontally
+    
+    #Write Headers
+    worksheet.write(0, 0, thisperformance.name + " - Translation Reports - ", titleformat)
+    worksheet.write(2, 0, "MONTH (Mon-Sun)", headerformat)
+    
+    # write excell sheet to file
+    workbook.close
+     
+    send_file folder + file, filename: file,
+      type: 'application/xls',
+      disposition: 'attachment'
   end
 
 
@@ -339,11 +386,11 @@ end
     @allweeks = Distributed.allweeks(weekstart)
     @performances = Performance.selectionlist
     @viewlist = []
-    
+
     case params[:logset].to_i
       when 1
         performanceidlist = Distributed.allperformances(params[:xportweekstart].to_date, params[:xportweekstart].to_date + 7)
-        
+
         performanceidlist.each do |p|
           logimage = findlog(params[:xportweekstart].to_date, p, 1)
           sslogimage = findlog(params[:xportweekstart].to_date, p, 2)
