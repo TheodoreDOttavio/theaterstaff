@@ -45,9 +45,8 @@
 <div class="row">
   <div class="col-md-2 editbold ct"><%= submit_tag 'Process', class: "btn btn-sm btn-primary" %></div>
   <div class="col-md-3 editbold ct"><%= select(@object, :xportformat, @deliveryformat) %></div>
-  <div class="col-md-3 editbold lt"><%= select(@object, :xportperformance, @ssperformances) %></div>
-  <div class="col-md-2 editbold ct"><%= select(@object, :xportyear, @showyears) %></div>
-  <div class="col-md-2 editbold lt">.xls Sheet of Monthly Totals by Language</div>
+  <div class="col-md-4 editbold lt"><%= select(@object, :xportperformance, @ssperformances) %></div>
+  <div class="col-md-3 editbold ct"><%= select(@object, :xportyear, @showyears) %></div>
 </div>
 
 <% end %>

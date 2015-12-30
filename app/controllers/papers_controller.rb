@@ -337,7 +337,8 @@ end
     require 'zip'
     
     thisperformance = Performance.find(params[:xportperformance])
-    langlist = languagelist
+    langlist = languagelist.slice!(:Infrared).slice!(:iCaption).slice!(:dScript).slice!(:Turkish)
+
     monthstarts = Distributed.monthsbymondays(params[:xportyear])
     folder = "app/reports/monthbytheater/"
     file = thisperformance.name + '-special-services.xls'
@@ -370,7 +371,7 @@ end
     
     #set colums, row widths, and print settings
     worksheet.set_column('A:A', 21.43)
-    worksheet.set_column('B:F', 14.43)
+    worksheet.set_column('B:I', 14.43)
     worksheet.set_row(0, 27.75)
     for i in 1..18 do
       worksheet.set_row(i, 21)
@@ -383,20 +384,30 @@ end
     #Write Headers
     worksheet.write(0, 0, thisperformance.name.upcase + " - Translation Reports - " + params[:xportyear], titleformat)
     worksheet.write(2, 0, "MONTH (Mon-Sun)", headerformat)
-    langlist.each_with_index do |l,x|
-      worksheet.write(2, x, l[0], headerformat)
-    end
+    worksheet.write(2, langlist.count+1, "TOTALS", headerformat)
+    worksheet.write(15, 0, "TOTALS", headerformat)
     
     monthstarts.each_with_index do |wk,r|
-      #12/29/14 - 01/25/15
       worksheet.write(3+r, 0, wk[0].strftime('%m/%d/%y') + " - " + wk[1].strftime('%m/%d/%y'), dataformat)
       
+      myascii = 65 #"A"
       langlist.each_with_index do |l,x|
-        thiscount = Distributed.language_for_oneperformance(wk[0], wk[1], x, thisperformance.id)
+        thiscount = Distributed.language_for_oneperformance(wk[0], wk[1], l[1], thisperformance.id)
         if thiscount != 0 then
-          worksheet.write(3+r, x, thiscount.sum(:quantity), dataformat)
+          worksheet.write(3+r, x+1, thiscount.sum(:quantity), dataformat)
         end
       end
+      myascii += langlist.count
+      worksheet.write(3+r, langlist.count+1, "=SUM(B" + (4+r).to_s + ":" + myascii.chr + (4+r).to_s + ")", headerformat)
+    end
+    
+    #laguage headers/totals
+    myascii = 65 #"A"
+    langlist.each_with_index do |l,x|
+      col = x+1
+      myascii = myascii + 1
+      worksheet.write(2, col, l[0], headerformat)
+      worksheet.write(15, col, "=SUM(" + myascii.chr + "4:" + myascii.chr + "15)", headerformat)
     end
     
     # write excell sheet to file

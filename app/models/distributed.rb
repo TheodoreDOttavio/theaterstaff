@@ -64,20 +64,21 @@ class Distributed < ActiveRecord::Base
   
   #All Mondays in a year
   scope :monthsbymondays, ->(fullyearstring){
-    astart = DateTime.now.utc.beginning_of_day
+    astart = DateTime.strptime(fullyearstring + "-12-31 24:00:00 UTC"[0..9], '%Y-%m-%d')
+    mystart = astart
     allmondays = []
     #roll back four years and a lil extra - 50 mnonths
     for i in 1..50 do
-      myend = astart - 1.day #previous Sun
-      astart = astart - 28.day
+      myend = mystart - 1.day #previous Sun
+      mystart = astart + 1.day - i.month
       #push each iteration back to the past Monday
       loop do
-        break if astart.wday == 1
-        astart = astart - 1.day #set to Monday
+        break if mystart.wday == 1
+        mystart = mystart - 1.day #set to Monday
       end
       #check that the week ends within the year
       if myend.strftime('%Y') == fullyearstring then
-        allmondays.push([astart,myend])
+        allmondays.push([mystart,myend])
       end
     end
     return allmondays.reverse #.sort_by{ |a| a[0] }
