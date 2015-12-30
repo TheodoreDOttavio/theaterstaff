@@ -149,8 +149,8 @@ end
 
 def freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
   if myrowhash.has_key? 'curtain' then
-    if myrowhash['curtain'].to_date > startcutoffdate then
-      if myrowhash['curtain'].to_date < endcutoffdate then
+    if myrowhash['curtain'].to_date < startcutoffdate then
+      if myrowhash['curtain'].to_date > endcutoffdate then
         eval(mydatabase).create(myrowhash)
       end
     end
