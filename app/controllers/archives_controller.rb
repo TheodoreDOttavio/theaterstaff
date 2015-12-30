@@ -7,10 +7,6 @@ class ArchivesController < ApplicationController
       {"modelname" => "Distributed",
        "descriprion" => "Each product distributed"})
     @datamodels.push(
-      {"modelname" => "Distributed",
-       "descriprion" => "Limited to the most recent 8k records for Heroku",
-       "datalimit" => 8000})
-    @datamodels.push(
       {"modelname" => "Performance",
        "descriprion" => "List of shows and performances"})
     @datamodels.push(
@@ -44,16 +40,10 @@ class ArchivesController < ApplicationController
     #YAML::ENGINE.yamler = 'psych'
     #yeah... fuck all that noise. Going with good old boring CSV...
     require 'csv'
-
     mymodel = params[:mymodel]
-    mydatalimit = params[:mydatalimit].to_i
 
     if mymodel then
-      if mydatalimit != 0
-         exportdata = eval(mymodel).order(curtain: :desc).limit(mydatalimit)
-      else
-         exportdata = eval(mymodel).order(:id)
-      end
+      exportdata = eval(mymodel).order(:id)
 
       csv_string = CSV.generate do |mycsv|
         mycsv << eval(mymodel).attribute_names
@@ -71,7 +61,6 @@ class ArchivesController < ApplicationController
          filename: "#{mymodel}.csv"
       end
     end
-    #YAML.dump(eval(mymodel).order(:id).to_a)
   end
 
 
@@ -85,9 +74,23 @@ class ArchivesController < ApplicationController
     end
 
     uploaded_io = params[:Data]
-    cutoffdate = params[:cutoff].to_date
-    if cutoffdate.nil? then
-      cutoffdate = DateTime.now - 10.years
+    startcutoffdate = params[:startcutoff].to_date
+    if startcutoffdate.nil? then
+      startcutoffdate = DateTime.now - 10.years
+    end
+    
+    endcutoffdate = params[:endcutoff].to_date
+    if endcutoffdate.nil? then
+      endcutoffdate = DateTime.now
+    else
+      #rename scans to make them available or unavailable by this cutoffdate
+    end
+    
+    updateheroku = params[:updateheroku]
+    if updateheroku.nil? then
+      updateheroku = 0
+    else
+      updateheroku = 1
     end
 
     if !File.exist?(uploaded_io.tempfile) then
@@ -99,7 +102,7 @@ class ArchivesController < ApplicationController
 
     #Database Table/Model must match the filename
     mydatabase = uploaded_io.original_filename.split('.')[0]
-    #for multile downloads that save as myfile(1).yml
+    #correct file name for multile downloads that save as myfile(1).cvs
     mydatabase = mydatabase.split('(')[0]
 
 
@@ -124,9 +127,15 @@ class ArchivesController < ApplicationController
       myrowhash = data.to_hash
       myrowhash.delete(nil)
       if takeafter == nil then
-        freshloading(myrowhash,cutoffdate,mydatabase)
+        if updateheroku == 1 then
+          if eval(mydatabase).count < 8000 then
+            freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
+          end
+        else
+          freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
+        end
       else
-        updateloading(myrowhash,cutoffdate,takeafter,mydatabase)
+        updateloading(myrowhash,startcutoffdate,takeafter,mydatabase)
       end
     end
 
@@ -136,10 +145,12 @@ class ArchivesController < ApplicationController
 end
 
 
-def freshloading(myrowhash,cutoffdate,mydatabase)
+def freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
   if myrowhash.has_key? 'curtain' then
-    if myrowhash['curtain'].to_date > cutoffdate then
-      eval(mydatabase).create(myrowhash)
+    if myrowhash['curtain'].to_date > startcutoffdate then
+      if myrowhash['curtain'].to_date < endcutoffdate then
+        eval(mydatabase).create(myrowhash)
+      end
     end
   else
     eval(mydatabase).create(myrowhash)
@@ -147,10 +158,10 @@ def freshloading(myrowhash,cutoffdate,mydatabase)
 end
 
 
-def updateloading(myrowhash,cutoffdate,takeafter,mydatabase)
+def updateloading(myrowhash,startcutoffdate,takeafter,mydatabase)
   if myrowhash['updated_at'].to_date > takeafter then
     if myrowhash.has_key? 'curtain' then
-      if myrowhash['curtain'].to_date > cutoffdate then
+      if myrowhash['curtain'].to_date > startcutoffdate then
         myrecord = eval(mydatabase).find_by_id(myrowhash['id'])
         if myrecord != nil then
           myrecord.update(myrowhash)
@@ -167,4 +178,10 @@ def updateloading(myrowhash,cutoffdate,takeafter,mydatabase)
       end
     end
   end
+  
+  
+def scanrename(startcutoffdate)
+  
+end
+  
 end
