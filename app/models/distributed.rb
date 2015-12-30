@@ -22,7 +22,8 @@ class Distributed < ActiveRecord::Base
   scope :infrared_for_oneperformance, ->(mystart, myend, performanceid) {
     where(curtain: [mystart..myend], performance_id: performanceid).infrared.order(:curtain, :eve) }
   scope :language_for_oneperformance, ->(mystart, myend, languageid, performanceid) {
-    where(curtain: [mystart..myend], performance_id: performanceid, language: languageid).order(:curtain, :eve) }
+    select(sum :quantity).
+    where(curtain: [mystart..myend], performance_id: performanceid, language: languageid) }
 
   #Scopes for data entry
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
@@ -62,23 +63,24 @@ class Distributed < ActiveRecord::Base
   }
   
   #All Mondays in a year
-  scope :allmonthsbymondays, ->(fullyearstring){
+  scope :monthsbymondays, ->(fullyearstring){
     astart = DateTime.now.utc.beginning_of_day
     allmondays = []
+    #roll back four years and a lil extra - 50 mnonths
     for i in 1..50 do
-      myend = astart
-      astart = astart - (i * 28)
+      myend = astart - 1.day #previous Sun
+      astart = astart - 28.day
       #push each iteration back to the past Monday
       loop do
         break if astart.wday == 1
-        astart = astart - 1.day
+        astart = astart - 1.day #set to Monday
       end
       #check that the week ends within the year
       if myend.strftime('%Y') == fullyearstring then
-        allmonthsbymondays.push(astart)
+        allmondays.push([astart,myend])
       end
     end
-    return allmonthsbymondays
+    return allmondays.reverse #.sort_by{ |a| a[0] }
   }
 
   #Complete weeks goes back 3 years - used to place images (text vs. timestamp)
@@ -91,4 +93,6 @@ class Distributed < ActiveRecord::Base
     end
     return completeweeks
   }
+  
+
 end

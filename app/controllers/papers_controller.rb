@@ -337,7 +337,8 @@ end
     require 'zip'
     
     thisperformance = Performance.find(params[:xportperformance])
-    monthstarts = Distributed.allmonthsbymondays(params[:xportyear])
+    langlist = languagelist
+    monthstarts = Distributed.monthsbymondays(params[:xportyear])
     folder = "app/reports/monthbytheater/"
     file = thisperformance.name + '-special-services.xls'
 
@@ -352,7 +353,7 @@ end
     titleformat.set_font('Ariel')
     titleformat.set_size(14)
     titleformat.set_color('black')
-    titleformat.set_align('center')
+    titleformat.set_align('left')
 
     headerformat = workbook.add_format
     headerformat.set_font('Ariel')
@@ -368,22 +369,34 @@ end
     dataformat.set_align('center')
     
     #set colums, row widths, and print settings
-    worksheet.set_column('A:A', 21)
-    worksheet.set_column('B:F', 14)
-    worksheet.set_row(0, 37)
+    worksheet.set_column('A:A', 21.43)
+    worksheet.set_column('B:F', 14.43)
+    worksheet.set_row(0, 27.75)
+    for i in 1..18 do
+      worksheet.set_row(i, 21)
+    end    
     worksheet.print_area('A1:F17')
     worksheet.set_portrait
     worksheet.set_paper(1) # US letter size
     worksheet.center_horizontally
     
     #Write Headers
-    worksheet.write(0, 0, thisperformance.name + " - Translation Reports - ", titleformat)
+    worksheet.write(0, 0, thisperformance.name.upcase + " - Translation Reports - " + params[:xportyear], titleformat)
     worksheet.write(2, 0, "MONTH (Mon-Sun)", headerformat)
+    langlist.each_with_index do |l,x|
+      worksheet.write(2, x, l[0], headerformat)
+    end
     
-    monthstarts.each_with_index do |wk,i|
+    monthstarts.each_with_index do |wk,r|
       #12/29/14 - 01/25/15
-      wkend = wk+7
-      worksheet.write(3+i, 0, wk.strftime('%m/%d/%y') + " - " + wkend.strftime('%m/%d/%y'), dataformat)
+      worksheet.write(3+r, 0, wk[0].strftime('%m/%d/%y') + " - " + wk[1].strftime('%m/%d/%y'), dataformat)
+      
+      langlist.each_with_index do |l,x|
+        thiscount = Distributed.language_for_oneperformance(wk[0], wk[1], x, thisperformance.id)
+        if thiscount != 0 then
+          worksheet.write(3+r, x, thiscount.sum(:quantity), dataformat)
+        end
+      end
     end
     
     # write excell sheet to file
