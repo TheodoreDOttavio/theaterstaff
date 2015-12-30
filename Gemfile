@@ -37,8 +37,8 @@ end
 
 
 group :production do
-  #ruby '2.0.0'
-  ruby '1.9.3'
+  ruby '2.0.0'
+  #ruby '1.9.3'
   gem 'rails_12factor'
   gem 'pg'
 end
