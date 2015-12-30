@@ -7,21 +7,19 @@ Data Archive
     or create a csv data model?
   Save users with passwords intact
     A custom archive that uses users.create?
+  Modify Scan filenames when there is a cutoff Date
 
 Users
   Save a signature snapstot
-  
+
 Distributeds
   add available - an infrared distributed with rep_id
 
 Data Entry
-  finish implementing hash based data model
   two partials for infrared and special services
-  Add an option to palaster rep over all the TBD's that have quantity (default rep) for the week
+  Add an option to plaster rep over all the TBD's that have quantity (default rep) for the week
 
 Paperwork and Reports
-  add a link to users/show to report on representative history
-  ...or display users history partial
-  
-Low priority:
+
+And keep checking:
 rails_best_practices . -f html

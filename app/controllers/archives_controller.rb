@@ -78,14 +78,14 @@ class ArchivesController < ApplicationController
     if startcutoffdate.nil? then
       startcutoffdate = DateTime.now - 10.years
     end
-    
+
     endcutoffdate = params[:endcutoff].to_date
     if endcutoffdate.nil? then
       endcutoffdate = DateTime.now
     else
       #rename scans to make them available or unavailable by this cutoffdate
     end
-    
+
     updateheroku = params[:updateheroku]
     if updateheroku.nil? then
       updateheroku = 0
@@ -178,10 +178,10 @@ def updateloading(myrowhash,startcutoffdate,takeafter,mydatabase)
       end
     end
   end
-  
-  
+
+
 def scanrename(startcutoffdate)
-  
+
 end
-  
+
 end

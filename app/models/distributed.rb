@@ -34,7 +34,7 @@ class Distributed < ActiveRecord::Base
 
   #Show a representative's work with links to scanned logs
   scope :schedule, ->(repid) { where(product_id: [1,3,6,7], representative: repid).order(curtain: :desc) }
-  
+
   scope :allmonths, -> {
     allmonths = []
     astart = DateTime.now.utc.beginning_of_day
@@ -61,7 +61,7 @@ class Distributed < ActiveRecord::Base
     end
     return allweeks
   }
-  
+
   #All Mondays in a year
   scope :monthsbymondays, ->(fullyearstring){
     astart = DateTime.strptime(fullyearstring + "-12-31 24:00:00 UTC"[0..9], '%Y-%m-%d')
@@ -94,6 +94,6 @@ class Distributed < ActiveRecord::Base
     end
     return completeweeks
   }
-  
+
 
 end
