@@ -47,6 +47,8 @@ match '/scanprocess', to: 'scans#sort', via: 'get'
 #Data Archiving to csv files
 get "archives/backup"
 post "archives/restore"
+match '/xlsflatfile', to: 'archives#xlsflatfile', via: 'post'
+
 
 # #preselect theater for distributeds data entry:
 match '/weekedit', to: 'distributeds#weekedit', via: 'get'

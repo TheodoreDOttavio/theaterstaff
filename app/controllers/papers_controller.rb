@@ -334,7 +334,7 @@ end
     #to create MS Excell files
     require 'fileutils'
     require 'rubygems'
-    require 'zip'
+    #require 'zip'
 
     thisperformance = Performance.find(params[:xportperformance])
     langlist = languagelist.slice!(:Infrared).slice!(:iCaption).slice!(:dScript).slice!(:Turkish)

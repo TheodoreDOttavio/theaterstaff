@@ -19,6 +19,15 @@
 <%= render :partial => 'datamodel', :collection => @datamodels %>
 
 </div>
+
+<div class="well well-sm" style="width: 50%;">
+  <h2>Pull a full report of all the distributed data - This takes a while!</h2>
+  <%= form_tag("/xlsflatfile", method: "post") do %>
+    <%= submit_tag 'Download an MS Excell Flat File', class: "btn btn-small btn-primary" %>
+  <% end %>
+</div>
+
+
 <div class="well well-sm" style="width: 50%;">
 
 <h1>Restore a Data file</h1>
@@ -52,7 +61,6 @@
   </div>
 <% end %>
 </div>
-
 
 </div>
 </div>
