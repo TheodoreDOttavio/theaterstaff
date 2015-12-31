@@ -130,8 +130,6 @@ class ArchivesController < ApplicationController
         if updateheroku == 1 then
           if eval(mydatabase).count < 8000 then
             freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
-          else
-            break
           end
         else
           freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
