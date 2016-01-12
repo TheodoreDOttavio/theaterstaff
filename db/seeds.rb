@@ -569,7 +569,7 @@ User.create!(name: "Yoav Levin",
                  phonetype: "",
                  schedule: false,
                  admin: false)
-                 
+
 #use FactoryGirl to make a few more users
 #(0..20).each do |u|
   #fakename = Faker::Name.name

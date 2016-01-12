@@ -180,29 +180,6 @@ class ArchivesController < ApplicationController
   end
 
 
-  def scanrename(startcutoffdate)
-    theyear = endcutoffdate.strftime("%Y")
-    performanceidlist = Performance.selectionlist
-
-    performanceidlist.each do |p|
-      #logfile = theyear + "/" +
-      #      p[0].to_s + "/" +
-      #      p[0].to_s + "-" +
-      #      startcutoffdate.strftime('%Y-%m-%d') + "-" + format.to_s + ".jpg"
-
-      #rename scans to make them available or unavailable by this cutoffdate
-
-      #Make a list of scans to rename
-      jpegfilelist = Dir.glob("app/assets/images/" + theyear + "/" + p[0] + "/*.jpg")
-
-      #if File.exist?("app/assets/images/" + logfile) then
-      #  return logfile
-      #end
-    end
-  end
-
-
-
   def xlsflatfile
     #to create MS Excell files
     require 'fileutils'

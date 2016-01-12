@@ -58,8 +58,4 @@ class ScansController < ApplicationController
   end
   end
 
-  def placeimage (thisimage, placeperformanceid, placeinweek, placeformat)
-
-  end
-
 end
