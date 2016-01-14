@@ -5,13 +5,18 @@
 <h1><%= @performance.name %></h1>
 
 <div class="row">
-  <div class="col-md-4 editbold lt"><%= link_to @performance.theater_name, @performance.theater %></div>
-  <div class="col-md-3 editlight ct"><%= @performance.theater_company %></div>
-  <div class="col-md-3 editlight lt"><%= @performance.theater_address %></div>
-  <div class="col-md-2 editlight lt"><%= @performance.theater_city %></div>
+  <div class="col-md-4 editbold rt">Playing at &nbsp;<%= link_to @performance.theater_name, @performance.theater %></div>
+  <div class="col-md-3 editlight lt"><%= @performance.theater_address %>, <%= @performance.theater_city %></div>
+  <div class="col-md-5 editlight rt"><%= @performance.theater_company %></div>
 </div>
 
-<h2>Closeing Date:&nbsp;
+<h2>On the web:&nbsp;
+  <a href="http://www.broadway.com/search/?q=<%= @performance.name.gsub(" ","+") %>" target="new">Broadway.com</a>
+</h2>
+
+<h2>Opening Date:&nbsp;
+    <%= @performance.opening.strftime('%b %d, %Y') %>
+<br>Closeing Date:&nbsp;
   <% if @performance.closeing > DateTime.now()  %>
     Now Showing
   <% else %>
@@ -22,18 +27,20 @@
 <h2>The Cabinet has:</h2>
 <% @performance.cabinets.each do |c| %>
 <div class="row">
-	<div class="col-md-2 editbold rt"><%= c.quantity %></div>
-	<div class="col-md-4 editlight lt"><%= c.product.name.pluralize %></div>
+  <div class="col-md-2 editbold rt"><%= c.quantity %></div>
+  <div class="col-md-4 editlight lt"><%= c.product.name.pluralize %></div>
 </div>
 <% end %>
 
 <%= @performance.comments %>
 
-<h2>On the web:</h2>
-<a href="http://www.broadway.com/search/?q=<%= @performance.name.gsub(" ","+") %>" target="new">Broadway.com</a></dd>
-
-<%= link_to "List all Shows", performances_path, class: "btn btn-small btn-primary" %>
-<%= link_to "Edit This Show", edit_performance_path(@performance), class: "btn btn-small btn-warning" %></dd>
+<div class="row">
+  <div class="col-md-2 editbold lt">&nbsp;</div>
+  <div class="col-md-2 editbold lt"><%= link_to "List all Shows", performances_path, class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-4 editbold ct"><%= link_to "Edit " + @performance.name, edit_performance_path(@performance), class: "btn btn-sm btn-warning" %></div>
+  <div class="col-md-2 editbold lt"><%= link_to "Delete", performance_path(@performance), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger"  %></div>
+  <div class="col-md-2 editbold lt">&nbsp;</div>
+</div>
 
 </div><div class="well well-sm" style="width: 50%;">
 

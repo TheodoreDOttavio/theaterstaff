@@ -65,43 +65,6 @@ class PerformancesController < ApplicationController
   end
 
 
-  # def editforschedule #changed handler to make a route later
-    # mystart = weekstart
-    # @performance = Performance.find(params[:id],
-      # :include => :events,
-      # :order => 'events.curtain',
-      # :conditions => ['events.curtain > ?', mystart])
-
-    # #to filter by availability
-    # @users = User.all.order(:name)
-
-    # @mydatearray = []
-    # @mydate = DateTime.new
-
-    # @curtains = Curtains.all.order(:set,:hrmin)
-
-    # @daysoftheweek = {}
-    # (0..6).each do |d|
-      # @daysoftheweek[(mystart + d.days).strftime('%a')] = d
-    # end
-    # @curtaintime = {}
-    # @curtainselectedday = {}
-    # @curtainselectedtime = {}
-
-    # @performance.events.each do |p|
-      # if p.curtain.strftime('%I').to_f > 4 then
-        # @curtaintime[p.curtain] = p.curtain.strftime('%a') + " E - " + p.curtain.strftime('%a %m/%d')
-      # else
-        # @curtaintime[p.curtain] = p.curtain.strftime('%a') + " M - " + p.curtain.strftime('%a %m/%d')
-      # end
-
-      # #Formatted DateTime stamps
-      # @curtainselectedday[p.curtain] = p.curtain.strftime('%a')
-      # @curtainselectedtime[p.curtain] = p.curtain.strftime('%H:%M')
-    # end
-  # end
-
-
   def update
     @performance = Performance.find(params[:id])
     if @performance.update_attributes(performance_params)
