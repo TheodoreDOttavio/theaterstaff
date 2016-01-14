@@ -5,25 +5,25 @@ class ArchivesController < ApplicationController
     @datamodels = Array.new
     @datamodels.push(
       {"modelname" => "Distributed",
-       "descriprion" => "Each product distributed"})
+       "description" => "Each product distributed"})
     @datamodels.push(
       {"modelname" => "Performance",
-       "descriprion" => "List of shows and performances"})
+       "description" => "List of shows and performances"})
     @datamodels.push(
       {"modelname" => "Cabinet",
-       "descriprion" => "The inventory content of each console"})
+       "description" => "The inventory content of each console"})
     @datamodels.push(
       {"modelname" => "User",
-       "descriprion" => "All Users-representatives and Administrators. Will not re-import!"})
+       "description" => "All Users-representatives and Administrators. Will not re-import!"})
     @datamodels.push(
       {"modelname" => "Available",
-       "descriprion" => "User Availability"})
+       "description" => "User Availability"})
     @datamodels.push(
       {"modelname" => "Theater",
-       "descriprion" => "All Venues. A list of Theaters"})
+       "description" => "All Venues. A list of Theaters"})
     @datamodels.push(
       {"modelname" => "Product",
-       "descriprion" => "Inventory list - all products available"})
+       "description" => "Inventory list - all products available"})
 
     #add the last time the model was changed
     @datamodels.map {|modelhash| modelhash.store("changed",

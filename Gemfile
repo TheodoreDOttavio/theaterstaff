@@ -35,7 +35,7 @@ group :development, :test do
   gem 'guard-spork' #, '1.5.0'
   gem 'spork-rails' #, '4.0.0'
   gem 'rspec-rails' #, '~> 3.0'
-  
+
   #gem 'capistrano-rails'
   #gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'

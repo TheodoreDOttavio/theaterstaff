@@ -5,12 +5,12 @@
   <%= form_tag("/viewlogs", method: "post") do %>
     <%= hidden_field_tag :logset, 1 %>
     <div class="col-md-2 editbold ct"><%= submit_tag 'View by Week of', class: "btn btn-sm btn-primary" %></div>
-    <div class="col-md-4 editbold lt"><%= select(@object, :xportweekstart, @allweeks) %></div>
+    <div class="col-md-4 editbold lt"><%= select(nilobject, :xportweekstart, allweeks) %></div>
   <% end %>
   <%= form_tag("/viewlogs", method: "post") do %>
   <%= hidden_field_tag :logset, 2 %>
     <div class="col-md-2 editbold ct"><%= submit_tag 'View by Performance', class: "btn btn-sm btn-primary" %></div>
-    <div class="col-md-4 editbold lt"><%= select(@object, :xportperformance, @performances) %></div>
+    <div class="col-md-4 editbold lt"><%= select(nilobject, :xportperformance, performances) %></div>
   <% end %>
 </div>
 
