@@ -1,15 +1,14 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe "Static pages" do
-
+  subject { page }
+  
   describe "Home page" do
-    it "should have the content 'Theater Staff'" do
-      visit '/static_pages/home'
-      expect(page).to have_content('Theater Staff')
-    end
+    before { visit root_path }
+ 
+     it { should have_content('Theater Staff') }
   end
-
-
+  
   describe "Help page" do
     before { visit help_path }
  

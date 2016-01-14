@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby '2.1.7'
+
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
@@ -28,28 +30,26 @@ gem 'writeexcel'
 
 
 group :development, :test do
-  ruby '1.9.3'
-
   gem 'childprocess', '0.3.6'
   gem 'guard-rspec' #, '2.5.0'
-  gem 'guard-spork', '1.5.0'
-  gem 'spork-rails', '4.0.0'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'guard-spork' #, '1.5.0'
+  gem 'spork-rails' #, '4.0.0'
+  gem 'rspec-rails' #, '~> 3.0'
   
   #gem 'capistrano-rails'
-  gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
+  #gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'
   gem 'web-console', '~> 2.0'    # Access an IRB console on exception pages or by using <%= console %> in views
 end
 
 
 group :test do
-  gem 'capybara', '2.1.0'
+  gem 'capybara' #, '2.1.0'
   gem 'selenium-webdriver' #, '2.35.1'
 end
 
 group :production do
-  #ruby '2.0.0'
+  #ruby '2.0.0' - this runs on heroku
   gem 'rails_12factor'
   gem 'pg'
 end
