@@ -26,9 +26,9 @@ module SessionsHelper
   end
 
 
-#  def current_user=(user)
-#    @current_user = user
-#  end
+  def current_user=(user)
+    @current_user = user
+  end
 
 
   def current_user
@@ -38,9 +38,9 @@ module SessionsHelper
   end
 
 
-#  def current_user?(user)
-#    user == current_user
-#  end
+  def current_user?(user)
+    user == current_user
+  end
 
 
   def redirect_back_or(default)
@@ -49,7 +49,7 @@ module SessionsHelper
   end
 
 
-#  def store_location
-#    session[:return_to] = request.url if request.get?
-#  end
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
 end
