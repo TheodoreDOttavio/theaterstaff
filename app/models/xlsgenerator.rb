@@ -289,7 +289,6 @@ def generatemonthly(mystart, exporttheater)
 end
 
 
-
 def generatemonthlyss (performance, year)
     #to create MS Excell files
     require 'fileutils'
@@ -385,8 +384,8 @@ def generateweeklyxls(mystart)
     @weekof = mystart.strftime('%a, %b %d - %Y')
 
     #clean up... remove existing xls files
-    FileUtils.rm Dir.glob("app/reports/weekbytheater/*" + mystart.strftime('%Y_%m_%d') + ".xls")
-    FileUtils.rm Dir.glob("app/reports/week-by-theater_" + mystart.strftime('%Y_%m_%d') + ".zip")
+    FileUtils.rm Dir.glob("app/reports/weekbytheater/*.xls")
+    FileUtils.rm Dir.glob("app/reports/week-by-theater_*.zip")
 
     performancelist = Distributed.datespan(mystart, myend).distinct(:performance_id).pluck(:performance_id)
 
@@ -519,5 +518,5 @@ def generateweeklyxls(mystart)
      workbook.close
    end
   end
-  
+
 end

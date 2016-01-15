@@ -84,7 +84,6 @@ class PapersController < ApplicationController
   end
 
 
-
   def generateweekly
     case params[:xportas]
       when "1"
@@ -96,7 +95,6 @@ class PapersController < ApplicationController
     end
     #redirect_to papers_path
   end
-
 
 
   def generatemonthly
@@ -148,37 +146,13 @@ class PapersController < ApplicationController
   end
 
 
-  def logview
-    @allweeks = Distributed.allweeks(weekstart)
-    @performances = Performance.selectionlist
-    @viewlist = []
-
-    case params[:logset].to_i
-      when 1
-        performanceidlist = Distributed.allperformances(params[:xportweekstart].to_date, params[:xportweekstart].to_date + 7)
-
-        performanceidlist.each do |p|
-          logimage = findlog(params[:xportweekstart].to_date, p, 1)
-          sslogimage = findlog(params[:xportweekstart].to_date, p, 2)
-          if !logimage.nil? then @viewlist.push(logimage) end
-          if !sslogimage.nil? then @viewlist.push(sslogimage) end
-        end
-      when 2
-        mystart = weekstart #findlog corrects this to Mondays
-        for i in 1..156 do
-          ws = mystart - (i * 7)
-          logimage = findlog(ws, params[:xportperformance], 1)
-          sslogimage = findlog(ws, params[:xportperformance], 2)
-          if !logimage.nil? then @viewlist.push(logimage) end
-          if !sslogimage.nil? then @viewlist.push(sslogimage) end
-        end
-    end
-  end
-
-
   def generateweeklyxls
+    require 'fileutils'
+    require 'rubygems'
+    require 'zip'
+
     mystart = params[:xportweekstart].to_date
-    
+
     Xlsgenerator.new.generateweeklyxls(mystart)
 
    excelfilelist = Dir.glob("app/reports/weekbytheater/*" + mystart.strftime('%Y_%m_%d') + ".xls")
@@ -204,7 +178,6 @@ class PapersController < ApplicationController
 
 
   end
-
 
 
   def generateweeklypdf
@@ -283,7 +256,35 @@ class PapersController < ApplicationController
     end
 
 
-    def weeklyproductcounter (mystart, myend, myperformance_id, myproduct_id, mylanguage_id)
+  def logview
+    @allweeks = Distributed.allweeks(weekstart)
+    @performances = Performance.selectionlist
+    @viewlist = []
+
+    case params[:logset].to_i
+      when 1
+        performanceidlist = Distributed.allperformances(params[:xportweekstart].to_date, params[:xportweekstart].to_date + 7)
+
+        performanceidlist.each do |p|
+          logimage = findlog(params[:xportweekstart].to_date, p, 1)
+          sslogimage = findlog(params[:xportweekstart].to_date, p, 2)
+          if !logimage.nil? then @viewlist.push(logimage) end
+          if !sslogimage.nil? then @viewlist.push(sslogimage) end
+        end
+      when 2
+        mystart = weekstart #findlog corrects this to Mondays
+        for i in 1..156 do
+          ws = mystart - (i * 7)
+          logimage = findlog(ws, params[:xportperformance], 1)
+          sslogimage = findlog(ws, params[:xportperformance], 2)
+          if !logimage.nil? then @viewlist.push(logimage) end
+          if !sslogimage.nil? then @viewlist.push(sslogimage) end
+        end
+    end
+  end
+
+
+  def weeklyproductcounter (mystart, myend, myperformance_id, myproduct_id, mylanguage_id)
       headsets = Distributed.datespan(mystart, myend).select(:quantity).where(product_id: myproduct_id, language: mylanguage_id, performance_id: myperformance_id)
       thisvalue = 0
       headsets.each do |d|

@@ -13,7 +13,7 @@ gem 'coffee-script-source', '1.8.0' #Solves the execjs error, line 6 of applicat
 gem 'cocoon'                    #for nested forms on many-to-many join models
 gem 'datagrid'
 #gem 'jbuilder', '~> 2.0'
-#gem 'jquery-rails' added rails.js to assets
+gem 'jquery-rails' #added rails.js to assets
 gem 'kaminari'
 #gem 'lightbox_rails'   this is added in as .js, and .css in assets)
 gem 'rails', '4.2.2'

@@ -25,6 +25,7 @@ Data Entry
 Paperwork and Reports
   Very slow - revise to show a ywl file and update it at data enrty
   @object for the select tags... it's nil, doesn't work without it. Need to grok this.
+  Default select pdf on weekly exports
 
 TESTING!!!
   get basic tests back in and continue with TDD
