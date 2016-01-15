@@ -100,318 +100,47 @@ class PapersController < ApplicationController
 
 
   def generatemonthly
-  #to create MS Excell files
     require 'fileutils'
     require 'rubygems'
     require 'zip'
 
+    #clean up... remove existing files
+    FileUtils.rm Dir.glob("app/reports/monthbytheater/*.xls")
+    FileUtils.rm Dir.glob("app/reports/month-by-theater_*.zip")
+
     mystart = params[:xportmonthstart].to_date
 
-    myend = (mystart + 1.months) - 1.days
+    Xlsgenerator.new.generatemonthly(mystart, params[:xporttheater])
 
-    @monthof = mystart.strftime('%b - %Y')
+    excelfilelist = Dir.glob("app/reports/monthbytheater/*" + mystart.strftime('%b_%Y') + ".xls")
 
-    #clean up... remove existing xls files
-    FileUtils.rm Dir.glob("app/reports/monthbytheater/*" + mystart.strftime('%b_%Y') + ".xls")
-    FileUtils.rm Dir.glob("app/reports/month-by-theater_" + mystart.strftime('%b_%Y') + ".zip")
+    if excelfilelist.empty? then
+      flash[:error] = "No Data Found"
+      redirect_to papers_path
+    else
+      #generate a zipfile and send it as a link
+      zipfile_name = ("app/reports/month-by-theater_" + mystart.strftime('%b_%Y') + ".zip")
+      folder = "app/reports/monthbytheater"
 
-    #The performance list comes from distributed so closed shows, and no data shows are not included
-    #  but... now chop down the remaining to limit by Theater company or theater
-    case params[:xporttheater].to_f
-      when 1 #all theaters
-        performancelist = Distributed.allperformances(mystart, myend)
-      when 0 #use theater company
-        theater = Theater.where(company: params[:xporttheater])
-        performancelist = []
-        theater.each do |t|
-          if !t.performance.nil? then
-            performancelist.push(t.performance.id)
-          end
+      Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        excelfilelist.each do |filename|
+          zipfile.add(filename.split("/")[3], filename)
         end
-      else #theater_id was passed
-        thistheaterid = params[:xporttheater].to_f
-        theater = Theater.find(thistheaterid)
-        if theater.performance.nil? then
-          theater = Theater.where(company: params[:xporttheater])
-          flash[:error] = "No Data Found for " + theater.name
-          redirect_to papers_path
-        else
-          performancelist = Distributed.oneperformance(mystart, myend, theater)
-        end
-    end
-
-    if !performancelist.nil? then
-    #Make an exel doc for each theater
-    performancelist.each do |p|
-
-      @performance = Performance.find(p)
-      @theater = Theater.find(@performance.theater_id)
-      @distributeds = Distributed.infrared_for_oneperformance(mystart, myend, p)
-
-      infrared = []
-      translation = []
-      icapdesc = []
-      curtainlist = []
-
-      #create excel file and spreadsheet
-      # this writes everytime page is displayed to accomodate all changes and keep the link fresh
-      workbook = WriteExcel.new('app/reports/monthbytheater/' + @theater.name + '_' + mystart.strftime('%b_%Y') + '.xls')
-      worksheet  = workbook.add_worksheet
-
-      # define formats for spreadsheet
-      headerformat = workbook.add_format
-      headerformat.set_font('Ariel')
-      headerformat.set_size(12)
-      headerformat.set_bold
-      headerformat.set_color('blue')
-      headerformat.set_align('left')
-
-      keyformat = workbook.add_format
-      keyformat.set_font('Times New Roman')
-      keyformat.set_size(12)
-      keyformat.set_color('black')
-      keyformat.set_align('center')
-
-      dayformat = workbook.add_format
-      dayformat.set_font('Ariel')
-      dayformat.set_size(11)
-      dayformat.set_color('black')
-      dayformat.set_align('left')
-
-      dataformat = workbook.add_format
-      dataformat.set_font('Times New Roman')
-      dataformat.set_size(10)
-      dataformat.set_color('black')
-      dataformat.set_align('center')
-
-      #set colums and row widths
-      worksheet.set_column('A:B', 15)
-      worksheet.set_column('C:E', 12)
-      worksheet.set_row(0, 24)
-      worksheet.print_area('A1:E16')
-
-      #product_id 1 has all shows
-      #build three vertical arrays of the quantities because each quantity is a group of product ID's or language ID's
-      # The myspacer is for end of weektotals that move the rows down Starts at 2 for row 3
-      myspacer = 2
-      yesterdaywas = "Mon"
-      toprowforweektotal = 3
-
-      @distributeds.each_with_index do |u, ui|
-        #is this entry going to be the first show of the week?
-        #  if yesterday (last entry) was Fri, Sat or Sun then
-        #  if this entry is Mon, Tue, or Wed... it IS - add two rows before continuing.
-        sotodayis = u.curtain.strftime('%a')
-
-        if yesterdaywas == 'Fri' or yesterdaywas == 'Sat' or yesterdaywas == 'Sun' then
-          if sotodayis == 'Mon' or sotodayis == 'Tue' or sotodayis == 'Wed' then
-            worksheet.write(ui+myspacer, 1, "Week Totals", keyformat)
-            worksheet.write(ui+myspacer, 2, "=SUM(C" + toprowforweektotal.to_s + ":C" + (ui+myspacer).to_s + ")", keyformat)
-            worksheet.write(ui+myspacer, 3, "=SUM(D" + toprowforweektotal.to_s + ":D" + (ui+myspacer).to_s + ")", keyformat)
-            worksheet.write(ui+myspacer, 4, "=SUM(E" + toprowforweektotal.to_s + ":E" + (ui+myspacer).to_s + ")", keyformat)
-            worksheet.set_row(ui+myspacer+1, 6)
-
-            myspacer = myspacer + 2
-            toprowforweektotal = ui + myspacer + 1
-          end
-        end
-        yesterdaywas = u.curtain.strftime('%a')
-
-        if u.eve == false then
-          worksheet.write(ui+myspacer, 0, u.curtain.strftime('%A') + " mat", dayformat)
-        else
-          worksheet.write(ui+myspacer, 0, u.curtain.strftime('%A') + " eve", dayformat)
-        end
-
-        worksheet.write(ui+myspacer, 1, u.curtain.strftime('%m/%d/%Y'), dataformat)
-
-        curtainlist.push([u.curtain,u.eve])
-
-        #build up placeholder arrays for nil qty's...
-        infrared.push(0)
-        translation.push(0)
-        icapdesc.push(0)
-
-        #and drop in the week totals at the end:
-        if ui == @distributeds.count-1 then
-          worksheet.write(ui+myspacer+1, 1, "Week Totals", keyformat)
-          worksheet.write(ui+myspacer+1, 2, "=SUM(C" + toprowforweektotal.to_s + ":C" + (ui+myspacer+1).to_s + ")", keyformat)
-          worksheet.write(ui+myspacer+1, 3, "=SUM(D" + toprowforweektotal.to_s + ":D" + (ui+myspacer+1).to_s + ")", keyformat)
-          worksheet.write(ui+myspacer+1, 4, "=SUM(E" + toprowforweektotal.to_s + ":E" + (ui+myspacer+1).to_s + ")", keyformat)
-        end
-
-        #Set the print Area and page formating
-        worksheet.set_portrait
-        worksheet.set_paper(1) # US letter size
-        worksheet.center_horizontally
-        worksheet.print_area(0,0,ui+myspacer+1, 4)
-      end
-
-      #infrared - add loops, and sanhausers product ID 1,3,6,7
-      curtainlist.each_with_index do |u, ui|
-        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).infrared
-        myqty = 0
-        @distributeds.each do |d|
-          myqty = myqty + d.quantity
-        end
-        infrared[ui] = infrared[ui] + myqty
-      end
-
-      #translations product ID 4,5 where languageID > 0
-      curtainlist.each_with_index do |u, ui|
-        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).translation
-        myqty = 0
-        @distributeds.each do |d|
-          myqty = myqty + d.quantity
-        end
-        translation[ui] = translation[ui] + myqty
-      end
-
-      #I-Cap & D.S product ID 4,5 where languageID = 0
-      curtainlist.each_with_index do |u, ui|
-        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).icapdesc
-        myqty = 0
-        @distributeds.each do |d|
-          myqty = myqty + d.quantity
-        end
-        icapdesc[ui] = icapdesc[ui] + myqty
-      end
-
-      #fill vertical colums
-      # The myspacer is for end of weektotals that move the rows down Starts at 2 for row 3
-      myspacer = 2
-      yesterdaywas = "Mon"
-
-      infrared.each_with_index do |qty,qtyi|
-        sotodayis = curtainlist[qtyi][0].strftime('%a')
-        if yesterdaywas == 'Fri' or yesterdaywas == 'Sat' or yesterdaywas == 'Sun' then
-          if sotodayis == 'Mon' or sotodayis == 'Tue' or sotodayis == 'Wed' then
-            myspacer = myspacer + 2
-          end
-        end
-        yesterdaywas = curtainlist[qtyi][0].strftime('%a')
-
-        worksheet.write(qtyi+myspacer, 2, infrared[qtyi], dataformat)
-        worksheet.write(qtyi+myspacer, 3, translation[qtyi], dataformat)
-        worksheet.write(qtyi+myspacer, 4, icapdesc[qtyi], dataformat)
-      end
-
-      #Static fields
-      worksheet.write(0, 0, " " + @performance.name.upcase + " - " + @monthof, headerformat )
-      worksheet.write(1, 2, "Infrared", keyformat)
-      worksheet.write(1, 3, "Translation", keyformat)
-      worksheet.write(1, 4, "I-Cap & D.S", keyformat)
-
-     # write excell sheet to file
-     workbook.close
-   end
-
-   excelfilelist = Dir.glob("app/reports/monthbytheater/*" + mystart.strftime('%b_%Y') + ".xls")
-
-   if excelfilelist.empty? then
-     flash[:error] = "No Data Found"
-     redirect_to papers_path
-   else
-     #generate a zipfile and send it as a link
-     zipfile_name = ("app/reports/month-by-theater_" + mystart.strftime('%b_%Y') + ".zip")
-     folder = "app/reports/monthbytheater"
-
-     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-       excelfilelist.each do |filename|
-         zipfile.add(filename.split("/")[3], filename)
-       end
      end
 
      send_file zipfile_name, filename: zipfile_name.split("/")[3],
-                         type: 'application/zip',
-                         disposition: 'attachment'
+       type: 'application/zip',
+       disposition: 'attachment'
    end
-   end #end performance.nil?
-end
+  end
 
 
   def generatemonthlyss
-    #to create MS Excell files
-    require 'fileutils'
-    require 'rubygems'
-    #require 'zip'
+    Xlsgenerator.new.generatemonthlyss(params[:xportperformance], params[:xportyear])
 
-    thisperformance = Performance.find(params[:xportperformance])
-    langlist = Shortlists.new.languages.slice!(:Infrared).slice!(:iCaption).slice!(:dScript).slice!(:Turkish)
-
-    monthstarts = Distributed.monthsbymondays(params[:xportyear])
     folder = "app/reports/monthbytheater/"
+    thisperformance = Performance.find(params[:xportperformance])
     file = thisperformance.name + '-special-services.xls'
-
-    #clean up... remove existing xls files
-    FileUtils.rm Dir.glob(folder + "*-special-services.xls")
-
-    workbook = WriteExcel.new(folder + file)
-    worksheet  = workbook.add_worksheet
-
-    # define formats for spreadsheet
-    titleformat = workbook.add_format
-    titleformat.set_font('Ariel')
-    titleformat.set_size(14)
-    titleformat.set_color('black')
-    titleformat.set_align('left')
-
-    headerformat = workbook.add_format
-    headerformat.set_font('Ariel')
-    headerformat.set_size(11)
-    headerformat.set_bold
-    headerformat.set_color('black')
-    headerformat.set_align('center')
-
-    dataformat = workbook.add_format
-    dataformat.set_font('Ariel')
-    dataformat.set_size(11)
-    dataformat.set_color('black')
-    dataformat.set_align('center')
-
-    #set colums, row widths, and print settings
-    worksheet.set_column('A:A', 21.43)
-    worksheet.set_column('B:I', 14.43)
-    worksheet.set_row(0, 27.75)
-    for i in 1..18 do
-      worksheet.set_row(i, 21)
-    end
-    worksheet.print_area('A1:F17')
-    worksheet.set_portrait
-    worksheet.set_paper(1) # US letter size
-    worksheet.center_horizontally
-
-    #Write Headers
-    worksheet.write(0, 0, thisperformance.name.upcase + " - Translation Reports - " + params[:xportyear], titleformat)
-    worksheet.write(2, 0, "MONTH (Mon-Sun)", headerformat)
-    worksheet.write(2, langlist.count+1, "TOTALS", headerformat)
-    worksheet.write(15, 0, "TOTALS", headerformat)
-
-    monthstarts.each_with_index do |wk,r|
-      worksheet.write(3+r, 0, wk[0].strftime('%m/%d/%y') + " - " + wk[1].strftime('%m/%d/%y'), dataformat)
-
-      myascii = 65 #"A"
-      langlist.each_with_index do |l,x|
-        thiscount = Distributed.language_for_oneperformance(wk[0], wk[1], l[1], thisperformance.id)
-        if thiscount != 0 then
-          worksheet.write(3+r, x+1, thiscount.sum(:quantity), dataformat)
-        end
-      end
-      myascii += langlist.count
-      worksheet.write(3+r, langlist.count+1, "=SUM(B" + (4+r).to_s + ":" + myascii.chr + (4+r).to_s + ")", headerformat)
-    end
-
-    #laguage headers/totals
-    myascii = 65 #"A"
-    langlist.each_with_index do |l,x|
-      col = x+1
-      myascii = myascii + 1
-      worksheet.write(2, col, l[0], headerformat)
-      worksheet.write(15, col, "=SUM(" + myascii.chr + "4:" + myascii.chr + "15)", headerformat)
-    end
-
-    # write excell sheet to file
-    workbook.close
 
     send_file folder + file, filename: file,
       type: 'application/xls',
@@ -447,7 +176,6 @@ end
   end
 
 
-private
   def generateweeklyxls
     #to create MS Excell files
     require 'fileutils'
