@@ -373,4 +373,151 @@ def generatemonthlyss (performance, year)
     workbook.close
   end
 
+
+def generateweeklyxls(mystart)
+    #to create MS Excell files
+    require 'fileutils'
+    require 'rubygems'
+    require 'zip'
+
+    myend = mystart + 7.days
+
+    @weekof = mystart.strftime('%a, %b %d - %Y')
+
+    #clean up... remove existing xls files
+    FileUtils.rm Dir.glob("app/reports/weekbytheater/*" + mystart.strftime('%Y_%m_%d') + ".xls")
+    FileUtils.rm Dir.glob("app/reports/week-by-theater_" + mystart.strftime('%Y_%m_%d') + ".zip")
+
+    performancelist = Distributed.datespan(mystart, myend).distinct(:performance_id).pluck(:performance_id)
+
+    #Make an exel doc for each theater
+    performancelist.each_with_index do |p, pi|
+
+      @performance = Performance.find(p)
+      @theater = Theater.find(@performance.theater_id)
+      @distributeds = Distributed.datespan(mystart, myend).infrared.where('performance_id = ?', p).order(:curtain, :eve)
+
+      infrared = []
+      translation = []
+      icapdesc = []
+      curtainlist = []
+
+      #create excel file and spreadsheet
+      # this writes everytime page is displayed to accomodate all changes and keep the link fresh
+      workbook = WriteExcel.new('app/reports/weekbytheater/' + @theater.name + '_' + mystart.strftime('%Y_%m_%d') + '.xls')
+      worksheet  = workbook.add_worksheet
+
+      # define formats for spreadsheet
+      headerformat = workbook.add_format
+      headerformat.set_font('Ariel')
+      headerformat.set_size(12)
+      headerformat.set_bold
+      headerformat.set_color('blue')
+      headerformat.set_align('left')
+
+      keyformat = workbook.add_format
+      keyformat.set_font('Times New Roman')
+      keyformat.set_size(12)
+      keyformat.set_color('black')
+      keyformat.set_align('center')
+
+      dayformat = workbook.add_format
+      dayformat.set_font('Ariel')
+      dayformat.set_size(11)
+      dayformat.set_color('black')
+      dayformat.set_align('left')
+
+      dataformat = workbook.add_format
+      dataformat.set_font('Times New Roman')
+      dataformat.set_size(10)
+      dataformat.set_color('black')
+      dataformat.set_align('center')
+
+      #set colums and row widths
+      worksheet.set_column('A:B', 15)
+      worksheet.set_column('C:E', 12)
+      worksheet.set_row(0, 24)
+      worksheet.print_area('A1:E16')
+
+      #product_id 1 has all shows
+      #build three vertical arrays of the quantities because each quantity is a group of product ID's or language ID's
+      @distributeds.each_with_index do |u, ui|
+        if u.eve == false then
+          worksheet.write(ui+2, 0, u.curtain.strftime('%A') + " mat", dayformat)
+        else
+          worksheet.write(ui+2, 0, u.curtain.strftime('%A') + " eve", dayformat)
+        end
+
+        worksheet.write(ui+2, 1, u.curtain.strftime('%m/%d/%Y'), dataformat)
+
+        curtainlist.push([u.curtain,u.eve])
+
+        infrared.push(0)
+        translation.push(0)
+        icapdesc.push(0)
+      end
+
+
+      ####THIS. seems to be assembling the vert colums wrong...
+
+
+      #infrared - add loops, and sanhausers product ID 1,3,6,7
+      curtainlist.each_with_index do |u, ui|
+        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).infrared
+        myqty = 0
+        @distributeds.each do |d|
+          myqty = myqty + d.quantity
+        end
+        infrared[ui] = infrared[ui] + myqty
+      end
+
+      #translations product ID 4,5 where languageID > 0
+      curtainlist.each_with_index do |u, ui|
+        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).translation
+        myqty = 0
+        @distributeds.each do |d|
+          myqty = myqty + d.quantity
+        end
+        translation[ui] = translation[ui] + myqty
+      end
+
+      #I-Cap & D.S product ID 4,5 where languageID = 0
+      curtainlist.each_with_index do |u, ui|
+        @distributeds = Distributed.where('performance_id = ? AND curtain = ? AND eve = ?', p, curtainlist[ui][0], curtainlist[ui][1]).icapdesc
+        myqty = 0
+        @distributeds.each do |d|
+          myqty = myqty + d.quantity
+        end
+        icapdesc[ui] = icapdesc[ui] + myqty
+      end
+
+      #fill vertical colums
+      infrared.each_with_index do |qty,qtyi|
+        worksheet.write(qtyi+2, 2, infrared[qtyi], dataformat)
+        worksheet.write(qtyi+2, 3, translation[qtyi], dataformat)
+        worksheet.write(qtyi+2, 4, icapdesc[qtyi], dataformat)
+      end
+
+      #Static fields
+      worksheet.write(0, 0, " " + @performance.name.upcase + " - Translations,  + D-Script and I-Cap -  Week of " + @weekof, headerformat )
+      worksheet.write(1, 2, "Infrared", keyformat)
+      worksheet.write(1, 3, "Translation", keyformat)
+      worksheet.write(1, 4, "I-Cap & D.S", keyformat)
+
+      worksheet.write(14, 1, "Week Totals", keyformat)
+      worksheet.write(14, 2, "=SUM(C3:C13)", dataformat)
+      worksheet.write(14, 3, "=SUM(D3:D13)", dataformat)
+      worksheet.write(14, 4, "=SUM(E3:E13)", dataformat)
+
+        #Set the print Area and page formating
+        worksheet.set_portrait
+        worksheet.set_paper(1) # US letter size
+        worksheet.center_horizontally
+        worksheet.print_area(0,0,15,4)
+
+     # write excell sheet to file
+     workbook.close
+   end
+  end
+  
 end
