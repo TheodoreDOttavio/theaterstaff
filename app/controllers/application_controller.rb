@@ -8,8 +8,20 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include SessionsHelper
 
-
   helper_method :availabilitywindow?
+
+  def weekstart
+    astart = DateTime.now.utc.beginning_of_day
+    loop do
+      break if astart.wday == 1
+      astart = astart - 1.day
+    end
+    return astart
+  end
+
+=begin
+now it is:   Shortlists.new.languages
+or              Shortlists.new.companies
 
   def companylist
     companies = []
@@ -25,6 +37,7 @@ class ApplicationController < ActionController::Base
     languages = {:Infrared=>0, :iCaption=>1, :dScript=>2, :Chinese=>3, :French=>4, :German=>5, :Japanese=>6, :Portugese=>7, :Spanish=>8, :Turkish=>9}
     return languages
   end
+=end
 
 
   def availabilitywindow?

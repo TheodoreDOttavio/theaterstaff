@@ -1,13 +1,11 @@
 class Archives
    include ActiveModel::Model
    extend ActiveModel::Naming
-  #include ActiveModel::Validations
-  # validates_presence_of :modelname, :description
 
   attr_accessor :datamodels
 
   def initialize
-    super
+   super
    datamodels = Array.new
    datamodels.push(
       {"modelname" => "Distributed",

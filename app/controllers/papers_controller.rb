@@ -5,7 +5,7 @@ class PapersController < ApplicationController
     @theaters = []
     @theaters.push(["All Theaters",1])
 
-    companies = companylist
+    companies = Shortlists.new.companies
     companies.each_with_index do |company,companyindex|
       @theaters.push(["All " + company[0] + " Theaters", company[1]])
     end
@@ -337,7 +337,7 @@ end
     #require 'zip'
 
     thisperformance = Performance.find(params[:xportperformance])
-    langlist = languagelist.slice!(:Infrared).slice!(:iCaption).slice!(:dScript).slice!(:Turkish)
+    langlist = Shortlists.new.languages.slice!(:Infrared).slice!(:iCaption).slice!(:dScript).slice!(:Turkish)
 
     monthstarts = Distributed.monthsbymondays(params[:xportyear])
     folder = "app/reports/monthbytheater/"

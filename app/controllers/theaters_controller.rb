@@ -11,13 +11,13 @@ class TheatersController < ApplicationController
 
   def new
     @theater = Theater.new
-    @companies = companylist
+    @companies = Shortlists.new.companies
   end
 
 
   def create
     @theater = Theater.new(theater_params)
-    @companies = companylist
+    @companies = Shortlists.new.companies
     if @theater.save
       flash[:success] = "A new Theater/Venue has been added!"
       redirect_to @theater
@@ -29,14 +29,14 @@ class TheatersController < ApplicationController
 
   def edit
     @theater = Theater.find(params[:id])
-    @companies = companylist
+    @companies = Shortlists.new.companies
     @performances = Performance.all.order(:name)
   end
 
 
   def update
     @theater = Theater.find(params[:id])
-    @companies = companylist
+    @companies = Shortlists.new.companies
     if @theater.update_attributes(theater_params)
       flash[:success] = "Theater/Venue Information has been Updated"
       redirect_to theaters_path

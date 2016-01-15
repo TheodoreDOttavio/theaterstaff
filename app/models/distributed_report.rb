@@ -85,14 +85,6 @@ class DistributedReport
    end
 
 
-#def my_devices
-#  Product.where("options > 0").map {|a| [a.name, a.id]}
-#end
-
-#def my_theaters
-#  Theater.where("id > 0").map {|a| [a.name, a.id]}
-#end
-
 def my_language
   @my_language = {:english=>0, :iCaption=>1, :dScript=>2, :Chinese=>3, :French=>4, :German=>5, :Japanese=>6, :Portugese=>7, :Spanish=>8, :Turkish=>9}
   return @my_language

@@ -76,7 +76,7 @@ class DistributedsController < ApplicationController
     @performance = Performance.find(params[:performance_id])
 
     #Provide names for the Language integer
-    @language = languagelist
+    @language = Shortlists.new.languages
 
     #show/assign a rep to each shift for events
     users = User.select(:name, :id).order(:name)
@@ -110,7 +110,7 @@ class DistributedsController < ApplicationController
     #The receives several Distributed ID's so it will update as well!
     params.permit!
 
-    @language = languagelist
+    @language = Shortlists.new.languages
     myflashtext = ""
     i=0
 

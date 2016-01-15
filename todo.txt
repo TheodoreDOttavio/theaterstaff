@@ -16,11 +16,11 @@ Users
   Save a signature snapstot
 
 Distributeds
-  add available - an infrared distributed with rep_id
+  add available - an infrared distributed with rep_id and qty 0
 
 Data Entry
   two partials for infrared and special services
-  Add an option to plaster rep over all the TBD's that have quantity (default rep) for the week
+  check the next week, if no data, add infrared at qty 0
 
 Paperwork and Reports
   Very slow - revise to show a ywl file and update it at data enrty
@@ -31,3 +31,4 @@ TESTING!!!
 
 And keep checking:
 rails_best_practices . -f html
+  The xls sheets make 50+/56 errors. Make a class in models to generate them.
