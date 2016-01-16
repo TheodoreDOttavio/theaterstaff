@@ -4,7 +4,7 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
-Spork.prefork do
+#Spork.prefork do
   # Loading more in this block will cause your tests to run faster.
   # need to restart spork for it take effect.
 
@@ -41,7 +41,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  #config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   #uses ActiveRecord and allows each example to run with a transaction
   config.use_transactional_fixtures = true
@@ -55,9 +55,9 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 end
 
-end #spork.prefork
+#end #spork.prefork
 
 
-Spork.each_run do
+#Spork.each_run do
   # This code will be run each time you run your specs.
-end
+#end
