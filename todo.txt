@@ -1,5 +1,10 @@
-Get out of Ruby 1.9
-DONE - now on Ruby 2.1.7. Test on Heroku, and resent my lack of rspec tests :( Lesson Learned!
+TESTING!!!
+  get basic tests back in and continue with TDD
+
+Add Availability
+  edit for all users when logged in as admin
+
+Show scheduling
 
 performances show has a PG grouping error
 
@@ -14,6 +19,7 @@ Data Archive
 
 Users
   Save a signature snapstot
+  Admin needs to be able to set stats of other users without password
 
 Distributeds
   add available - an infrared distributed with rep_id and qty 0
@@ -26,9 +32,8 @@ Paperwork and Reports
   Very slow - revise to show a ywl file and update it at data enrty
   @object for the select tags... it's nil, doesn't work without it. Need to grok this.
   Default select pdf on weekly exports
-
-TESTING!!!
-  get basic tests back in and continue with TDD
+  
+Remove or use Distributed Reports - Data viewer
 
 And keep checking:
 rails_best_practices . -f html

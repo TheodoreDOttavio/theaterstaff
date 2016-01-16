@@ -49,7 +49,6 @@ group :test do
 end
 
 group :production do
-  #ruby '2.0.0' - this runs on heroku
   gem 'rails_12factor'
   gem 'pg'
 end
