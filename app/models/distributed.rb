@@ -62,6 +62,22 @@ class Distributed < ActiveRecord::Base
     return allweeks
   }
 
+  #for Blank Log Sheets
+  scope :upcomingweeks, ->{
+    allweeks = []
+    weekstart = DateTime.now
+    loop do
+      break if weekstart.wday == 1
+      weekstart = weekstart - 1.day
+    end
+    for i in 1..4 do
+      mystart = weekstart + ((i-1) * 7)
+      myend = mystart + 6
+      allweeks.push([mystart.strftime('%Y: %b %d')+" to "+ myend.strftime('%b %d'),mystart])
+    end
+    return allweeks
+  }
+  
   #All Mondays in a year
   scope :monthsbymondays, ->(fullyearstring){
     astart = DateTime.strptime(fullyearstring + "-12-31 24:00:00 UTC"[0..9], '%Y-%m-%d')

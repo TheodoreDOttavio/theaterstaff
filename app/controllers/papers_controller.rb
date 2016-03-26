@@ -27,6 +27,9 @@ class PapersController < ApplicationController
     @outputformat.push(["PDF Cover Sheet",1])
     @outputformat.push(["MS Excell Files",2])
 
+    #for Blank Paperwork
+    @upcomingweeks = Distributed.upcomingweeks
+
     #for monthly reports
     @allmonths = Distributed.allmonths
 
@@ -296,4 +299,36 @@ class PapersController < ApplicationController
           return thisvalue
       end
     end
+
+
+def printlogs
+  mystart = params[:xportweekstart].to_date
+  myend = params[:xportweekstart].to_date + 6.day
+
+  performancelist = Performance.showinglogs(mystart)
+  ssperformances = Performance.ssselectionlist
+  report = ThinReports::Report.new
+
+  performancelist.each do |p|
+    report.start_new_page layout: File.join(Rails.root, 'app', 'reports', 'infraredlog.tlf')
+    report.page.item(:weekof).value(mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y'))
+    report.page.item(:theater).value(p.theater_name)
+    report.page.item(:performance).value(p.name)
+
+    ssperformances.each do |name, id|
+      if p.id == id then
+        report.start_new_page layout: File.join(Rails.root, 'app', 'reports', 'specialserviceslog.tlf')
+        report.page.item(:weekof).value(mystart.strftime('%b %d')+" to "+ myend.strftime('%b %d, %Y'))
+        report.page.item(:theater).value(p.theater_name)
+        report.page.item(:performance).value(p.name)
+      end
+    end
+  end
+
+  send_data report.generate, filename: "printlogs_" + mystart.strftime('%Y_%m_%d') + ".pdf",
+                                 type: 'application/pdf',
+                                 disposition: 'attachment'
+end
+
+
 end

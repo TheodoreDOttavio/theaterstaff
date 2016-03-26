@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203110000) do
+ActiveRecord::Schema.define(version: 20160324145155) do
 
   create_table "availables", force: :cascade do |t|
     t.integer  "user_id",    default: 1
@@ -37,16 +37,18 @@ ActiveRecord::Schema.define(version: 20151203110000) do
   add_index "cabinets", ["product_id"], name: "index_cabinets_on_product_id"
 
   create_table "distributeds", force: :cascade do |t|
-    t.integer  "performance_id",                null: false
-    t.integer  "product_id",                    null: false
-    t.datetime "curtain",                       null: false
+    t.integer  "performance_id",                 null: false
+    t.integer  "product_id",                     null: false
+    t.datetime "curtain",                        null: false
     t.boolean  "eve",            default: true
     t.integer  "quantity"
-    t.integer  "language",       default: 0,    null: false
+    t.integer  "language",       default: 0,     null: false
     t.integer  "general",        default: 0
     t.integer  "representative", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "isinfrared",     default: false
+    t.boolean  "scan",           default: false
   end
 
   add_index "distributeds", ["performance_id", "product_id"], name: "index_distributeds_on_performance_id_and_product_id"
