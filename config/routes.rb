@@ -38,6 +38,7 @@ match '/papersweekly', to: 'papers#generateweekly', via: 'post'
 match '/papersmonthly', to: 'papers#generatemonthly', via: 'post'
 match '/papersspecialservices', to: 'papers#generatemonthlyss', via: 'post'
 match '/viewlogs', to: 'papers#logview', via: 'post'
+match '/printlogs', to: 'papers#printlogs', via: 'post'
 
 #Paperwork from the field scanned in...
 match '/scans', to: 'scans#index', via: 'get'

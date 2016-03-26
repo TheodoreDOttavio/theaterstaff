@@ -9,24 +9,67 @@ namespace :db do
     Distributed.update_all(isinfrared: false)
     puts "selecting all distributeds by product id"
     #NOT using the .infrared scope because that needs to be depreciated after this migration
-    obj = Distributed.where(product_id: [1,3,6,7])
-    obj.update_all(isinfrared: true)
+    obj = Distributed.where(:product_id => [1,3,6,7])
+    obj.update_all(:isinfrared => true)
     puts obj.count
     puts "Completed"
 
     puts"Review each performance, one week at a time, and set scans boolean to each shift record of Distributeds"
-    #Select a each week of one performance - check for scan - set sacns boolean
-
-=begin
-    performanceidlist = Distributed.allperformances(params[:xportweekstart].to_date, params[:xportweekstart].to_date + 7)
-
-    performanceidlist.each do |p|
-        logimage = findlog(params[:xportweekstart].to_date, p, 1)
-        sslogimage = findlog(params[:xportweekstart].to_date, p, 2)
-        if !logimage.nil? then @viewlist.push(logimage) end
-        if !sslogimage.nil? then @viewlist.push(sslogimage) end
+    #Clean Slate
+    puts "Setting all scan booleans to false"
+    Distributed.update_all(:scan => false)
+    
+    #find start and end dates
+    obj = Distributed.order(:curtain).limit(1)
+    datestart = obj[0].curtain
+    
+    weekstart = datestart
+    loop do
+      break if weekstart.wday == 1
+      weekstart = weekstart - 1.day
     end
-=end
+    
+    obj = Distributed.order(curtain: :desc).limit(1)
+    dateend = obj[0].curtain
+    
+    #pull a list of all performance ID's
+    performanceidlist = Performance.selectionlist
+    
+    while weekstart < dateend do
+      performanceidlist.each do |name, id|
+
+      #Infrared Daily logs
+      rows = Distributed.datespan(weekstart, weekstart+6.day).where(:performance_id => id, :isinfrared => true)
+      if !rows.empty? then
+      logfile = weekstart.strftime('%Y') + "/" +
+          id.to_s + "/" +
+          id.to_s + "-" +
+          weekstart.strftime('%Y-%m-%d') + "-1.jpg"
+      if File.exist?("app/assets/images/" + logfile) then
+        puts "adding Log for "+ name.to_s + " in the week of " + weekstart.strftime('%Y-%m-%d')
+        rows.update_all(:scan => true)
+      end
+      end
+    
+      #...aaaand Special Services logs Note, this is a lot of file checking for very few (if optimising is needed)
+      ssrows = Distributed.datespan(weekstart, weekstart+6.day).where(:performance_id => id, :isinfrared => false)
+      if !ssrows.empty? then
+      logfile = weekstart.strftime('%Y') + "/" +
+          id.to_s + "/" +
+          id.to_s + "-" +
+          weekstart.strftime('%Y-%m-%d') + "-2.jpg"
+      if File.exist?("app/assets/images/" + logfile) then
+        puts "adding ss Log for "+ name.to_s + " in the week of " + weekstart.strftime('%Y-%m-%d')
+        ssrows.update_all(:scan => true)
+      end
+      end
+      
+
+      end
+      weekstart = weekstart + 7.day
+    end
+    
+    puts "all set, the logs present in app/assets/images/ are updated in the Distributeds datum"
 
   end #task
 end
