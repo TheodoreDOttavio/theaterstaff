@@ -1,8 +1,24 @@
 class ArchivesController < ApplicationController
 
   def backup
-      @archives = Archives.new
+    @archives = Archives.new
 
+    mymodel = params[:mymodel]
+    if mymodel then
+      mydata = Marshal.dump(eval(mymodel).order(:id))
+    
+      respond_to do |f|
+        f.html
+        f.csv do
+          send_data mydata,
+          type: "text/csv",
+          filename: "#{mymodel}"
+        end
+      end
+      
+    end
+
+=begin
     # The YAML engine has to be rolled back to the old legacy syck instead of the newer Psych
     # The Psych engine randomly changes dates to a number lead by a * character
     #YAML::ENGINE.yamler = 'syck'
@@ -30,10 +46,46 @@ class ArchivesController < ApplicationController
          filename: "#{mymodel}.csv"
       end
     end
+=end
   end
 
 
-  def restore
+def restore
+  if params[:data] == nil then
+      flash[:error] = "No File found. Use the Browse button to select a File"
+      redirect_to archives_backup_path
+      return
+    end
+    
+    if !File.exist?(params[:data].tempfile) then
+      flash[:error] = "File did not open!"
+      redirect_to archives_restore
+      return
+    end
+    
+    #Database Table/Model must match the filename
+    mydatabase = params[:data].original_filename.split('.')[0]
+    # and correct the file name for multile downloads that save as myfile(1)
+    mydatabase = mydatabase.split('(')[0]
+    
+    myfile = Marshal.load(File.open(params[:data].tempfile))
+    mycounter = 0
+    
+    myfile.each do |row|
+      mycounter += 1
+      if !params[:updateheroku].nil? && mycounter <= 8000 then
+        eval(mydatabase).update(row.id, row.as_json)
+      else
+        break
+      end
+    end
+    
+    flash[:success] = " Data model #{mydatabase} has been updated with #{mycounter} records."
+    redirect_to archives_backup_path
+end
+
+
+  def oldrestore
     require 'csv'
 
     if params[:Data] == nil then
