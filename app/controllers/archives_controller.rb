@@ -37,7 +37,7 @@ def restore
     
     if !File.exist?(uploaded_io.tempfile) then
       flash[:error] = "File did not open!"
-      redirect_to archives_restore
+      redirect_to archives_backup_path
       return
     else
       myfile = Marshal.load(File.open(uploaded_io.tempfile))
@@ -50,11 +50,33 @@ def restore
       
       #remove to 8k - A data cap for cloud sercvice. Also deletes existing data
       if !params[:updateheroku].nil? then
-        if myfile.count >= 8000 then
-          myfile = myfile[-8000,8001]
-          ActiveRecord::Base.transaction do
-            #eval(mydatabase).delete_all
+        #find existing count
+        mytotal = 9990
+        archives = Archives.new
+        archives.datamodels.each do |thisdb|
+          if mydatabase != thisdb["modelname"] then
+            mytotal -= eval(thisdb["modelname"]).count
           end
+        end
+         if mytotal <= 1 then
+           flash[:error] = "This database Already has more than 10,000 lines! No data changed. (#{mytotal})"
+           redirect_to archives_backup_path
+           return
+         end
+         
+        if myfile.count >= mytotal then
+          myfile = myfile[mytotal*-1,mytotal + 1]
+          ActiveRecord::Base.transaction do
+            eval(mydatabase).delete_all
+          end
+        end
+
+      end
+      
+      #Purge all data for a fresh reload
+      if !params[:freshreload].nil? then
+        ActiveRecord::Base.transaction do
+          eval(mydatabase).delete_all
         end
       end
     
@@ -74,8 +96,8 @@ def restore
     end
 
 
-    flash[:success] = " Data model #{mydatabase} has loaded with #{mycounter} records."
-    #redirect_to archives_backup_path
+    flash[:success] = " Data model #{mydatabase} has loaded #{mycounter} records."
+    redirect_to archives_backup_path
     end
 end
 
