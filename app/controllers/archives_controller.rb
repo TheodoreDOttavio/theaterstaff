@@ -67,7 +67,7 @@ def restore
         if myfile.count >= mytotal then
           myfile = myfile[mytotal*-1,mytotal + 1]
           ActiveRecord::Base.transaction do
-            eval(mydatabase).delete_all
+            eval(mydatabase).destroy_all
           end
         end
 
@@ -76,7 +76,7 @@ def restore
       #Purge all data for a fresh reload
       if !params[:freshreload].nil? then
         ActiveRecord::Base.transaction do
-          eval(mydatabase).delete_all
+          eval(mydatabase).destroy_all
         end
       end
     
