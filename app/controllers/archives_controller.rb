@@ -5,96 +5,91 @@ class ArchivesController < ApplicationController
 
     mymodel = params[:mymodel]
     if mymodel then
-      mydata = Marshal.dump(eval(mymodel).order(:id))
+      obj = eval(mymodel).order(:id)
+      dataset = Array.new #otherwise Marshaling saves only the Active Record Relation Class (no datum!)
+      obj.each do |row|
+        dataset.push(row)
+      end
+      mydata = Marshal.dump(dataset)
     
       respond_to do |f|
         f.html
         f.csv do
           send_data mydata,
-          type: "text/csv",
+          type: "marshal",
           filename: "#{mymodel}"
         end
       end
       
     end
 
-=begin
-    # The YAML engine has to be rolled back to the old legacy syck instead of the newer Psych
-    # The Psych engine randomly changes dates to a number lead by a * character
-    #YAML::ENGINE.yamler = 'syck'
-    #YAML::ENGINE.yamler = 'psych'
-    #yeah... Going with good old boring CSV...
-    require 'csv'
-    mymodel = params[:mymodel]
-
-    if mymodel then
-      exportdata = eval(mymodel).order(:id)
-
-      csv_string = CSV.generate do |mycsv|
-        mycsv << eval(mymodel).attribute_names
-        exportdata.each do |row|
-          mycsv << row.attributes.values
-        end
-      end
-    end
-
-    respond_to do |f|
-      f.html
-      f.csv do
-         send_data csv_string,
-         type: "text/csv",
-         filename: "#{mymodel}.csv"
-      end
-    end
-=end
   end
 
 
 def restore
-  if params[:data] == nil then
+  uploaded_io = params[:data]
+  
+  if uploaded_io == nil then
       flash[:error] = "No File found. Use the Browse button to select a File"
       redirect_to archives_backup_path
       return
     end
     
-    if !File.exist?(params[:data].tempfile) then
+    if !File.exist?(uploaded_io.tempfile) then
       flash[:error] = "File did not open!"
       redirect_to archives_restore
       return
-    end
+    else
+      myfile = Marshal.load(File.open(uploaded_io.tempfile))
     
-    #Database Table/Model must match the filename
-    mydatabase = params[:data].original_filename.split('.')[0]
-    # and correct the file name for multile downloads that save as myfile(1)
-    mydatabase = mydatabase.split('(')[0]
-    
-    myfile = Marshal.load(File.open(params[:data].tempfile))
-    mycounter = 0
-    
-    myfile.each do |row|
-      mycounter += 1
-      if !params[:updateheroku].nil? && mycounter <= 8000 then
-        eval(mydatabase).update(row.id, row.as_json)
-      else
-        break
+      #Database Table/Model must match the filename
+      mydatabase = uploaded_io.original_filename.split('.')[0]
+      # and correct the file name for multile downloads that save as myfile(1)
+      mydatabase = mydatabase.split('(')[0]
+      mycounter = 0
+      
+      #remove to 8k - A data cap for cloud sercvice. Also deletes existing data
+      if !params[:updateheroku].nil? then
+        if myfile.count >= 8000 then
+          myfile = myfile[-8000,8001]
+          ActiveRecord::Base.transaction do
+            #eval(mydatabase).delete_all
+          end
+        end
       end
-    end
     
-    flash[:success] = " Data model #{mydatabase} has been updated with #{mycounter} records."
-    redirect_to archives_backup_path
+      #@test = myfile[-2,3]
+      #@testtwo = myfile.count
+
+      ActiveRecord::Base.transaction do
+
+      myfile.each do |row|
+          if !eval(mydatabase).find_by(id: row.id) then
+            incomeingrow = eval(mydatabase).new(row.as_json)
+            incomeingrow.save
+            mycounter += 1
+          end
+        end
+      
+    end
+
+
+    flash[:success] = " Data model #{mydatabase} has loaded with #{mycounter} records."
+    #redirect_to archives_backup_path
+    end
 end
 
 
   def oldrestore
     require 'csv'
 
-    if params[:Data] == nil then
+    if params[:data] == nil then
       flash[:error] = "No File found. Use the Browse button to select a File"
       redirect_to archives_backup_path
       return
     end
 
-    uploaded_io = params[:Data]
+    uploaded_io = params[:data]
     startcutoffdate = params[:startcutoff].to_date
     if startcutoffdate.nil? then
       startcutoffdate = DateTime.now - 10.years
