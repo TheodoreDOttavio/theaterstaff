@@ -65,6 +65,7 @@ User.create!(name: "SA Staff",
                  phonetype: "boost",
                  schedule: false,
                  admin: true)
+                 #why did this work with 'distributeds?'
 User.create!(name: "Joe The Test Account",
                  email: "joe@gmail.com",
                  password: "sa-joe",

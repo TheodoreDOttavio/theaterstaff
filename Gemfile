@@ -5,7 +5,6 @@ ruby '2.1.7'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
-gem 'chartkick'                 #Pretties for the Datum!
 gem 'coffee-rails', '~> 4.1.0'
 gem 'coffee-script-source', '1.8.0' #Solves the execjs error, line 6 of application.html
     #This is a cheap patch. a proper fix of the UTF char set in runtime.rb can be used

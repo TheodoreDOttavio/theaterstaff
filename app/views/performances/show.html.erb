@@ -35,16 +35,12 @@
 <%= @performance.comments %>
 
 <div class="row">
-  <div class="col-md-2 editbold lt">&nbsp;</div>
-  <div class="col-md-2 editbold lt"><%= link_to "List all Shows", performances_path, class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-2 editbold lt"><%= link_to "Current Shows", performances_path(current: 1), class: "btn btn-sm btn-primary" %></div>
+  <div class="col-md-2 editbold lt"><%= link_to "All Shows", performances_path, class: "btn btn-sm btn-primary" %></div>
   <div class="col-md-4 editbold ct"><%= link_to "Edit " + @performance.name, edit_performance_path(@performance), class: "btn btn-sm btn-warning" %></div>
   <div class="col-md-2 editbold lt"><%= link_to "Delete", performance_path(@performance), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger"  %></div>
   <div class="col-md-2 editbold lt">&nbsp;</div>
 </div>
-
-</div><div class="well well-sm" style="width: 50%;">
-
-<%= line_chart @mychart %>
 
 </div>
 </div>

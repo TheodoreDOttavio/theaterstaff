@@ -19,26 +19,6 @@ class ApplicationController < ActionController::Base
     return astart
   end
 
-=begin
-now it is:   Shortlists.new.languages
-or              Shortlists.new.companies
-
-  def companylist
-    companies = []
-    companies.push(["Independent","Independent"])
-    companies.push(["Disney","Disney"])
-    companies.push(["Nederlander","Nederlander"])
-    companies.push(["Jujamcyn","Jujamcyn"])
-    companies.push(["Schubert","Schubert"])
-    return companies
-  end
-
-  def languagelist
-    languages = {:Infrared=>0, :iCaption=>1, :dScript=>2, :Chinese=>3, :French=>4, :German=>5, :Japanese=>6, :Portugese=>7, :Spanish=>8, :Turkish=>9}
-    return languages
-  end
-=end
-
 
   def availabilitywindow?
     #To generate a link to submit user availability
