@@ -38,7 +38,7 @@
 <%= form_tag({action: :restore}, multipart: true) do %>
   <div class="row">
     <div class="col-md-2 rt"><%= check_box_tag :updateheroku %></div>
-    <div class="col-md-10 editlight lt">Limit Records for Heroku</div>
+    <div class="col-md-10 editlight lt">Throttle data to just under 10,000 records</div>
   </div>
   <div class="row">
     <div class="col-md-2 rt"><%= check_box_tag :freshreload %></div>

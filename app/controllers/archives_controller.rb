@@ -51,7 +51,7 @@ def restore
       #remove to 8k - A data cap for cloud sercvice. Also deletes existing data
       if !params[:updateheroku].nil? then
         #find existing count
-        mytotal = 9990
+        mytotal = 9900
         archives = Archives.new
         archives.datamodels.each do |thisdb|
           if mydatabase != thisdb["modelname"] then
