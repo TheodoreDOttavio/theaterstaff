@@ -1,0 +1,9 @@
+<h1>
+  <% if !currentshow.nil? %>
+    <% if currentshow.closeing <= DateTime.now then %>
+      Dark on <%= currentshow.closeing.strftime('%b %d, %Y') %>
+    <% else %>
+      <%= link_to currentshow.name, currentshow %>
+    <% end %>
+  <% end %>
+</h1>

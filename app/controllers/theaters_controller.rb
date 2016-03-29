@@ -1,6 +1,18 @@
 class TheatersController < ApplicationController
   def show
     @theater = Theater.find(params[:id])
+    currentshow = Performance.select(:closeing, :name).where(theater_id: params[:id]).order(closeing: :desc)
+    
+    if currentshow.first.closeing <= DateTime.now then
+      @current = "Dark on " + currentshow.first.closeing.strftime('%b %d, %Y')
+    else
+      @current = currentshow.first.name.to_s
+    end
+
+    @showlist = "Past Performances"
+    currentshow.each do |show|
+      @showlist += " - " + show.name.to_s
+    end
   end
 
 

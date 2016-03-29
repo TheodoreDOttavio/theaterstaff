@@ -107,7 +107,7 @@ class DistributedsController < ApplicationController
 
   def create
   if current_user.admin?
-    #The receives several Distributed ID's so it will update as well!
+    #The receives several Distributed ID's so it will update as well
     params.permit!
 
     @language = Shortlists.new.languages
@@ -127,20 +127,20 @@ class DistributedsController < ApplicationController
 
       if myparams[:id] != ""
         #update one
-        @distributed = Distributed.find(myparams[:id])
-        @distributed.update_attributes(myparams)
+        obj = Distributed.find(myparams[:id])
+        obj.update_attributes(myparams)
         myflashtext += " updated - " + myparams[:quantity] + " on "
         myflashtext += myparams[:curtain].to_date.strftime('%a E (%m / %d)')
         #myflashtext = myflashtext + myparams[:language].key(distributed.language.to_i)
       else
         #create one
         if myparams[:product_id].to_i == 1 or myparams[:product_id].to_i == 6 #Zero quantites are ONLY for headsets (product_id=1)
-          @distributed = Distributed.new(myparams)
-          @distributed.save
+          obj = Distributed.new(myparams)
+          obj.save
         else
           if myparams[:quantity].to_i > 0
-            @distributed = Distributed.new(myparams)
-            @distributed.save
+            obj = Distributed.new(myparams)
+            obj.save
           end
        end
        myflashtext += " added - " + myparams[:quantity] + " on "

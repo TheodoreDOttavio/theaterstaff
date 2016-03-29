@@ -1,18 +1,17 @@
 TESTING!!!
   get basic tests back in and continue with TDD
-
+  
 Add Availability
   edit for all users when logged in as admin
 
 Show scheduling
 
-performances show has a PG grouping error
-
 Rip out Distributeds controller and implement it with a hash based model object
+  Pass Distributeds id as an array... simplify all the looping crap
 
 Data Archive
   Save to db directory for db:seed Heroku 8k Distributed
-    or create a csv data model?
+    Marshal all database tables?
   Save users with passwords intact
     A custom archive that uses users.create?
 
@@ -25,7 +24,6 @@ Data Entry
   check the next week, if no data, add infrared at qty 0
 
 Paperwork and Reports
-  Very slow - revise to show a ywl file and update it at data enrty
   @object for the select tags... it's nil, doesn't work without it. Need to grok this.
   Default select pdf on weekly exports
   

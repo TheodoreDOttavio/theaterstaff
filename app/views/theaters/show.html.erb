@@ -14,15 +14,8 @@
 </div>
 
 <h1>
-  <% if !@theater.performance.nil? %>
-    <% if @theater.performance_closeing <= DateTime.now then %>
-      Dark on <%= @theater.performance_closeing.strftime('%b %d, %Y') %>
-    <% else %>
-      <%= link_to @theater.performance_name, @theater.performance %>
-    <% end %>
-  <% end %>
+   <%= @current %>
 </h1>
-
 
 <div class="row">
   <div class="col-md-3 editbold rt">Enter</div>
@@ -44,8 +37,13 @@
   <div class="col-md-9 editlight lt"><%= @theater.comments %></div>
 </div>
 
+<div class="row">
+	<div class="editbold ct"><%= @showlist %></div>
+</div>
+
 <%= link_to "List all Venues", theaters_path, class: "btn btn-sm btn-primary" %>
 <%= link_to "Edit This Venue", edit_theater_path(@theater), class: "btn btn-sm btn-warning" %>
+
 
 </div>
 </div>
