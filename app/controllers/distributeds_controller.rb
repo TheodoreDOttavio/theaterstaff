@@ -34,12 +34,12 @@ class DistributedsController < ApplicationController
       #add in some info about what has been entered
       myshowcount = Performance.showingcount(mystart, (mystart+7))
       myinfraredcount = Distributed.infraredwkcount(mystart)
-      myspecialservicescount = Distributed.specialservicewkcount(mystart)
+      myscanscount = Distributed.scanscount(mystart)
       myshiftcount = Distributed.shiftwkcount(mystart)
       myrepcount = Distributed.representativewkcount(mystart)
       mytbdrepcount = Distributed.representativetbdwkcount(mystart)
 
-      if myinfraredcount == 0 && myspecialservicescount == 0 then
+      if myinfraredcount == 0 then #&& myspecialservicescount == 0 then
         mybuttonclass = "btn btn-sm btn-danger"
       else
         if myinfraredcount < myshowcount then
@@ -53,7 +53,7 @@ class DistributedsController < ApplicationController
         "startdate" => mystart,
         "showcount" => myshowcount,
         "infraredcount" => myinfraredcount,
-        "specialservicescount" => myspecialservicescount,
+        "scanscount" => myscanscount,
         "shiftcount" => myshiftcount,
         "repcount" => myrepcount,
         "tbdcount" => mytbdrepcount,

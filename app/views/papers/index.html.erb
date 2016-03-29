@@ -13,9 +13,13 @@
   </div>
 </div>
 <% end %>
-
 </div>
 
+<div align="center">
+<div class="well well-sm" style="width: 75%;">
+  <%= link_to "Click here to review the State of the Data...", distributeds_path, class: "btn btn-sm btn-primary" %>
+</div>
+</div>
 
 <div align="center">
 <div class="well well-sm" style="width: 75%;">
@@ -34,7 +38,6 @@
   </div>
 </div>
 <% end %>
-
 </div>
 
 
@@ -50,11 +53,7 @@
 </div>
 
 <% end %>
-
 </div>
-
-
-<%= render "selectlog", :allweeks => @allweeks, :performances => @performances, :nilobject => @object %>
 
 
 <div class="well well-sm" style="width: 75%;">
@@ -69,12 +68,14 @@
 </div>
 
 <% end %>
-
 </div>
 
 
-<div class="well well-sm" style="width: 75%;">
+<%= render "selectlog", :allweeks => @allweeks, :performances => @performances, :nilobject => @object %>
 
+
+<!--
+<div class="well well-sm" style="width: 75%;">
 <h1>Data Review</h1>
 
   <div class="row">
@@ -87,28 +88,29 @@
     <div class="col-md-1 warningbold lt">TBD</div>
   </div>
 
-<% @weektoedit.each do |weekof| %>
+<percent @weektoedit.each do |weekof| percent>
   <div class="row">
     <div class="col-md-3 editbold rt" >
-    	<%= link_to weekof["showweekof"], distributeds_path(params.merge(:mystart => weekof["startdate"])) %>
+    	<percent= link_to weekof["showweekof"], distributeds_path(params.merge(:mystart => weekof["startdate"])) percent>
     </div>
-    <div class="col-md-1 editlight ct"><%= weekof["showcount"] %></div>
-    <% if weekof["infraredcount"] < weekof["showcount"] then %>
+    <div class="col-md-1 editlight ct"><percent= weekof["showcount"] percent></div>
+    <percent if weekof["infraredcount"] < weekof["showcount"] then percent>
       <div class="col-md-1 warninglight ct">
-    <% else %>
+    <percent else percent>
       <div class="col-md-1 editlight ct">
-    <% end %>
-    <%= weekof["infraredcount"] %></div>
-    <div class="col-md-1 editlight ct"><%= weekof["specialservicescount"] %></div>
-    <div class="col-md-2 editlight ct"><%= weekof["shiftcount"] %></div>
-    <div class="col-md-1 editlight rt"><%= weekof["repcount"] %></div>
-    <% if weekof["tbdcount"] != 0 then %>
-      <div class="col-md-1 warninglight lt"><%= weekof["tbdcount"] %></div>
-    <% end %>
+    <percent end percent>
+    <percent= weekof["infraredcount"] percent></div>
+    <div class="col-md-1 editlight ct"><percent= weekof["specialservicescount"] percent></div>
+    <div class="col-md-2 editlight ct"><percent= weekof["shiftcount"] percent></div>
+    <div class="col-md-1 editlight rt"><percent= weekof["repcount"] percent></div>
+    <percent if weekof["tbdcount"] != 0 then percent>
+      <div class="col-md-1 warninglight lt"><percent= weekof["tbdcount"] percent></div>
+    <percent end percent>
   </div>
-<% end %>
+<percent end percent>
 
 </div>
 </div>
+!-->
 
 </div>

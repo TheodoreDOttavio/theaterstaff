@@ -47,6 +47,7 @@ class PapersController < ApplicationController
       @showyears.push([showyear.to_s, showyear.to_s])
     end
 
+=begin
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
     @weekstartstoedit = []
@@ -81,6 +82,7 @@ class PapersController < ApplicationController
         "tbdcount" => mytbdrepcount,
         "myclass" => mybuttonclass})
     end
+=end
   else
     redirect_to root_url
   end
