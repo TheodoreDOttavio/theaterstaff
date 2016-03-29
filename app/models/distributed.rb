@@ -23,11 +23,6 @@ class Distributed < ActiveRecord::Base
   scope :language_for_oneperformance, ->(mystart, myend, languageid, performanceid) {
     select(sum :quantity).
     where(curtain: [mystart..myend], performance_id: performanceid, language: languageid) }
-    
-  #Scopes for Performance.Show charts
-  scope :linechart, ->(lastshowcurtain) { 
-    select(:curtain, :quantity).
-    where(curtain: [(lastshowcurtain-90)..(lastshowcurtain)], isinfrared: true) }
 
   #Scopes for data entry
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }

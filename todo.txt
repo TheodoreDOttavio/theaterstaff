@@ -1,3 +1,9 @@
+ Make a migration and rake task to add Special Services Boolean to Perfrormances
+   Check this for Data Entry image view
+   
+Theaters index
+  does not show current Performance properly
+
 TESTING!!!
   get basic tests back in and continue with TDD
   

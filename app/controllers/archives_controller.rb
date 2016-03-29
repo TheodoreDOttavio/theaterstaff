@@ -103,42 +103,6 @@ end
 
 
 
-  def freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
-    if myrowhash.has_key? 'curtain' then
-      if myrowhash['curtain'].to_date > startcutoffdate then
-        if myrowhash['curtain'].to_date < endcutoffdate then
-          eval(mydatabase).create(myrowhash)
-        end
-      end
-    else
-      eval(mydatabase).create(myrowhash)
-    end
-  end
-
-
-  def updateloading(myrowhash,startcutoffdate,takeafter,mydatabase)
-    if myrowhash['updated_at'].to_date > takeafter then
-      if myrowhash.has_key? 'curtain' then
-        if myrowhash['curtain'].to_date > startcutoffdate then
-          myrecord = eval(mydatabase).find_by_id(myrowhash['id'])
-          if myrecord != nil then
-            myrecord.update(myrowhash)
-          else
-            eval(mydatabase).create(myrowhash)
-          end
-        end
-      else
-        myrecord = eval(mydatabase).find_by_id(myrowhash['id'])
-        if myrecord != nil then
-          myrecord.update(myrowhash)
-        else
-          eval(mydatabase).create(myrowhash)
-        end
-      end
-    end
-  end
-
-
   def xlsflatfile
     folder = "app/reports/"
     file = 'SA_distribution.xls'
