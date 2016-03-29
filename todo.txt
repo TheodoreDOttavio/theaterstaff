@@ -15,14 +15,10 @@ Data Archive
     or create a csv data model?
   Save users with passwords intact
     A custom archive that uses users.create?
-  Modify Scan filenames when there is a cutoff Date
 
 Users
   Save a signature snapstot
   Admin needs to be able to set stats of other users without password
-
-Distributeds
-  add available - an infrared distributed with rep_id and qty 0
 
 Data Entry
   two partials for infrared and special services
@@ -34,6 +30,8 @@ Paperwork and Reports
   Default select pdf on weekly exports
   
 Remove or use Distributed Reports - Data viewer
+
+Scans - add a friday night 0 qty infrared placeholder.
 
 And keep checking:
 rails_best_practices . -f html

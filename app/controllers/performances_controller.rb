@@ -11,29 +11,7 @@ class PerformancesController < ApplicationController
 
 
   def show
-    #profile page for a single show
     @performance = Performance.find(params[:id])
-
-    #Sample for the chartkick gem
-    #    <%= line_chart [
-    #  {name: "Teacher", data: current_user.timesheets.map{|t| [t.day, t.teacher] }},
-    #  {name: "Study", data: current_user.timesheets.map{|t| [t.day, t.study] }},
-    #  {name: "Conversation", data: current_user.timesheets.map{|t| [t.day, t.conversation] }}
-    #    ] %>
-
-    @mychart = []
-    thisshowproductlist = Distributed.where(performance_id: params[:id]).group(:product_id)
-    thisshowproductlist.each do |p|
-      @mychart.push({name: p.product.name.to_s,
-        data: Distributed.where(performance_id: params[:id], product_id: p.product_id).map{
-          |t| [t.curtain, t.quantity]}
-        })
-    end
-
-    #and Chartkick uses a google service which is annoying
-    #   to wait for when you're on a completely unrelated page.
-    #   sooo... this global is checked in application.html.erb
-    @princess_gem_needs_her_internet = true
   end
 
 

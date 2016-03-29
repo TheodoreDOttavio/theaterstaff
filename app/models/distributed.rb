@@ -11,7 +11,6 @@ class Distributed < ActiveRecord::Base
   scope :icapdesc, -> { where(product_id: [4,5], language: [0..1]) }
 
   scope :onday, ->(myday) { where(curtain: [(myday)..(myday + 1)]) }
-
   scope :delivered, -> {where('quantity > 0')}
 
   #Scopes for Paperwork and Reports
@@ -24,11 +23,16 @@ class Distributed < ActiveRecord::Base
   scope :language_for_oneperformance, ->(mystart, myend, languageid, performanceid) {
     select(sum :quantity).
     where(curtain: [mystart..myend], performance_id: performanceid, language: languageid) }
+    
+  #Scopes for Performance.Show charts
+  scope :linechart, ->(lastshowcurtain) { 
+    select(:curtain, :quantity).
+    where(curtain: [(lastshowcurtain-90)..(lastshowcurtain)], isinfrared: true) }
 
   #Scopes for data entry
   scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
   scope :scanscount, ->(mystart) { where(scan: true).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
-  scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
+  #scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
   scope :shiftwkcount, ->(mystart) { where(product_id: [1,6]).datespan(mystart, (mystart+7)).count }
   scope :representativewkcount, ->(mystart) { where(product_id: [1,6], representative: [2..1000]).datespan(mystart, (mystart+7)).count }
   scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,6], representative: [nil,0,1]).datespan(mystart, (mystart+7)).count }
@@ -78,7 +82,7 @@ class Distributed < ActiveRecord::Base
     end
     return allweeks
   }
-  
+
   #All Mondays in a year
   scope :monthsbymondays, ->(fullyearstring){
     astart = DateTime.strptime(fullyearstring + "-12-31 24:00:00 UTC"[0..9], '%Y-%m-%d')

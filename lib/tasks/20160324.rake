@@ -18,23 +18,23 @@ namespace :db do
     #Clean Slate
     puts "Setting all scan booleans to false"
     Distributed.update_all(:scan => false)
-    
+
     #find start and end dates
     obj = Distributed.order(:curtain).limit(1)
     datestart = obj[0].curtain
-    
+
     weekstart = datestart
     loop do
       break if weekstart.wday == 1
       weekstart = weekstart - 1.day
     end
-    
+
     obj = Distributed.order(curtain: :desc).limit(1)
     dateend = obj[0].curtain
-    
+
     #pull a list of all performance ID's
     performanceidlist = Performance.selectionlist
-    
+
     while weekstart < dateend do
       performanceidlist.each do |name, id|
 
@@ -50,7 +50,7 @@ namespace :db do
         rows.update_all(:scan => true)
       end
       end
-    
+
       #...aaaand Special Services logs Note, this is a lot of file checking for very few (if optimising is needed)
       ssrows = Distributed.datespan(weekstart, weekstart+6.day).where(:performance_id => id, :isinfrared => false)
       if !ssrows.empty? then
@@ -63,12 +63,12 @@ namespace :db do
         ssrows.update_all(:scan => true)
       end
       end
-      
+
 
       end
       weekstart = weekstart + 7.day
     end
-    
+
     puts "all set, the logs present in app/assets/images/ are updated in the Distributeds datum"
 
   end #task

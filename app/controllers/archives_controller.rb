@@ -11,7 +11,7 @@ class ArchivesController < ApplicationController
         dataset.push(row)
       end
       mydata = Marshal.dump(dataset)
-    
+
       respond_to do |f|
         f.html
         f.csv do
@@ -20,7 +20,7 @@ class ArchivesController < ApplicationController
           filename: "#{mymodel}"
         end
       end
-      
+
     end
 
   end
@@ -28,26 +28,26 @@ class ArchivesController < ApplicationController
 
 def restore
   uploaded_io = params[:data]
-  
+
   if uploaded_io == nil then
       flash[:error] = "No File found. Use the Browse button to select a File"
       redirect_to archives_backup_path
       return
     end
-    
+
     if !File.exist?(uploaded_io.tempfile) then
       flash[:error] = "File did not open!"
       redirect_to archives_backup_path
       return
     else
       myfile = Marshal.load(File.open(uploaded_io.tempfile))
-    
+
       #Database Table/Model must match the filename
       mydatabase = uploaded_io.original_filename.split('.')[0]
       # and correct the file name for multile downloads that save as myfile(1)
       mydatabase = mydatabase.split('(')[0]
       mycounter = 0
-      
+
       #remove to 8k - A data cap for cloud sercvice. Also deletes existing data
       if !params[:updateheroku].nil? then
         #find existing count
@@ -63,7 +63,7 @@ def restore
            redirect_to archives_backup_path
            return
          end
-         
+
         if myfile.count >= mytotal then
           myfile = myfile[mytotal*-1,mytotal + 1]
           ActiveRecord::Base.transaction do
@@ -72,14 +72,14 @@ def restore
         end
 
       end
-      
+
       #Purge all data for a fresh reload
       if !params[:freshreload].nil? then
         ActiveRecord::Base.transaction do
           eval(mydatabase).destroy_all
         end
       end
-    
+
       #@test = myfile[-2,3]
       #@testtwo = myfile.count
 
@@ -92,7 +92,7 @@ def restore
             mycounter += 1
           end
         end
-      
+
     end
 
 
@@ -101,85 +101,6 @@ def restore
     end
 end
 
-
-  def oldrestore
-    require 'csv'
-
-    if params[:data] == nil then
-      flash[:error] = "No File found. Use the Browse button to select a File"
-      redirect_to archives_backup_path
-      return
-    end
-
-    uploaded_io = params[:data]
-    startcutoffdate = params[:startcutoff].to_date
-    if startcutoffdate.nil? then
-      startcutoffdate = DateTime.now - 10.years
-    end
-
-    endcutoffdate = params[:endcutoff].to_date
-    if endcutoffdate.nil? then
-      endcutoffdate = DateTime.now
-    else
-      #scanrename(endcutoffdate)
-    end
-
-    updateheroku = params[:updateheroku]
-    if updateheroku.nil? then
-      updateheroku = 0
-    else
-      updateheroku = 1
-    end
-
-    if !File.exist?(uploaded_io.tempfile) then
-      flash[:error] = "File did not open!"
-      @test = uploaded_io
-      redirect_to archives_restore
-      return
-    end
-
-    #Database Table/Model must match the filename
-    mydatabase = uploaded_io.original_filename.split('.')[0]
-    #correct file name for multile downloads that save as myfile(1).cvs
-    mydatabase = mydatabase.split('(')[0]
-
-
-    myfile = File.open(uploaded_io.tempfile)
-    #Heroku needs to use #{RAILS_ROOT}/tmp/myfile_#{Process.pid} for file uploads
-    #eval('string') converts the string to a class?!? well. it works...
-    #also 'string'.constantize
-    #found send('string')
-
-    if params[:updateonly] == "1" then
-      takeafter = eval(mydatabase).pluck(:updated_at).last
-    else
-      takeafter = nil
-      eval(mydatabase).delete_all
-    end
-
-#    myyaml.each do |data|
-#        eval(mydatabase).create(data.attributes)
-#    end
-    mycsv = CSV.parse(File.read(myfile), :headers => :first_row)
-    mycsv.each do |data|
-      myrowhash = data.to_hash
-      myrowhash.delete(nil)
-      if takeafter == nil then
-        if updateheroku == 1 then
-          if eval(mydatabase).count < 8000 then
-            freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
-          end
-        else
-          freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
-        end
-      else
-        updateloading(myrowhash,startcutoffdate,takeafter,mydatabase)
-      end
-    end
-
-    flash[:success] = " Data model #{mydatabase} has been re-loaded."
-    redirect_to archives_backup_path
-  end
 
 
   def freshloading(myrowhash,startcutoffdate,endcutoffdate,mydatabase)
