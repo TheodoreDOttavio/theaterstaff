@@ -1,5 +1,4 @@
- Make a migration and rake task to add Special Services Boolean to Perfrormances
-   Check this for Data Entry image view
+ Check Special Services Boolean for Data Entry image view
    
 Theaters index
   does not show current Performance properly

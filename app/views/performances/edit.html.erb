@@ -47,6 +47,11 @@
   <div class="col-md-8 editbold lt"><%= f.text_area :comments %></div>
 </div>
 
+<div class="row">
+  <div class="col-md-4 editbold rt"><%= f.check_box :specialservices %></div>
+  <div class="col-md-8 editbold lt">Has Special Services (iCap, descript, and translation)</div>
+</div>
+
 <fieldset id="performance-cabinets" class="editbold">
   <%= link_to_add_association 'add product', f, :cabinets,
     'data-association-insertion-node' => "#performance-cabinets",

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324145155) do
+ActiveRecord::Schema.define(version: 20160330170328) do
 
   create_table "availables", force: :cascade do |t|
     t.integer  "user_id",    default: 1
@@ -56,15 +56,16 @@ ActiveRecord::Schema.define(version: 20160324145155) do
   add_index "distributeds", ["product_id"], name: "index_distributeds_on_product_id"
 
   create_table "performances", force: :cascade do |t|
-    t.integer  "theater_id",   default: 1
-    t.string   "name",                       null: false
-    t.integer  "duration",     default: 180
-    t.integer  "intermission", default: 90
+    t.integer  "theater_id",      default: 1
+    t.string   "name",                            null: false
+    t.integer  "duration",        default: 180
+    t.integer  "intermission",    default: 90
     t.datetime "opening"
     t.datetime "closeing"
     t.string   "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "specialservices", default: false
   end
 
   add_index "performances", ["theater_id"], name: "index_performances_on_theater_id"
@@ -77,6 +78,16 @@ ActiveRecord::Schema.define(version: 20160324145155) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "scans", force: :cascade do |t|
+    t.integer  "performance_id",                  null: false
+    t.datetime "monday",                          null: false
+    t.boolean  "specialservices", default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "scans", ["performance_id"], name: "index_scans_on_performance_id"
 
   create_table "theaters", force: :cascade do |t|
     t.string   "name",                                                               null: false

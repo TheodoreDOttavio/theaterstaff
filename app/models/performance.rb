@@ -19,6 +19,5 @@ class Performance < ActiveRecord::Base
   scope :dark, -> { where("closeing < ?", DateTime.now) }
 
   #for papers and reports
-  scope :selectionlist, -> { select(:id, :name).order(:name).map{|p| [p.name, p.id] }}
-  scope :ssselectionlist, -> { select(:id, :name).where(id: Cabinet.translation).order(:name).map{|p| [p.name, p.id] } }
+  scope :selectionlist, -> { select(:id, :name, :specialservices).order(:name).map{|p| [p.name, p.id, p.specialservices] }}
 end
