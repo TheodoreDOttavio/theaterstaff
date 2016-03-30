@@ -1,4 +1,7 @@
- Check Special Services Boolean for Data Entry image view
+ Check Special Services Boolean
+   for Data Entry image view
+   for data entry preview scan/noscan icons
+ Data entry: use scans db to find all weeks available for entry... and add recent weeks
    
 Theaters index
   does not show current Performance properly
