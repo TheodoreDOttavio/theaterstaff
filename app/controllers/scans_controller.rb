@@ -33,7 +33,7 @@ class ScansController < ApplicationController
         #Create folders if needed and move the file
         FileUtils.mkdir_p myplacedpath
         FileUtils.mv myfile, myplacedpath + myplacedfile
-        
+
         #record the new scan in the Scans db
         if params[:paperworkformat] == 1 then
           ss = true

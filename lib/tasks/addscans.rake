@@ -9,7 +9,7 @@ namespace :db do
     ActiveRecord::Base.transaction do
       Scan.destroy_all
     end
-    
+
     puts "Adding Files"
 
     yearlist = Dir.glob("app/assets/images/2*")
@@ -28,16 +28,16 @@ namespace :db do
             ss = false
           end
           monday = DateTime.new(mondayarray[1].to_i, mondayarray[2].to_i, mondayarray[3].to_i)
-         
+
           ActiveRecord::Base.transaction do
             obj = Scan.new(performance_id: id, monday: monday, specialservices: ss)
             obj.save
           end
-    
+
        end
      end
    end
-  
+
   puts "all jpg files scanned added. This reset Scan.id's and relies on the Scans.rb controller to record files..."
   end #task
 end
