@@ -17,6 +17,9 @@ class Archives
       {"modelname" => "Cabinet",
        "description" => "The inventory content of each console"})
    datamodels.push(
+      {"modelname" => "Scan",
+       "description" => "db listing of scanned logs"})
+   datamodels.push(
       {"modelname" => "User",
        "description" => "All Users-representatives and Administrators. Will not re-import!"})
    datamodels.push(

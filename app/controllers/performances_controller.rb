@@ -71,6 +71,7 @@ class PerformancesController < ApplicationController
         :opening,
         :closeing,
         :comments,
+        :specialservices,
       users_attributes: [ :id,
         :name],
       cabinets_attributes: [ :id,

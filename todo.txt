@@ -1,8 +1,7 @@
- Make a migration and rake task to add Special Services Boolean to Perfrormances
-   Check this for Data Entry image view
-   
-Theaters index
-  does not show current Performance properly
+ Check Special Services Boolean
+   for Data Entry image view
+   for data entry preview scan/noscan icons
+ Data entry: use scans db to find all weeks available for entry... and add recent weeks
 
 TESTING!!!
   get basic tests back in and continue with TDD
@@ -14,6 +13,7 @@ Show scheduling
 
 Rip out Distributeds controller and implement it with a hash based model object
   Pass Distributeds id as an array... simplify all the looping crap
+  use model.update....
 
 Data Archive
   Save to db directory for db:seed Heroku 8k Distributed
@@ -34,8 +34,6 @@ Paperwork and Reports
   Default select pdf on weekly exports
   
 Remove or use Distributed Reports - Data viewer
-
-Scans - add a friday night 0 qty infrared placeholder.
 
 And keep checking:
 rails_best_practices . -f html

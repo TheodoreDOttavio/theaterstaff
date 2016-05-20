@@ -1,7 +1,7 @@
 class TheatersController < ApplicationController
   def show
     @theater = Theater.find(params[:id])
-    currentshow = Performance.select(:closeing, :name).where(theater_id: params[:id]).order(closeing: :desc)
+    currentshow = Performance.currentshow(params[:id])
 
     if currentshow.first.closeing <= DateTime.now then
       @current = "Dark on " + currentshow.first.closeing.strftime('%b %d, %Y')
@@ -17,7 +17,20 @@ class TheatersController < ApplicationController
 
 
   def index
-    @theaters = Theater.order(:name).paginate(page: params[:page])
+    @theaters = Theater.select("*, 'no data' as nowshowing").order(:name).paginate(page: params[:page])
+
+    @theaters.map {|t|
+      currentshow = Performance.currentshow(t.id)
+      if !currentshow.empty? then
+      if currentshow.first.closeing <= DateTime.now then
+        current = "Dark on " + currentshow.first.closeing.strftime('%b %d, %Y')
+      else
+        current = currentshow.first.name.to_s
+      end
+
+      t.nowshowing = current
+      end
+      }
   end
 
 

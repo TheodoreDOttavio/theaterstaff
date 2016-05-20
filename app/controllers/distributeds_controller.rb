@@ -34,7 +34,8 @@ class DistributedsController < ApplicationController
       #add in some info about what has been entered
       myshowcount = Performance.showingcount(mystart, (mystart+7))
       myinfraredcount = Distributed.infraredwkcount(mystart)
-      myscanscount = Distributed.scanscount(mystart)
+      myscanscount = Scan.scanscount(mystart)
+      myssscanscount = Scan.ssscanscount(mystart)
       myshiftcount = Distributed.shiftwkcount(mystart)
       myrepcount = Distributed.representativewkcount(mystart)
       mytbdrepcount = Distributed.representativetbdwkcount(mystart)
@@ -53,7 +54,7 @@ class DistributedsController < ApplicationController
         "startdate" => mystart,
         "showcount" => myshowcount,
         "infraredcount" => myinfraredcount,
-        "scanscount" => myscanscount,
+        "scanscount" => myscanscount.to_s + " - " + myssscanscount.to_s,
         "shiftcount" => myshiftcount,
         "repcount" => myrepcount,
         "tbdcount" => mytbdrepcount,

@@ -34,6 +34,18 @@ class ScansController < ApplicationController
         FileUtils.mkdir_p myplacedpath
         FileUtils.mv myfile, myplacedpath + myplacedfile
 
+        #record the new scan in the Scans db
+        if params[:paperworkformat] == 1 then
+          ss = true
+        else
+          ss = false
+        end
+        mondayarray = params[:placeweek].split("-")
+        monday = DateTime.new(mondayarray[0].to_i, mondayarray[1].to_i, mondayarray[2].to_i)
+        obj = Scan.new(performance_id: params[:placeperformance], monday: monday, specialservices: ss)
+        obj.save
+
+        #pass along the pull down variables for speedy entering...
         @lastperformanceid = params[:placeperformance]
         @lastweek = params[:placeweek]
         @lastformat = params[:paperworkformat]
