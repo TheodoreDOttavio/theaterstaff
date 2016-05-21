@@ -6,6 +6,9 @@
 
 puts "-- Begining seed.rb script"
 
+=begin
+...new archive input is not csv....  
+
 require 'csv'
 
     @datamodels = ["Performance",
@@ -38,9 +41,11 @@ require 'csv'
         puts "-- Did not find file " + tempfile.to_s
       end #file exist
     end
+=end
 
 #First user is the placeholder for unassigned representatives
 #  The login is not intended for use, so here its set to creator/admin without admin privilages
+puts "--  Adding users"
 User.create!(name: "TBD",
                  email: "foobar@gmail.com",
                  password: "2014notforlogingin",
