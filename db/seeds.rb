@@ -6,16 +6,13 @@
 
 puts "-- Begining seed.rb script"
 
-=begin
-...new archive input is not csv....  
-
 require 'csv'
 
-    @datamodels = ["Performance",
-      "Cabinet",
-      "Theater",
-      "Product",
-      "Distributed"] # commented out for Heroku's 10k datalimit
+    @datamodels = ["Theater",
+      "Product"] # commented out for Heroku's 10k datalimit
+      #"Cabinet",
+      #"Performance",
+      #"Distributed",
       #"Available",
 
     @datamodels.each_with_index do |m,i|
@@ -41,7 +38,7 @@ require 'csv'
         puts "-- Did not find file " + tempfile.to_s
       end #file exist
     end
-=end
+
 
 #First user is the placeholder for unassigned representatives
 #  The login is not intended for use, so here its set to creator/admin without admin privilages
@@ -560,7 +557,7 @@ User.create!(name: "Hy Chait",
                  schedule: true,
                  admin: false)
 User.create!(name: "Kaz",
-                 email: "",
+                 email: "teddottavio@yahoo.com",
                  password: "sa-kaz",
                  password_confirmation: "sa-kaz",
                  phone: "",
@@ -568,7 +565,7 @@ User.create!(name: "Kaz",
                  schedule: false,
                  admin: false)
 User.create!(name: "Yoav Levin",
-                 email: "",
+                 email: "teddottavio@yahoo.com",
                  password: "sa-yoav",
                  password_confirmation: "sa-yoav",
                  phone: "",
