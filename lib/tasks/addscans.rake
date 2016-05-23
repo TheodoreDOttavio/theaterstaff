@@ -5,7 +5,7 @@ namespace :db do
   task :addscans => :environment do
     require 'fileutils'
 
-    puts "Cleaning out the db"
+    puts "Cleaning out the Scans db table"
     ActiveRecord::Base.transaction do
       Scan.destroy_all
     end

@@ -30,16 +30,16 @@ gem 'writeexcel'
 
 group :development, :test do
   gem 'childprocess', '0.3.6'
-  gem "factory_girl_rails"
-  gem 'guard-rspec' #, '2.5.0'
-  gem 'guard-spork' #, '1.5.0'
-  gem 'spork-rails' #, '4.0.0'
-  gem 'rspec-rails' #, '~> 3.0'
+  #gem "factory_girl_rails"
+  #gem 'guard-rspec' #, '2.5.0'
+  #gem 'guard-spork' #, '1.5.0'
+ # gem 'spork-rails' #, '4.0.0'
+  #gem 'rspec-rails' #, '~> 3.0'
 
   #gem 'capistrano-rails'
   #gem 'debugger'                 # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'
-  gem 'wdm' if Gem.win_platform?
+  #gem 'wdm' if Gem.win_platform?
   gem 'web-console', '~> 2.0'    # Access an IRB console on exception pages or by using <%= console %> in views
 end
 
