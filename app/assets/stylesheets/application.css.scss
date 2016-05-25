@@ -25,25 +25,6 @@ $grayLighter: #f5f5f5;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-/* to align images and stuff at the bottom of a bootstrap row */
-.myrow {
-    font-size: 0;
-}
-.myrow > * {
-    float: none;
-    display: inline-block;
-    font-size: 14px; /* if using LESS it's quicker to just use @font-size-base */
-}
-.myrow > *:first-child {
-    vertical-align: bottom;
-}
-.myrow > *:last-child {
-    vertical-align: bottom;
-}
-.myrow p:last-child {
-    margin-bottom: 0; /* optional */
-}
   
 /* universal */
 
