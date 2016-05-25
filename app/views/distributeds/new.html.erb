@@ -6,11 +6,21 @@
 <%= render 'static_pages/error_messages', :currentmodel => @distributed %>
 
 <div class="row">
-  <div class="col-md-6 editbold ct">
+    <div class="col-md-6 editbold ct" style="position: relative;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    height: 800px;
+    overflow-y: scroll;">
     <%= image_tag findlog(@mystart, @performance.id, 1) %>
     <%= image_tag findlog(@mystart, @performance.id, 2) %>
   </div>
-  <div class="col-md-6 editbold ct">
+  <div class="col-md-6 editbold ct" style="position: relative;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    height: 800px;
+    overflow-y: scroll;">
 
 <%= link_to "Cancel", distributeds_path(mystart: @mystart),
   class: "btn btn-sm btn-warning" %>
