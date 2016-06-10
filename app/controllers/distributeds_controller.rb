@@ -28,7 +28,7 @@ class DistributedsController < ApplicationController
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
     @weekstartstoedit = []
-    for i in 1..104 do
+    for i in 1..130 do
       mystart = weekstart - (i * 7)
 
       #add in some info about what has been entered

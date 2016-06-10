@@ -40,4 +40,27 @@ namespace :db do
 
   puts "all jpg files scanned added. This reset Scan.id's and relies on the Scans.rb controller to record files..."
   end #task
+
+task :runme => :environment do
+  #kwik fix thingy...  puts Distributed.onday(weekstart-730).inspect
+  weekstart = DateTime.now.utc.beginning_of_day - 691
+    loop do
+      break if weekstart.wday == 1
+      weekstart = weekstart - 1.day
+    end
+    
+  puts weekstart
+  obj = Distributed.datespan(weekstart, weekstart+6)
+  count = 0
+  
+  obj.each do
+    puts Performance.find(obj[count].performance_id).name
+    puts obj[count].curtain.strftime('%A - %b %d')
+    Distributed.find(obj[count].id).destroy
+    count += 1
+    puts "----"
+  end
+  
+end
+
 end

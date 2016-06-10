@@ -25,12 +25,12 @@ class Distributed < ActiveRecord::Base
     where(curtain: [mystart..myend], performance_id: performanceid, language: languageid) }
 
   #Scopes for data entry
-  scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
-  scope :scanscount, ->(mystart) { where(scan: true).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
+  scope :infraredwkcount, ->(mystart) { where(product_id: [1,3,6,7]).datespan(mystart, (mystart+6)).uniq.pluck(:performance_id).count }
+  scope :scanscount, ->(mystart) { where(scan: true).datespan(mystart, (mystart+6)).uniq.pluck(:performance_id).count }
   #scope :specialservicewkcount, ->(mystart) { where(product_id: [4,5], language: [2..20]).datespan(mystart, (mystart+7)).uniq.pluck(:performance_id).count }
-  scope :shiftwkcount, ->(mystart) { where(product_id: [1,6]).datespan(mystart, (mystart+7)).count }
-  scope :representativewkcount, ->(mystart) { where(product_id: [1,6], representative: [2..1000]).datespan(mystart, (mystart+7)).count }
-  scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,6], representative: [nil,0,1]).datespan(mystart, (mystart+7)).count }
+  scope :shiftwkcount, ->(mystart) { where(product_id: [1,6]).datespan(mystart, (mystart+6)).count }
+  scope :representativewkcount, ->(mystart) { where(product_id: [1,6], representative: [2..1000]).datespan(mystart, (mystart+6)).count }
+  scope :representativetbdwkcount, ->(mystart) { where(product_id: [1,6], representative: [nil,0,1]).datespan(mystart, (mystart+6)).count }
 
   #Show a representative's work with links to scanned logs
   scope :schedule, ->(repid) { where(product_id: [1,3,6,7], representative: repid).order(curtain: :desc) }
