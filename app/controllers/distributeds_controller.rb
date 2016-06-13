@@ -11,7 +11,7 @@ class DistributedsController < ApplicationController
       @mystart = weekstart
     end
 
-    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+7).strftime('%b %d, %Y')
+    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+6).strftime('%b %d, %Y')
 
     performances = Performance.showinglist(@mystart)
     @showstoedit = []
@@ -28,11 +28,11 @@ class DistributedsController < ApplicationController
     #Display where the data is at - overview of what has been entered
     @weektoedit = Array.new
     @weekstartstoedit = []
-    for i in 1..130 do
+    for i in 1..140 do
       mystart = weekstart - (i * 7)
 
       #add in some info about what has been entered
-      myshowcount = Performance.showingcount(mystart, (mystart+7))
+      myshowcount = Performance.showingcount(mystart, (mystart+6))
       myinfraredcount = Distributed.infraredwkcount(mystart)
       myscanscount = Scan.scanscount(mystart)
       myssscanscount = Scan.ssscanscount(mystart)
@@ -71,7 +71,7 @@ class DistributedsController < ApplicationController
     #default to this week for data entry
     mystart = params[:mystart].to_date
     @mystart = mystart
-    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+7).strftime('%b %d, %Y')
+    @weekof = @mystart.strftime('%b %d')+" to "+ (@mystart+6).strftime('%b %d, %Y')
 
     #Get the Show
     @performance = Performance.find(params[:performance_id])
