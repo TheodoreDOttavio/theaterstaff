@@ -1,9 +1,11 @@
-/features
-/test
-/spec
-/log
-*.xls
+*.psd
 *.pdf
+*.xls
 *.zip
 *.csv
 *.sqlite3
+test
+spec
+features
+doc
+public
