@@ -68,8 +68,6 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     concurrent-ruby (1.0.0)
-    datagrid (1.4.0)
-      rails (>= 3.2.18)
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -199,7 +197,6 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)
-  datagrid
   jquery-rails
   kaminari
   pg
