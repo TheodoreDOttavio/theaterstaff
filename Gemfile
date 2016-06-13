@@ -10,7 +10,7 @@ gem 'coffee-script-source', '1.8.0' #Solves the execjs error, line 6 of applicat
     #This is a cheap patch. a proper fix of the UTF char set in runtime.rb can be used
     #Info here: http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial/14118913#14118913
 gem 'cocoon'                    #for nested forms on many-to-many join models
-gem 'datagrid'
+#gem 'datagrid'
 #gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails' #added rails.js to assets
 gem 'kaminari'
