@@ -19,7 +19,7 @@ gem 'rails', '4.2.2'
 gem 'rubyzip'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'thinreports-rails'
+gem 'thinreports-rails', '0.8.1'
 gem 'turbolinks', '~> 2.5.3'
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
