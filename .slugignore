@@ -1,10 +1,9 @@
-features
-test
-spec
-log
+/features
+/test
+/spec
+/log
 *.xls
 *.pdf
 *.zip
 *.csv
 *.sqlite3
-app\assets\images
