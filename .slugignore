@@ -1,6 +1,7 @@
 features
 test
 spec
+log
 *.xls
 *.pdf
 *.zip
